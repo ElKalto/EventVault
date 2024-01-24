@@ -35,15 +35,11 @@
             android:exported="false" />
         <activity
             android:name=".Registro"
+            android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
             android:name=".PaginaPrincipal"
             android:exported="false" />
-        <activity
-            android:name=".Inicio"
-            android:exported="false"
-            android:label="@string/title_activity_inicio"
-            android:theme="@style/Theme.EventVault" />
         <activity
             android:name=".EventVault"
             android:exported="false" />
