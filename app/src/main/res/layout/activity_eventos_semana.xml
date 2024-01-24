@@ -8,7 +8,7 @@
     tools:context=".EventosSemana">
 
     <Button
-        android:id="@+id/button17"
+        android:id="@+id/btnAtrasEventos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Atras"
@@ -21,12 +21,12 @@
         android:id="@+id/textView8"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Eventos de la ultima semana"
+        android:layout_below="@id/btnAtrasEventos"
+        android:layout_marginTop="2dp"
+        android:text="Eventos"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
-        android:textSize="34sp"
-        android:layout_below="@id/button17"
-        android:layout_marginTop="16dp"/>
+        android:textSize="34sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewEventos"

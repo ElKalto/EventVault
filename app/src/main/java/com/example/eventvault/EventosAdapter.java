@@ -30,7 +30,7 @@ public class EventosAdapter extends RecyclerView.Adapter<EventosAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Evento evento = eventos.get(position);
-        holder.textViewTituloEvento.setText(evento.getTitulo());
+        holder.textViewTituloEvento.setText(evento.getNombre());
         // Agrega más configuraciones según las propiedades del evento
     }
 
