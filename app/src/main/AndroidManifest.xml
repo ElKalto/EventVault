@@ -31,7 +31,7 @@
             android:name=".PerfilCreador"
             android:exported="false" />
         <activity
-            android:name=".Perfil"
+            android:name=".PerfilBasico"
             android:exported="false" />
         <activity
             android:name=".Registro"

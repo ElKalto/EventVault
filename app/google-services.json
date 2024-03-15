@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1031944410947",
+    "project_id": "eventvault-bf5bb",
+    "storage_bucket": "eventvault-bf5bb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1031944410947:android:82454dd803ba6bc8c081f6",
+        "android_client_info": {
+          "package_name": "com.example.eventvault"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1031944410947-1ac1f5bg8viubjrjbifp6jh32cr6tcot.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcYdlnl6LlUN_kgXSeDohyFJyyxvlyrfk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1031944410947-1ac1f5bg8viubjrjbifp6jh32cr6tcot.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

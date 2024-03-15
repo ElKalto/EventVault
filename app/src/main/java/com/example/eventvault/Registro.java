@@ -9,31 +9,27 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import org.w3c.dom.Document;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import org.w3c.dom.Element;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
-import java.io.File;
-import java.io.FileOutputStream;
-
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 public class Registro extends AppCompatActivity {
 
     private EditText editTextMailReg, editTextPassword, edTextPassRepReg, edTextNomAsoReg;
     private CheckBox checkBoxReg;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
 
-        // Inicializar vistas
+        mAuth = FirebaseAuth.getInstance();
+
         editTextMailReg = findViewById(R.id.edTextMailReg);
         editTextPassword = findViewById(R.id.editTextPassword);
         edTextPassRepReg = findViewById(R.id.edTextPassRepReg);
@@ -44,11 +40,9 @@ public class Registro extends AppCompatActivity {
         final TextView textView4 = findViewById(R.id.txtViewReg5);
         final TextView textView7 = findViewById(R.id.txtViewReg6);
 
-        // Inicialmente, ocultar editTextNomAsoReg
         edTextNomAsoReg.setVisibility(View.GONE);
 
         checkBoxReg.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            // Cambiar la visibilidad basada en el estado del CheckBox
             if (isChecked) {
                 textView7.setVisibility(View.VISIBLE);
                 edTextNomAsoReg.setVisibility(View.VISIBLE);
@@ -61,23 +55,10 @@ public class Registro extends AppCompatActivity {
         btnAcpReg.setOnClickListener(view -> {
             // Realizar la validación antes de continuar
             if (validarCampos()) {
-                // Guardar datos en el archivo XML (usuarios.xml)
-                guardarDatos();
-
-                // Redirigir al usuario según el tipo
-                if (checkBoxReg.isChecked()) {
-                    // Usuario Creador
-                    startActivity(new Intent(Registro.this, PerfilCreador.class));
-                } else {
-                    // Usuario Básico
-                    startActivity(new Intent(Registro.this, Perfil.class));
-                }
-
-                // Cierra la actividad actual (Registro)
-                finish();
+                // Registrar el usuario en Firebase Auth
+                registrarUsuario();
             }
         });
-
     }
 
     private boolean validarCampos() {
@@ -104,51 +85,30 @@ public class Registro extends AppCompatActivity {
         return true;
     }
 
-    private void guardarDatos() {
-        try {
-            // Crear un nuevo documento XML
-            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-            Document document = documentBuilder.newDocument();
+    private void registrarUsuario() {
+        String email = editTextMailReg.getText().toString().trim();
+        String password = editTextPassword.getText().toString().trim();
 
-            // Crear el elemento raíz
-            Element rootElement = document.createElement("usuarios");
-            document.appendChild(rootElement);
-
-            // Crear un elemento para el usuario actual
-            Element usuarioElement = document.createElement("usuario");
-
-            // Añadir elementos hijos al usuario (correo, contraseña, nombreAsociacion, tipoUsuario)
-            usuarioElement.appendChild(crearElemento(document, "correo", editTextMailReg.getText().toString()));
-            usuarioElement.appendChild(crearElemento(document, "contrasena", editTextPassword.getText().toString()));
-            usuarioElement.appendChild(crearElemento(document, "nombreAsociacion", edTextNomAsoReg.getText().toString()));
-            usuarioElement.appendChild(crearElemento(document, "tipoUsuario", checkBoxReg.isChecked() ? "Creador" : "Basico"));
-
-            // Añadir el elemento de usuario al elemento raíz
-            rootElement.appendChild(usuarioElement);
-
-            // Guardar el documento en un archivo XML
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            DOMSource source = new DOMSource(document);
-
-            // Guardar el archivo en la memoria interna de la aplicación
-            File file = new File(getFilesDir(), "Usuarios.xml");
-            FileOutputStream fileOutputStream = new FileOutputStream(file);
-            StreamResult result = new StreamResult(fileOutputStream);
-            transformer.transform(source, result);
-
-            // Cierra el flujo de salida
-            fileOutputStream.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private Element crearElemento(Document document, String nombre, String valor) {
-        Element elemento = document.createElement(nombre);
-        elemento.appendChild(document.createTextNode(valor));
-        return elemento;
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Registro exitoso, redirigir al usuario según el tipo
+                            if (checkBoxReg.isChecked()) {
+                                // Usuario Creador
+                                startActivity(new Intent(Registro.this, PerfilCreador.class));
+                            } else {
+                                // Usuario Básico
+                                startActivity(new Intent(Registro.this, PerfilBasico.class));
+                            }
+                            finish();
+                        } else {
+                            // Si falla el registro, mostrar un mensaje al usuario.
+                            Toast.makeText(Registro.this, "Fallo en la autenticación.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 }

@@ -7,30 +7,31 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
+import java.util.HashMap;
+import java.util.Map;
 
 public class EventVault extends AppCompatActivity {
 
-    // Variable de instancia para almacenar la lista de usuarios
-    private List<Usuario> usuarios;
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_vault);
+
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
         Button btnRegistro = findViewById(R.id.btnRegistro);
         Button btnContinuar = findViewById(R.id.button2);
@@ -44,9 +45,6 @@ public class EventVault extends AppCompatActivity {
             }
         });
 
-        // Cargar los usuarios cuando se inicia la actividad
-        usuarios = obtenerUsuarios();
-
         btnContinuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,91 +52,66 @@ public class EventVault extends AppCompatActivity {
                 String password = ((EditText) findViewById(R.id.TxPass)).getText().toString();
 
                 // Verificar las credenciales
-                if (verificarCredenciales(email, password)) {
-                    // Las credenciales son válidas, redirigir al usuario según el tipo
-                    if (esUsuarioCreador(email)) {
-                        startActivity(new Intent(EventVault.this, PerfilCreador.class));
-                    } else {
-                        startActivity(new Intent(EventVault.this, Perfil.class));
-                    }
-
-                    // Cierra la actividad actual (EventVault)
-                    finish();
-                } else {
-                    // Mostrar mensaje de error si las credenciales no son válidas
-                    Toast.makeText(EventVault.this, "Credenciales no válidas", Toast.LENGTH_SHORT).show();
-                }
+                mAuth.signInWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    // Inicio de sesión exitoso, redirigir al usuario según el tipo
+                                    Toast.makeText(EventVault.this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(EventVault.this, PerfilBasico.class));
+                                    finish();
+                                } else {
+                                    // Mostrar mensaje de error si las credenciales no son válidas
+                                    Toast.makeText(EventVault.this, "Credenciales no válidas", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
             }
         });
     }
 
-    private boolean verificarCredenciales(String email, String password) {
-        // Lógica para verificar las credenciales en la lista de usuarios
-        // Retorna true si las credenciales son válidas, false en caso contrario
-        for (Usuario usuario : usuarios) {
-            if (usuario.getEmail().equals(email) && usuario.getPassword().equals(password)) {
-                return true;
-            }
-        }
-        return false;
+    // Método para registrar un nuevo usuario en Firebase Authentication
+    public void registrarUsuario(String email, String password) {
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Registro exitoso, redirigir al usuario según el tipo
+                            Toast.makeText(EventVault.this, "Usuario registrado exitosamente", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(EventVault.this, PerfilBasico.class));
+                            finish();
+                        } else {
+                            // Si falla el registro, mostrar un mensaje al usuario.
+                            Toast.makeText(EventVault.this, "Fallo en el registro.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 
-    private boolean esUsuarioCreador(String email) {
-        // Lógica para determinar si un usuario es de tipo "Creador"
-        for (Usuario usuario : usuarios) {
-            if (usuario.getEmail().equals(email) && usuario.isCreador()) {
-                return true;
-            }
-        }
-        return false;
-    }
+    // Método para agregar datos adicionales del usuario a Firestore
+    public void agregarDatosUsuario(String email, String nombreAsociacion, boolean esCreador) {
+        Map<String, Object> user = new HashMap<>();
+        user.put("email", email);
+        user.put("nombreAsociacion", nombreAsociacion);
+        user.put("esCreador", esCreador);
 
-    private List<Usuario> obtenerUsuarios() {
-        List<Usuario> usuarios = new ArrayList<>();
-
-        try {
-            File file = new File(getFilesDir(), "Usuarios.xml");
-            FileInputStream fis = new FileInputStream(file);
-
-            // Crear un DocumentBuilder para parsear el XML
-            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-
-            // Parsear el archivo XML
-            Document document = documentBuilder.parse(fis);
-
-            // Obtener la lista de nodos de usuario
-            NodeList usuarioNodes = document.getElementsByTagName("usuario");
-
-            // Recorrer la lista de nodos y obtener la información de cada usuario
-            for (int i = 0; i < usuarioNodes.getLength(); i++) {
-                Node usuarioNode = usuarioNodes.item(i);
-
-                if (usuarioNode.getNodeType() == Node.ELEMENT_NODE) {
-                    Element usuarioElement = (Element) usuarioNode;
-
-                    String email = obtenerValorElemento(usuarioElement, "correo");
-                    String password = obtenerValorElemento(usuarioElement, "contrasena");
-                    String nombreAsociacion = obtenerValorElemento(usuarioElement, "nombreAsociacion");
-                    boolean esCreador = "Creador".equals(obtenerValorElemento(usuarioElement, "tipoUsuario"));
-
-                    usuarios.add(new Usuario(email, password, esCreador));
-                }
-            }
-
-            fis.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return usuarios;
-    }
-
-    private String obtenerValorElemento(Element elemento, String nombre) {
-        NodeList nodeList = elemento.getElementsByTagName(nombre);
-        if (nodeList.getLength() > 0) {
-            return nodeList.item(0).getTextContent();
-        }
-        return "";
+        // Add a new document with a generated ID
+        db.collection("usuarios")
+                .add(user)
+                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                        if (task.isSuccessful()) {
+                            // Documento agregado exitosamente
+                            Toast.makeText(EventVault.this, "Datos de usuario agregados a Firestore", Toast.LENGTH_SHORT).show();
+                        } else {
+                            // Error al agregar documento
+                            Toast.makeText(EventVault.this, "Error al agregar datos de usuario a Firestore", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 }
