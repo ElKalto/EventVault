@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Calendar;
@@ -61,8 +62,12 @@ public class CreacionEvento extends AppCompatActivity {
                 // Obtener la fecha y hora del evento en milisegundos
                 long fechaYHoraEvento = calendar.getTimeInMillis();
 
+                // Obtener el ID del creador actualmente autenticado
+                FirebaseUser currentUser = mAuth.getCurrentUser();
+                String idCreador = currentUser.getUid();
+
                 // Crear un objeto Evento con los datos del evento
-                Evento nuevoEvento = new Evento(nombreEvento, descripcionEvento, fechaYHoraEvento);
+                Evento nuevoEvento = new Evento(nombreEvento, descripcionEvento, fechaYHoraEvento, idCreador);
 
                 // Guardar el evento en Firestore
                 guardarEventoEnFirestore(nuevoEvento);

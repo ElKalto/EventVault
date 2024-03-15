@@ -4,14 +4,16 @@ public class Evento {
     private String nombre;
     private String descripcion;
     private long fecha;
+    private String idCreador; // Nuevo campo para el ID del creador
 
     public Evento() {
     }
 
-    public Evento(String nombre, String descripcion, long fecha) {
+    public Evento(String nombre, String descripcion, long fecha, String idCreador) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.fecha = fecha;
+        this.idCreador = idCreador;
     }
 
     public String getNombre() {
@@ -36,5 +38,13 @@ public class Evento {
 
     public void setFecha(long fecha) {
         this.fecha = fecha;
+    }
+
+    public String getIdCreador() {
+        return idCreador;
+    }
+
+    public void setIdCreador(String idCreador) {
+        this.idCreador = idCreador;
     }
 }

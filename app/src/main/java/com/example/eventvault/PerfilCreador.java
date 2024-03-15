@@ -23,6 +23,7 @@ public class PerfilCreador extends AppCompatActivity {
         Button btnCerrarSesionCreador = findViewById(R.id.btnCerrarSesionCreador);
         Button btnCrearEvento = findViewById(R.id.btnCrearEvento);
         Button btnEventos = findViewById(R.id.btnEventos);
+        Button btnMisEventos = findViewById(R.id.btnMisEventos);
         Button btnPerf = findViewById(R.id.btnPerfil);
 
         btnCrearEvento.setOnClickListener(new View.OnClickListener() {
@@ -42,6 +43,16 @@ public class PerfilCreador extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        btnMisEventos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Intent para iniciar la actividad MisEventos
+                Intent intent = new Intent(PerfilCreador.this, MisEventos.class);
+                startActivity(intent);
+            }
+        });
+
 
         btnPerf.setOnClickListener(new View.OnClickListener() {
             @Override
