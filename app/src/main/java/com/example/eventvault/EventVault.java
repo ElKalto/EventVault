@@ -14,16 +14,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class EventVault extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +27,6 @@ public class EventVault extends AppCompatActivity {
         setContentView(R.layout.activity_event_vault);
 
         mAuth = FirebaseAuth.getInstance();
-        db = FirebaseFirestore.getInstance();
 
         Button btnRegistro = findViewById(R.id.btnRegistro);
         Button btnContinuar = findViewById(R.id.button2);
@@ -58,9 +53,34 @@ public class EventVault extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     // Inicio de sesión exitoso, redirigir al usuario según el tipo
-                                    Toast.makeText(EventVault.this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(EventVault.this, PerfilBasico.class));
-                                    finish();
+                                    String userID = mAuth.getCurrentUser().getUid();
+                                    FirebaseFirestore.getInstance().collection("usuarios")
+                                            .document(userID)
+                                            .get()
+                                            .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                    if (task.isSuccessful()) {
+                                                        DocumentSnapshot document = task.getResult();
+                                                        if (document.exists()) {
+                                                            String tipoUsuario = document.getString("TipoUsuario");
+                                                            // Redirigir al usuario según su tipo
+                                                            if ("Creador".equals(tipoUsuario)) {
+                                                                startActivity(new Intent(EventVault.this, PerfilCreador.class));
+                                                            } else {
+                                                                startActivity(new Intent(EventVault.this, PerfilBasico.class));
+                                                            }
+                                                            finish();
+                                                        } else {
+                                                            // El documento no existe
+                                                            Toast.makeText(EventVault.this, "El tipo de usuario no está definido", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    } else {
+                                                        // Error al obtener el documento
+                                                        Toast.makeText(EventVault.this, "Error al obtener el tipo de usuario", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            });
                                 } else {
                                     // Mostrar mensaje de error si las credenciales no son válidas
                                     Toast.makeText(EventVault.this, "Credenciales no válidas", Toast.LENGTH_SHORT).show();
@@ -69,49 +89,5 @@ public class EventVault extends AppCompatActivity {
                         });
             }
         });
-    }
-
-    // Método para registrar un nuevo usuario en Firebase Authentication
-    public void registrarUsuario(String email, String password) {
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Registro exitoso, redirigir al usuario según el tipo
-                            Toast.makeText(EventVault.this, "Usuario registrado exitosamente", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(EventVault.this, PerfilBasico.class));
-                            finish();
-                        } else {
-                            // Si falla el registro, mostrar un mensaje al usuario.
-                            Toast.makeText(EventVault.this, "Fallo en el registro.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-    }
-
-    // Método para agregar datos adicionales del usuario a Firestore
-    public void agregarDatosUsuario(String email, String nombreAsociacion, boolean esCreador) {
-        Map<String, Object> user = new HashMap<>();
-        user.put("email", email);
-        user.put("nombreAsociacion", nombreAsociacion);
-        user.put("esCreador", esCreador);
-
-        // Add a new document with a generated ID
-        db.collection("usuarios")
-                .add(user)
-                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentReference> task) {
-                        if (task.isSuccessful()) {
-                            // Documento agregado exitosamente
-                            Toast.makeText(EventVault.this, "Datos de usuario agregados a Firestore", Toast.LENGTH_SHORT).show();
-                        } else {
-                            // Error al agregar documento
-                            Toast.makeText(EventVault.this, "Error al agregar datos de usuario a Firestore", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
     }
 }

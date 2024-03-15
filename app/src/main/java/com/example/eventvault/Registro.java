@@ -13,9 +13,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Registro extends AppCompatActivity {
 
@@ -55,8 +61,10 @@ public class Registro extends AppCompatActivity {
         btnAcpReg.setOnClickListener(view -> {
             // Realizar la validación antes de continuar
             if (validarCampos()) {
-                // Registrar el usuario en Firebase Auth
-                registrarUsuario();
+                // Obtener el estado del CheckBox
+                boolean esCreador = checkBoxReg.isChecked();
+                // Registrar el usuario en Firebase Auth y Firestore
+                registrarUsuario(esCreador);
             }
         });
     }
@@ -85,9 +93,12 @@ public class Registro extends AppCompatActivity {
         return true;
     }
 
-    private void registrarUsuario() {
+    private void registrarUsuario(final boolean esCreador) {
         String email = editTextMailReg.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
+
+        // Determinar el tipo de usuario (Creador o Básico)
+        String tipoUsuario = esCreador ? "Creador" : "Basico";
 
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -95,18 +106,35 @@ public class Registro extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Registro exitoso, redirigir al usuario según el tipo
-                            if (checkBoxReg.isChecked()) {
-                                // Usuario Creador
-                                startActivity(new Intent(Registro.this, PerfilCreador.class));
-                            } else {
-                                // Usuario Básico
-                                startActivity(new Intent(Registro.this, PerfilBasico.class));
-                            }
-                            finish();
+                            String userID = mAuth.getCurrentUser().getUid();
+                            Map<String, Object> user = new HashMap<>();
+                            user.put("TipoUsuario", tipoUsuario);
+                            // Guardar el tipo de usuario en Firestore
+                            FirebaseFirestore.getInstance().collection("usuarios")
+                                    .document(userID)
+                                    .set(user)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            // Redirigir al usuario según su tipo
+                                            if (esCreador) {
+                                                startActivity(new Intent(Registro.this, PerfilCreador.class));
+                                            } else {
+                                                startActivity(new Intent(Registro.this, PerfilBasico.class));
+                                            }
+                                            finish();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            // Manejar errores al guardar en la base de datos
+                                            Toast.makeText(Registro.this, "Error al registrar usuario en la base de datos", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
                         } else {
                             // Si falla el registro, mostrar un mensaje al usuario.
-                            Toast.makeText(Registro.this, "Fallo en la autenticación.",
-                                    Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Registro.this, "Fallo en el registro.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

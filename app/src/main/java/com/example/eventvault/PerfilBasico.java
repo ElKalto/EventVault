@@ -21,6 +21,9 @@ public class PerfilBasico extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         Button btnEventos = findViewById(R.id.btnEventos);
+        Button btnCalenEvent = findViewById(R.id.btnCalenEvent);
+        Button btnPerf = findViewById(R.id.btnPerfil);
+        Button btnCerrarSesionCreador = findViewById(R.id.btnCerrarSesionCreador);
 
         btnEventos.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,6 +34,36 @@ public class PerfilBasico extends AppCompatActivity {
             }
         });
 
+        btnCalenEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Lógica para el botón Calendario de Eventos
+                // Agrega aquí la lógica para abrir el calendario de eventos
 
+                // Crear un Intent para abrir la actividad del calendario de eventos
+                Intent intent = new Intent(PerfilBasico.this, CalendarioEventos.class);
+                startActivity(intent);
+            }
+        });
+        btnPerf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PerfilBasico.this, EditarPerfil.class);
+                startActivity(intent);
+            }
+        });
+        btnCerrarSesionCreador.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Cerrar sesión con Firebase Auth
+                mAuth.signOut();
+
+                // Redirigir al usuario a la pantalla EventVault
+                Intent intent = new Intent(PerfilBasico.this, EventVault.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Borra todas las actividades anteriores
+                startActivity(intent);
+                finish(); // Cierra la actividad actual
+            }
+        });
     }
 }
