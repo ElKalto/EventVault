@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Calendar;
 import java.util.UUID;
 
 public class CreacionEvento extends AppCompatActivity {
@@ -31,9 +33,10 @@ public class CreacionEvento extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         Button btnAceptarCreacion = findViewById(R.id.btnAceptarCreacion);
-        final EditText editTextNombreEvento = findViewById(R.id.editTextText3);
-        final EditText editTextDescripcionEvento = findViewById(R.id.editTextText4);
+        final EditText editTextNombreEvento = findViewById(R.id.edtTextNombreEvento);
+        final EditText editTextDescripcionEvento = findViewById(R.id.edtTextDescripcion);
         final CalendarView calendarView = findViewById(R.id.calendarView);
+        final TimePicker timePicker = findViewById(R.id.timePicker); // Agregar TimePicker
 
         btnAceptarCreacion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,10 +44,25 @@ public class CreacionEvento extends AppCompatActivity {
                 // Obtener datos del evento
                 String nombreEvento = editTextNombreEvento.getText().toString();
                 String descripcionEvento = editTextDescripcionEvento.getText().toString();
-                long fechaEvento = calendarView.getDate(); // Obtener la fecha en milisegundos
+
+                // Obtener la fecha seleccionada
+                long fechaEventoMillis = calendarView.getDate();
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(fechaEventoMillis);
+
+                // Obtener la hora seleccionada del TimePicker
+                int hora = timePicker.getCurrentHour();
+                int minuto = timePicker.getCurrentMinute();
+
+                // Combina la hora y los minutos con la fecha seleccionada
+                calendar.set(Calendar.HOUR_OF_DAY, hora);
+                calendar.set(Calendar.MINUTE, minuto);
+
+                // Obtener la fecha y hora del evento en milisegundos
+                long fechaYHoraEvento = calendar.getTimeInMillis();
 
                 // Crear un objeto Evento con los datos del evento
-                Evento nuevoEvento = new Evento(nombreEvento, descripcionEvento, fechaEvento);
+                Evento nuevoEvento = new Evento(nombreEvento, descripcionEvento, fechaYHoraEvento);
 
                 // Guardar el evento en Firestore
                 guardarEventoEnFirestore(nuevoEvento);

@@ -13,5 +13,13 @@
         android:textColor="#FFFFFF"
         android:text="Título del evento"/>
 
+    <TextView
+        android:id="@+id/textViewFechaEvento"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="#CCCCCC"
+        android:text="Fecha del evento"/>
+
     <!-- Agrega más vistas según la información que desees mostrar -->
 </LinearLayout>

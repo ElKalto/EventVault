@@ -21,7 +21,6 @@ public class PerfilBasico extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         Button btnEventos = findViewById(R.id.btnEventos);
-        Button btnCalenEvent = findViewById(R.id.btnCalenEvent);
         Button btnPerf = findViewById(R.id.btnPerfil);
         Button btnCerrarSesionCreador = findViewById(R.id.btnCerrarSesionCreador);
 
@@ -34,17 +33,6 @@ public class PerfilBasico extends AppCompatActivity {
             }
         });
 
-        btnCalenEvent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Lógica para el botón Calendario de Eventos
-                // Agrega aquí la lógica para abrir el calendario de eventos
-
-                // Crear un Intent para abrir la actividad del calendario de eventos
-                Intent intent = new Intent(PerfilBasico.this, CalendarioEventos.class);
-                startActivity(intent);
-            }
-        });
         btnPerf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -8,18 +8,18 @@
     <TextView
         android:id="@+id/textTitulo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:text="Título del evento"
-        android:textSize="18sp"
-        android:textColor="#000000"/>
+        android:textColor="#000000"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/textFecha"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:text="Fecha del evento"
-        android:textSize="14sp"
-        android:textColor="#333333"/>
+        android:textColor="#333333"
+        android:textSize="20sp" />
 
     <!-- Puedes agregar más elementos según tus necesidades (imágenes, botones, etc.) -->
 
