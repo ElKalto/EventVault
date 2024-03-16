@@ -1,19 +1,31 @@
 package com.example.eventvault;
 
 public class Evento {
+    private String id; // Nuevo atributo para el ID del evento
     private String nombre;
     private String descripcion;
     private long fecha;
-    private String idCreador; // Nuevo campo para el ID del creador
+    private String idCreador;
 
+    // Constructor vacío requerido por Firestore
     public Evento() {
     }
 
+    // Constructor con parámetros
     public Evento(String nombre, String descripcion, long fecha, String idCreador) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.fecha = fecha;
         this.idCreador = idCreador;
+    }
+
+    // Getters y setters
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getNombre() {

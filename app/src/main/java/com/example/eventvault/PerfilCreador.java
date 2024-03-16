@@ -23,13 +23,13 @@ public class PerfilCreador extends AppCompatActivity {
         Button btnCerrarSesionCreador = findViewById(R.id.btnCerrarSesionCreador);
         Button btnCrearEvento = findViewById(R.id.btnCrearEvento);
         Button btnEventos = findViewById(R.id.btnEventos);
+        Button btnEditEvento = findViewById(R.id.btnEditEvento);
         Button btnMisEventos = findViewById(R.id.btnMisEventos);
         Button btnPerf = findViewById(R.id.btnPerfil);
 
         btnCrearEvento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Intent para iniciar la actividad CreacionEvento
                 Intent intent = new Intent(PerfilCreador.this, CreacionEvento.class);
                 startActivity(intent);
             }
@@ -38,8 +38,15 @@ public class PerfilCreador extends AppCompatActivity {
         btnEventos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Intent para iniciar la actividad EventosSemana
                 Intent intent = new Intent(PerfilCreador.this, EventosSemana.class);
+                startActivity(intent);
+            }
+        });
+
+        btnEditEvento.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PerfilCreador.this, EditarEvento.class);
                 startActivity(intent);
             }
         });
@@ -47,17 +54,14 @@ public class PerfilCreador extends AppCompatActivity {
         btnMisEventos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Intent para iniciar la actividad MisEventos
                 Intent intent = new Intent(PerfilCreador.this, MisEventos.class);
                 startActivity(intent);
             }
         });
 
-
         btnPerf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Intent para iniciar la actividad EditarPerfil
                 Intent intent = new Intent(PerfilCreador.this, EditarPerfil.class);
                 startActivity(intent);
             }
@@ -66,13 +70,8 @@ public class PerfilCreador extends AppCompatActivity {
         btnCerrarSesionCreador.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Cerrar sesión con Firebase Auth
                 mAuth.signOut();
-
-                // Después de cerrar la sesión, inicia la actividad EventVault
                 startActivity(new Intent(PerfilCreador.this, EventVault.class));
-
-                // Cierra la actividad actual (PerfilCreador)
                 finish();
             }
         });

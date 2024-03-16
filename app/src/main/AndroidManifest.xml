@@ -16,9 +16,6 @@
             android:name=".MisEventos"
             android:exported="false" />
         <activity
-            android:name=".CalendarioEventos"
-            android:exported="false" />
-        <activity
             android:name=".EditarEvento"
             android:exported="false" />
         <activity
@@ -43,9 +40,6 @@
             android:name=".Registro"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".PaginaPrincipal"
-            android:exported="false" />
         <activity
             android:name=".EventVault"
             android:exported="false" />
