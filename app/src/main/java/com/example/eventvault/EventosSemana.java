@@ -1,14 +1,16 @@
 package com.example.eventvault;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
+import android.graphics.Color;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.eventvault.modelo.Evento;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -42,6 +44,14 @@ public class EventosSemana extends AppCompatActivity {
         obtenerEventosDeFirestore();
 
         Button btnAtrasEventos = findViewById(R.id.btnAtrasEventos);
+
+
+        SharedPreferences sharedPreferences = getSharedPreferences("ColorBotones", MODE_PRIVATE);
+        int color = sharedPreferences.getInt("ColorBotones", Color.BLACK); // Obtener el color, si no se encuentra, se asigna el color negro
+
+
+        btnAtrasEventos.setBackgroundColor(color);
+
 
         btnAtrasEventos.setOnClickListener(new View.OnClickListener() {
             @Override

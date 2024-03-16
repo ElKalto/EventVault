@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    tools:context=".PoliticaPrivacidad">
+
+  <TextView
+      android:id="@+id/textViewTitulo"
+      android:layout_width="0dp"
+      android:layout_height="61dp"
+      android:text="Política de Privacidad"
+      android:textAlignment="center"
+      android:textColor="#FFFFFF"
+      android:textSize="34sp"
+      android:textStyle="bold"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="1.0"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.019" />
+
+  <ScrollView
+      android:id="@+id/scrollView"
+      android:layout_width="399dp"
+      android:layout_height="655dp"
+      app:layout_constraintBottom_toTopOf="@+id/btnVolver"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/textViewTitulo"
+      app:layout_constraintVertical_bias="0.4">
+
+    <TextView
+        android:id="@+id/textViePoliticaPriv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="Política de Privacidad  Esta Política de Privacidad describe cómo se recopila, utiliza y comparte la información personal de los usuarios de nuestra aplicación.  Recopilación de Información - Recopilamos información personal que proporcionas voluntariamente al utilizar nuestra aplicación, como tu nombre, dirección de correo electrónico y otros datos de contacto. - También recopilamos información de forma automática a través del uso de cookies y tecnologías similares para mejorar la funcionalidad de nuestra aplicación y ofrecerte una mejor experiencia de usuario.  Uso de la Información - Utilizamos la información recopilada para proporcionarte los servicios solicitados, responder a tus consultas y mejorar nuestra aplicación. - No compartimos tu información personal con terceros sin tu consentimiento, a menos que sea necesario para cumplir con la ley o proteger nuestros derechos.  Seguridad de la Información - Tomamos medidas para proteger la información personal de nuestros usuarios contra accesos no autorizados, uso indebido o divulgación. - Sin embargo, ninguna medida de seguridad es completamente infalible, por lo que no podemos garantizar la seguridad absoluta de tu información.  Cambios en la Política de Privacidad - Nos reservamos el derecho de modificar esta Política de Privacidad en cualquier momento. Te notificaremos sobre cualquier cambio significativo a través de la aplicación o por otros medios.  Al utilizar nuestra aplicación, aceptas los términos de esta Política de Privacidad. Si tienes alguna pregunta o inquietud sobre nuestra política, contáctanos.  Fecha de vigencia: [Fecha]  Gracias por confiar en nosotros. "
+        android:textColor="#FFFFFF"
+        android:textSize="24sp" />
+  </ScrollView>
+
+  <Button
+      android:id="@+id/btnVolver"
+      android:layout_width="193dp"
+      android:layout_height="44dp"
+      android:text="Volver"
+      android:textColor="#FFFFFF"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.926"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.981" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

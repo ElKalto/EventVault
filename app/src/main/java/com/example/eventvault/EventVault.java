@@ -1,15 +1,20 @@
 package com.example.eventvault;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.eventvault.modelo.PerfilBasico;
+import com.example.eventvault.modelo.PerfilCreador;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -30,6 +35,22 @@ public class EventVault extends AppCompatActivity {
 
         Button btnRegistro = findViewById(R.id.btnRegistro);
         Button btnContinuar = findViewById(R.id.button2);
+        TextView textViewPoliticaPrivacidad = findViewById(R.id.textViewPoliticaPrivacidad);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("ColorBotones", MODE_PRIVATE);
+        int color = sharedPreferences.getInt("ColorBotones", Color.WHITE); // Color blanco por defecto
+
+        // Aplicar el color al botón
+        btnRegistro.setBackgroundColor(color);
+        btnContinuar.setBackgroundColor(color);
+
+        textViewPoliticaPrivacidad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EventVault.this, PoliticaPrivacidad.class);
+                startActivity(intent);
+            }
+        });
 
         btnRegistro.setOnClickListener(new View.OnClickListener() {
             @Override

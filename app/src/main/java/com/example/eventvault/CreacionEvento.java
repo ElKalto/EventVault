@@ -1,5 +1,7 @@
 package com.example.eventvault;
 
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.eventvault.modelo.Evento;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,6 +37,13 @@ public class CreacionEvento extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         Button btnAceptarCreacion = findViewById(R.id.btnAceptarCreacion);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("ColorBotones", MODE_PRIVATE);
+        int color = sharedPreferences.getInt("ColorBotones", Color.WHITE); // Color blanco por defecto
+
+        // Aplicar el color al botón
+        btnAceptarCreacion.setBackgroundColor(color);
+
         final EditText editTextNombreEvento = findViewById(R.id.edtTextNombreEvento);
         final EditText editTextDescripcionEvento = findViewById(R.id.edtTextDescripcion);
         final CalendarView calendarView = findViewById(R.id.calendarView);
@@ -71,6 +81,16 @@ public class CreacionEvento extends AppCompatActivity {
 
                 // Guardar el evento en Firestore
                 guardarEventoEnFirestore(nuevoEvento);
+            }
+        });
+
+        // Manejar el clic del botón para volver al activity anterior
+        Button btnAtrasEditarEventos = findViewById(R.id.btnAtrasEditarEventos);
+        btnAtrasEditarEventos.setBackgroundColor(color);
+        btnAtrasEditarEventos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish(); // Cerrar la actividad actual y volver al activity anterior
             }
         });
     }

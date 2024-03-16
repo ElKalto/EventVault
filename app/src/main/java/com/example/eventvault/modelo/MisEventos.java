@@ -1,5 +1,7 @@
-package com.example.eventvault;
+package com.example.eventvault.modelo;
 
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,6 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.eventvault.EventosAdapter;
+import com.example.eventvault.R;
+import com.example.eventvault.modelo.Evento;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,6 +47,12 @@ public class MisEventos extends AppCompatActivity {
         obtenerEventosDelUsuarioActual();
 
         Button btnAtrasMisEventos = findViewById(R.id.btnAtrasMisEventos);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("ColorBotones", MODE_PRIVATE);
+        int color = sharedPreferences.getInt("ColorBotones", Color.WHITE); // Color blanco por defecto
+
+        // Aplicar el color al botón
+        btnAtrasMisEventos.setBackgroundColor(color);
 
         btnAtrasMisEventos.setOnClickListener(new View.OnClickListener() {
             @Override

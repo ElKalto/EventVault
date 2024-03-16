@@ -1,10 +1,13 @@
-package com.example.eventvault;
+package com.example.eventvault.modelo;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.eventvault.EventVault;
+import com.example.eventvault.R;
 
 public class MainActivity extends AppCompatActivity {
     private static final int SPLASH_TIMEOUT = 2000;

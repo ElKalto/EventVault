@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
-    tools:context=".PerfilBasico">
+    tools:context=".modelo.PerfilBasico">
 
     <Button
         android:id="@+id/btnPerfil"

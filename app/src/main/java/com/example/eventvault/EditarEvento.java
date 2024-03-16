@@ -3,6 +3,8 @@ package com.example.eventvault;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -11,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.eventvault.modelo.Evento;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -44,11 +47,18 @@ public class EditarEvento extends AppCompatActivity {
         edtDescripcionEvento = findViewById(R.id.edtTextDescripcion);
         btnAceptarEditarEvento = findViewById(R.id.btnAceptarEditarEvento);
 
+        SharedPreferences sharedPreferences = getSharedPreferences("ColorBotones", MODE_PRIVATE);
+        int color = sharedPreferences.getInt("ColorBotones", Color.WHITE); // Color blanco por defecto
+
+        // Aplicar el color al botón
+        btnAceptarEditarEvento.setBackgroundColor(color);
+
         db = FirebaseFirestore.getInstance();
 
         obtenerEventosUsuarioActual();
 
         Button btnAtrasEditarEventos = findViewById(R.id.btnAtrasEditarEventos);
+        btnAtrasEditarEventos.setBackgroundColor(color);
         btnAtrasEditarEventos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

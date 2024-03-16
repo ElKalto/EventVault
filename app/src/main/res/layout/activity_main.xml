@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#190000"
     android:backgroundTint="#000000"
-    tools:context=".MainActivity">
+    tools:context=".modelo.MainActivity">
 
     <ImageView
         android:id="@+id/imageView"

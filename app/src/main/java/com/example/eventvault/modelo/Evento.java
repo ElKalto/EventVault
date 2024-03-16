@@ -1,4 +1,4 @@
-package com.example.eventvault;
+package com.example.eventvault.modelo;
 
 public class Evento {
     private String id; // Nuevo atributo para el ID del evento

@@ -5,5 +5,13 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.EventVault" parent="Base.Theme.EventVault" />
+    <style name="Theme.EventVault" parent="Base.Theme.EventVault">
+        <item name="android:windowBackground">@color/black</item>
+        <item name="buttonStyle">@style/ButtonStyle</item>
+    </style>
+
+    <!-- Define ButtonStyle -->
+    <style name="ButtonStyle">
+        <!-- Define your button style here -->
+    </style>
 </resources>
