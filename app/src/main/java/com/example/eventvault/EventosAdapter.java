@@ -37,7 +37,6 @@ public class EventosAdapter extends RecyclerView.Adapter<EventosAdapter.ViewHold
         Evento evento = eventos.get(position);
         holder.textViewTituloEvento.setText(evento.getNombre());
         holder.textViewFechaEvento.setText(obtenerFechaFormateada(evento.getFecha()));
-        // Agrega más configuraciones según las propiedades del evento
     }
 
     @Override
@@ -48,23 +47,16 @@ public class EventosAdapter extends RecyclerView.Adapter<EventosAdapter.ViewHold
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView textViewTituloEvento;
         TextView textViewFechaEvento;
-        // Agrega más vistas según las propiedades del evento
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewTituloEvento = itemView.findViewById(R.id.textViewTituloEvento);
             textViewFechaEvento = itemView.findViewById(R.id.textViewFechaEvento);
-            // Inicializa otras vistas según las propiedades del evento
         }
     }
-
-    // Método para formatear la fecha (puedes adaptarlo según tus necesidades)
     private String obtenerFechaFormateada(long fecha) {
-        // Crear un objeto Date a partir del timestamp (en milisegundos)
         Date date = new Date(fecha);
-        // Definir el formato de fecha deseado
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
-        // Formatear la fecha y devolverla como cadena
         return dateFormat.format(date);
     }
 }

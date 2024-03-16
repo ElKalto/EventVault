@@ -73,7 +73,6 @@ public class EventVault extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    // Inicio de sesión exitoso, redirigir al usuario según el tipo
                                     String userID = mAuth.getCurrentUser().getUid();
                                     FirebaseFirestore.getInstance().collection("usuarios")
                                             .document(userID)
@@ -85,7 +84,6 @@ public class EventVault extends AppCompatActivity {
                                                         DocumentSnapshot document = task.getResult();
                                                         if (document.exists()) {
                                                             String tipoUsuario = document.getString("TipoUsuario");
-                                                            // Redirigir al usuario según su tipo
                                                             if ("Creador".equals(tipoUsuario)) {
                                                                 startActivity(new Intent(EventVault.this, PerfilCreador.class));
                                                             } else {
@@ -93,17 +91,14 @@ public class EventVault extends AppCompatActivity {
                                                             }
                                                             finish();
                                                         } else {
-                                                            // El documento no existe
                                                             Toast.makeText(EventVault.this, "El tipo de usuario no está definido", Toast.LENGTH_SHORT).show();
                                                         }
                                                     } else {
-                                                        // Error al obtener el documento
                                                         Toast.makeText(EventVault.this, "Error al obtener el tipo de usuario", Toast.LENGTH_SHORT).show();
                                                     }
                                                 }
                                             });
                                 } else {
-                                    // Mostrar mensaje de error si las credenciales no son válidas
                                     Toast.makeText(EventVault.this, "Credenciales no válidas", Toast.LENGTH_SHORT).show();
                                 }
                             }

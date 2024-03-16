@@ -46,24 +46,19 @@ public class EditarPerfil extends AppCompatActivity {
     }
 
     private void aplicarColorBotones() {
-        // Obtener los valores de progreso de las barras de búsqueda roja, verde y azul
         int red = seekBarRed.getProgress();
         int green = seekBarGreen.getProgress();
         int blue = seekBarBlue.getProgress();
 
-        // Calcular el color combinado
         int color = Color.rgb(red, green, blue);
 
-        // Guardar el color en preferencias compartidas
         SharedPreferences sharedPreferences = getSharedPreferences("ColorBotones", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt("ColorBotones", color);
         editor.apply();
 
-        // Aplicar el color al botón actual
         btnAtras.setBackgroundColor(color);
         BtnAplicarColor.setBackgroundColor(color);
-        // También puedes aplicar el color a otros botones si lo deseas
     }
 
 
@@ -80,8 +75,6 @@ public class EditarPerfil extends AppCompatActivity {
         editor.putInt("buttonColor", color);
         editor.apply();
 
-        // Aplica el color al botón actual
         btnAtras.setBackgroundColor(color);
-        // También puedes aplicar el color a otros botones si los tienes
     }
 }

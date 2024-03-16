@@ -61,18 +61,14 @@ public class Registro extends AppCompatActivity {
         });
 
         btnAcpReg.setOnClickListener(view -> {
-            // Realizar la validación antes de continuar
             if (validarCampos()) {
-                // Obtener el estado del CheckBox
                 boolean esCreador = checkBoxReg.isChecked();
-                // Registrar el usuario en Firebase Auth y Firestore
                 registrarUsuario(esCreador);
             }
         });
     }
 
     private boolean validarCampos() {
-        // Validar que los campos obligatorios estén llenos
         if (editTextMailReg.getText().toString().isEmpty() ||
                 editTextPassword.getText().toString().isEmpty() ||
                 edTextPassRepReg.getText().toString().isEmpty()) {
@@ -80,13 +76,11 @@ public class Registro extends AppCompatActivity {
             return false;
         }
 
-        // Validar que las contraseñas coincidan
         if (!editTextPassword.getText().toString().equals(edTextPassRepReg.getText().toString())) {
             Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
             return false;
         }
 
-        // Si el checkbox está marcado, validar que se ingrese el nombre de la asociación
         if (checkBoxReg.isChecked() && edTextNomAsoReg.getText().toString().isEmpty()) {
             Toast.makeText(this, "Ingrese el nombre de la asociación o empresa", Toast.LENGTH_SHORT).show();
             return false;
@@ -107,18 +101,15 @@ public class Registro extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Registro exitoso, redirigir al usuario según el tipo
                             String userID = mAuth.getCurrentUser().getUid();
                             Map<String, Object> user = new HashMap<>();
                             user.put("TipoUsuario", tipoUsuario);
-                            // Guardar el tipo de usuario en Firestore
                             FirebaseFirestore.getInstance().collection("usuarios")
                                     .document(userID)
                                     .set(user)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
-                                            // Redirigir al usuario según su tipo
                                             if (esCreador) {
                                                 startActivity(new Intent(Registro.this, PerfilCreador.class));
                                             } else {
@@ -130,12 +121,10 @@ public class Registro extends AppCompatActivity {
                                     .addOnFailureListener(new OnFailureListener() {
                                         @Override
                                         public void onFailure(@NonNull Exception e) {
-                                            // Manejar errores al guardar en la base de datos
                                             Toast.makeText(Registro.this, "Error al registrar usuario en la base de datos", Toast.LENGTH_SHORT).show();
                                         }
                                     });
                         } else {
-                            // Si falla el registro, mostrar un mensaje al usuario.
                             Toast.makeText(Registro.this, "Fallo en el registro.", Toast.LENGTH_SHORT).show();
                         }
                     }

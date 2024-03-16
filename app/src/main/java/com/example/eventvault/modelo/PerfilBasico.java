@@ -33,7 +33,6 @@ public class PerfilBasico extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("ColorBotones", MODE_PRIVATE);
         int color = sharedPreferences.getInt("ColorBotones", Color.WHITE); // Color blanco por defecto
 
-        // Aplicar el color al botón
         btnCerrarSesionCreador.setBackgroundColor(color);
         btnEventos.setBackgroundColor(color);
         btnPerf.setBackgroundColor(color);
@@ -57,14 +56,12 @@ public class PerfilBasico extends AppCompatActivity {
         btnCerrarSesionCreador.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Cerrar sesión con Firebase Auth
                 mAuth.signOut();
 
-                // Redirigir al usuario a la pantalla EventVault
                 Intent intent = new Intent(PerfilBasico.this, EventVault.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Borra todas las actividades anteriores
                 startActivity(intent);
-                finish(); // Cierra la actividad actual
+                finish();
             }
         });
     }

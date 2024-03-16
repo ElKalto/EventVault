@@ -89,7 +89,7 @@ public class EditarEvento extends AppCompatActivity {
                                 listaEventos.clear();
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     Evento evento = document.toObject(Evento.class);
-                                    evento.setId(document.getId()); // Establecer el id del evento
+                                    evento.setId(document.getId());
                                     listaEventos.add(evento);
                                 }
                                 configurarSpinner();
@@ -113,41 +113,31 @@ public class EditarEvento extends AppCompatActivity {
     }
 
     private void editarEventoSeleccionado() {
-        // Obtener el nombre del evento seleccionado del Spinner
         String nombreEventoSeleccionado = spinnerEventos.getSelectedItem().toString();
 
-        // Obtener el nuevo nombre y descripción del evento editado desde los EditText
         String nuevoNombreEvento = edtNombreEvento.getText().toString().trim();
         String nuevaDescripcionEvento = edtDescripcionEvento.getText().toString().trim();
 
-        // Buscar el evento seleccionado en la lista de eventos
         for (Evento evento : listaEventos) {
             if (evento.getNombre().equals(nombreEventoSeleccionado)) {
-                // Actualizar los campos del evento con los nuevos valores
                 evento.setNombre(nuevoNombreEvento);
                 evento.setDescripcion(nuevaDescripcionEvento);
 
-                // Obtener la referencia del documento del evento en Firestore
                 DocumentReference eventoRef = db.collection("eventos").document(evento.getId()); // Utilizar el id del evento
 
-                // Actualizar los datos del evento en Firestore
                 eventoRef.update("nombre", nuevoNombreEvento, "descripcion", nuevaDescripcionEvento)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                // Mostrar un mensaje de éxito
                                 Toast.makeText(EditarEvento.this, "Evento actualizado exitosamente", Toast.LENGTH_SHORT).show();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                // Manejar errores en la actualización del evento
                                 Toast.makeText(EditarEvento.this, "Error al actualizar el evento: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
-
-                // Salir del bucle una vez que se haya encontrado y actualizado el evento
                 break;
             }
         }

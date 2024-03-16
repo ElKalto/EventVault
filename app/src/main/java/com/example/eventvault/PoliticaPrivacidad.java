@@ -19,17 +19,13 @@ public class PoliticaPrivacidad extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("ColorBotones", MODE_PRIVATE);
         int color = sharedPreferences.getInt("ColorBotones", Color.WHITE); // Color blanco por defecto
 
-        // Aplicar el color al botón
         btnVolver.setBackgroundColor(color);
 
-        // Agregar un OnClickListener al botón
         btnVolver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Iniciar la actividad EventVault
                 Intent intent = new Intent(PoliticaPrivacidad.this, EventVault.class);
                 startActivity(intent);
-                // Finalizar la actividad actual
                 finish();
             }
         });

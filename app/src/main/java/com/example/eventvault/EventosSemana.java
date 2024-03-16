@@ -31,16 +31,13 @@ public class EventosSemana extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eventos_semana);
 
-        // Inicializar Firestore
         db = FirebaseFirestore.getInstance();
 
-        // Inicializar RecyclerView y su adaptador
         RecyclerView recyclerView = findViewById(R.id.recyclerViewEventos);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         eventosAdapter = new EventosAdapter(this, listaEventos);
         recyclerView.setAdapter(eventosAdapter);
 
-        // Obtener eventos de Firestore
         obtenerEventosDeFirestore();
 
         Button btnAtrasEventos = findViewById(R.id.btnAtrasEventos);
@@ -56,7 +53,6 @@ public class EventosSemana extends AppCompatActivity {
         btnAtrasEventos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Intent para iniciar la actividad PerfilCreador
                 finish();
             }
         });
@@ -73,10 +69,8 @@ public class EventosSemana extends AppCompatActivity {
                                 Evento evento = document.toObject(Evento.class);
                                 listaEventos.add(evento);
                             }
-                            // Actualizar el RecyclerView después de obtener los eventos
                             eventosAdapter.notifyDataSetChanged();
                         } else {
-                            // Si falla la obtención de eventos, puedes manejarlo aquí
                         }
                     }
                 });
