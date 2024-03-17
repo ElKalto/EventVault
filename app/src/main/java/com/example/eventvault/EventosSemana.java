@@ -1,15 +1,18 @@
 package com.example.eventvault;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.graphics.Color;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.eventvault.modelo.DetallesEvento;
 import com.example.eventvault.modelo.Evento;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -40,15 +43,28 @@ public class EventosSemana extends AppCompatActivity {
 
         obtenerEventosDeFirestore();
 
+        // Configurar clics en el RecyclerView
+        eventosAdapter.setOnItemClickListener(new EventosAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Evento evento = listaEventos.get(position);
+                Intent intent = new Intent(EventosSemana.this, DetallesEvento.class);
+                // Pasar los detalles del evento a la actividad DetallesEvento
+                intent.putExtra("nombre", evento.getNombre());
+                intent.putExtra("descripcion", evento.getDescripcion());
+                intent.putExtra("fecha", evento.getFecha());
+                intent.putExtra("hora", evento.getHoraFormateada());
+                intent.putExtra("creador", evento.getIdCreador());
+                startActivity(intent);
+            }
+        });
+
         Button btnAtrasEventos = findViewById(R.id.btnAtrasEventos);
 
-
         SharedPreferences sharedPreferences = getSharedPreferences("ColorBotones", MODE_PRIVATE);
-        int color = sharedPreferences.getInt("ColorBotones", Color.BLACK); // Obtener el color, si no se encuentra, se asigna el color negro
-
+        int color = sharedPreferences.getInt("ColorBotones", Color.BLACK);
 
         btnAtrasEventos.setBackgroundColor(color);
-
 
         btnAtrasEventos.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,8 +87,10 @@ public class EventosSemana extends AppCompatActivity {
                             }
                             eventosAdapter.notifyDataSetChanged();
                         } else {
+                            // Manejar error
                         }
                     }
                 });
     }
 }
+

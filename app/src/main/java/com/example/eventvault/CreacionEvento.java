@@ -45,6 +45,7 @@ public class CreacionEvento extends AppCompatActivity {
 
         final EditText editTextNombreEvento = findViewById(R.id.edtTextNombreEvento);
         final EditText editTextDescripcionEvento = findViewById(R.id.edtTextDescripcion);
+        final EditText editTextUbicacionEvento = findViewById(R.id.edtTextUbicacion); // Agregar EditText para la ubicación
         final CalendarView calendarView = findViewById(R.id.calendarView);
         final TimePicker timePicker = findViewById(R.id.timePicker); // Agregar TimePicker
 
@@ -53,6 +54,7 @@ public class CreacionEvento extends AppCompatActivity {
             public void onClick(View v) {
                 String nombreEvento = editTextNombreEvento.getText().toString();
                 String descripcionEvento = editTextDescripcionEvento.getText().toString();
+                String ubicacionEvento = editTextUbicacionEvento.getText().toString(); // Obtener la ubicación del EditText
 
                 long fechaEventoMillis = calendarView.getDate();
                 Calendar calendar = Calendar.getInstance();
@@ -69,7 +71,8 @@ public class CreacionEvento extends AppCompatActivity {
                 FirebaseUser currentUser = mAuth.getCurrentUser();
                 String idCreador = currentUser.getUid();
 
-                Evento nuevoEvento = new Evento(nombreEvento, descripcionEvento, fechaYHoraEvento, idCreador);
+                Evento nuevoEvento = new Evento(nombreEvento, descripcionEvento, fechaYHoraEvento, idCreador,ubicacionEvento);
+                nuevoEvento.setUbicacion(ubicacionEvento); // Asignar la ubicación al evento
 
                 guardarEventoEnFirestore(nuevoEvento);
             }

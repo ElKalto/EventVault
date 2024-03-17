@@ -103,6 +103,12 @@ public class Registro extends AppCompatActivity {
                             String userID = mAuth.getCurrentUser().getUid();
                             Map<String, Object> user = new HashMap<>();
                             user.put("TipoUsuario", tipoUsuario);
+
+                            if (esCreador) {
+                                String nombreAsociacion = edTextNomAsoReg.getText().toString().trim();
+                                user.put("Asociacion", nombreAsociacion);
+                            }
+
                             FirebaseFirestore.getInstance().collection("usuarios")
                                     .document(userID)
                                     .set(user)

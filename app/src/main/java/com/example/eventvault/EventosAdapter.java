@@ -19,6 +19,15 @@ import java.util.Locale;
 public class EventosAdapter extends RecyclerView.Adapter<EventosAdapter.ViewHolder> {
     private List<Evento> eventos;
     private Context context;
+    private OnItemClickListener mListener; // Agregar interfaz para manejar clics
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
+    }
 
     public EventosAdapter(Context context, List<Evento> eventos) {
         this.context = context;
@@ -37,6 +46,15 @@ public class EventosAdapter extends RecyclerView.Adapter<EventosAdapter.ViewHold
         Evento evento = eventos.get(position);
         holder.textViewTituloEvento.setText(evento.getNombre());
         holder.textViewFechaEvento.setText(obtenerFechaFormateada(evento.getFecha()));
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mListener != null) {
+                    mListener.onItemClick(position); // Notificar al listener cuando se hace clic en un elemento
+                }
+            }
+        });
     }
 
     @Override
@@ -54,6 +72,7 @@ public class EventosAdapter extends RecyclerView.Adapter<EventosAdapter.ViewHold
             textViewFechaEvento = itemView.findViewById(R.id.textViewFechaEvento);
         }
     }
+
     private String obtenerFechaFormateada(long fecha) {
         Date date = new Date(fecha);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());

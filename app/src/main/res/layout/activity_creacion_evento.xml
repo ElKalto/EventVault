@@ -38,7 +38,7 @@
         <EditText
             android:id="@+id/edtTextNombreEvento"
             android:layout_width="0dp"
-            android:layout_height="94dp"
+            android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Nombre del evento"
             android:inputType="text"
@@ -61,7 +61,7 @@
         <EditText
             android:id="@+id/edtTextDescripcion"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Descripcion"
             android:inputType="text"
@@ -115,13 +115,36 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtViewHoraEvento" />
 
+        <TextView
+            android:id="@+id/txtViewUbicacionEvento"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Ubicación del evento"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/timePicker" />
+
+        <EditText
+            android:id="@+id/edtTextUbicacion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Ubicación del evento"
+            android:inputType="text"
+            android:textColor="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtViewUbicacionEvento" />
+
         <Button
             android:id="@+id/btnAceptarCreacion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Aceptar"
             app:layout_constraintEnd_toStartOf="@+id/btnAtrasEditarEventos"
-            app:layout_constraintTop_toBottomOf="@+id/timePicker" />
+            app:layout_constraintTop_toBottomOf="@+id/edtTextUbicacion" />
 
         <Button
             android:id="@+id/btnAtrasEditarEventos"
@@ -129,6 +152,6 @@
             android:layout_height="wrap_content"
             android:text="Atras"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/timePicker" />
+            app:layout_constraintTop_toBottomOf="@+id/edtTextUbicacion" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
