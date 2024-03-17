@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
-    tools:context=".Registro">
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#000000"
+        tools:context=".Registro">
 
     <EditText
         android:id="@+id/edTextMailReg"
@@ -24,7 +28,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/txtViewReg6"
+        android:id="@+id/txtViewNombAsoc"
         android:layout_width="400dp"
         android:layout_height="58dp"
         android:text="Indique el nombre de su asociacion o empresa"
@@ -38,7 +42,7 @@
         app:layout_constraintVertical_bias="0.445" />
 
     <TextView
-        android:id="@+id/txtViewReg5"
+        android:id="@+id/txtViewAsociacion"
         android:layout_width="341dp"
         android:layout_height="41dp"
         android:text="¿Pertenece a una asociacion?"
@@ -88,6 +92,7 @@
         android:hint="Nombre de asociacion o emprea"
         android:inputType="text"
         android:textColor="#FFFFFF"
+        android:textColorHint="#A19B9B"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -99,7 +104,7 @@
         android:id="@+id/editTextPassword"
         android:layout_width="400dp"
         android:layout_height="69dp"
-        android:hint="Contraseña"
+        android:hint="Repetir contraseña"
         android:inputType="textPassword"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
@@ -139,3 +144,5 @@
         app:layout_constraintVertical_bias="0.002" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

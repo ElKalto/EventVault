@@ -28,9 +28,6 @@
             android:name=".EditarPerfil"
             android:exported="false" />
         <activity
-            android:name=".Favoritos"
-            android:exported="false" />
-        <activity
             android:name=".EventosSemana"
             android:exported="false" />
         <activity
@@ -42,7 +39,8 @@
         <activity
             android:name=".Registro"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustNothing">
+        </activity>
         <activity
             android:name=".EventVault"
             android:exported="false" />

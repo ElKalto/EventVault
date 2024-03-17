@@ -45,8 +45,8 @@ public class Registro extends AppCompatActivity {
         checkBoxReg = findViewById(R.id.checkBoxReg);
 
         Button btnAcpReg = findViewById(R.id.btnAcpReg);
-        final TextView textView4 = findViewById(R.id.txtViewReg5);
-        final TextView textView7 = findViewById(R.id.txtViewReg6);
+        final TextView textView4 = findViewById(R.id.txtViewAsociacion);
+        final TextView textView7 = findViewById(R.id.txtViewNombAsoc);
 
         edTextNomAsoReg.setVisibility(View.GONE);
 
@@ -93,7 +93,6 @@ public class Registro extends AppCompatActivity {
         String email = editTextMailReg.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
 
-        // Determinar el tipo de usuario (Creador o Básico)
         String tipoUsuario = esCreador ? "Creador" : "Basico";
 
         mAuth.createUserWithEmailAndPassword(email, password)
