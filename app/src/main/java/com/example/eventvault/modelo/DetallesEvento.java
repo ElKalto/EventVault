@@ -23,22 +23,31 @@ public class DetallesEvento extends AppCompatActivity {
         Intent intent = getIntent();
         String nombre = intent.getStringExtra("nombre");
         String descripcion = intent.getStringExtra("descripcion");
+        String ubicacion = intent.getStringExtra("ubicacion");
         long fecha = intent.getLongExtra("fecha", 0);
         String creador = intent.getStringExtra("creador");
+        String nombreAsociacion = intent.getStringExtra("nombreAsociacion");
 
         // Mostrar los detalles del evento en la interfaz de usuario
         TextView textViewNombre = findViewById(R.id.textViewNombre);
         TextView textViewDescripcion = findViewById(R.id.textViewDescripcion);
+        TextView textViewUbicacion = findViewById(R.id.textViewUbicacion);
         TextView textViewFecha = findViewById(R.id.textViewFecha);
-        TextView textViewCreador = findViewById(R.id.textViewCreador);
+        TextView textViewHora = findViewById(R.id.textViewHora);
+        TextView textViewCreador = findViewById(R.id.textViewAsociacion);
 
         textViewNombre.setText(nombre);
         textViewDescripcion.setText(descripcion);
-        textViewCreador.setText(creador);
+        textViewUbicacion.setText(ubicacion);
+        textViewCreador.setText(nombreAsociacion);
 
-        // Convertir la fecha a un formato legible y mostrarla
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-        String fechaFormateada = sdf.format(new Date(fecha));
+        // Convertir la fecha y la hora a formatos legibles y mostrarlos
+        SimpleDateFormat sdfFecha = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        String fechaFormateada = sdfFecha.format(new Date(fecha));
         textViewFecha.setText(fechaFormateada);
+
+        SimpleDateFormat sdfHora = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        String horaFormateada = sdfHora.format(new Date(fecha));
+        textViewHora.setText(horaFormateada);
     }
 }

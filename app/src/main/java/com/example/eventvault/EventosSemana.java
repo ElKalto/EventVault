@@ -54,7 +54,10 @@ public class EventosSemana extends AppCompatActivity {
                 intent.putExtra("descripcion", evento.getDescripcion());
                 intent.putExtra("fecha", evento.getFecha());
                 intent.putExtra("hora", evento.getHoraFormateada());
+                intent.putExtra("ubicacion", evento.getUbicacion()); // Agrega este extra
                 intent.putExtra("creador", evento.getIdCreador());
+                intent.putExtra("nombreAsociacion", evento.getNombreAsociacion()); // Agrega este extra
+
                 startActivity(intent);
             }
         });
@@ -93,4 +96,3 @@ public class EventosSemana extends AppCompatActivity {
                 });
     }
 }
-

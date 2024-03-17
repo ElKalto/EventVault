@@ -11,11 +11,12 @@ public class Evento {
     private long fecha;
     private String idCreador;
     private String ubicacion;
+    private String nombreAsociacion;
 
     public Evento() {
     }
 
-    public Evento(String nombre, String descripcion, long fecha, String idCreador,String ubicacion) {
+    public Evento(String nombre, String descripcion, long fecha, String idCreador, String ubicacion) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.fecha = fecha;
@@ -81,5 +82,13 @@ public class Evento {
         Date date = new Date(fecha);
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
         return timeFormat.format(date);
+    }
+
+    public String getNombreAsociacion() {
+        return nombreAsociacion;
+    }
+
+    public void setNombreAsociacion(String nombreAsociacion) {
+        this.nombreAsociacion = nombreAsociacion;
     }
 }

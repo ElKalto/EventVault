@@ -1,5 +1,6 @@
 package com.example.eventvault;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,7 +43,7 @@ public class EventosAdapter extends RecyclerView.Adapter<EventosAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Evento evento = eventos.get(position);
         holder.textViewTituloEvento.setText(evento.getNombre());
         holder.textViewFechaEvento.setText(obtenerFechaFormateada(evento.getFecha()));

@@ -57,15 +57,13 @@
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/textViewCreador"
-        android:layout_width="393dp"
-        android:layout_height="42dp"
+        android:id="@+id/textViewAsociacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/textViewHora"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="11dp"
-        android:layout_marginEnd="2dp"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Creador del Evento"
+        android:text="Hora del Evento"
         android:textColor="#FFFFFF"
         android:textSize="18sp" />
 
