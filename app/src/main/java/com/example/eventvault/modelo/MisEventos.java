@@ -1,5 +1,6 @@
 package com.example.eventvault.modelo;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.eventvault.EventosAdapter;
 import com.example.eventvault.R;
+import com.example.eventvault.modelo.DetallesEvento;
+import com.example.eventvault.modelo.Evento;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,6 +44,24 @@ public class MisEventos extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recyclerViewMisEventos);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         eventosAdapter = new EventosAdapter(this, listaEventos);
+
+        // Configurar evento de clic para abrir detalles
+        eventosAdapter.setOnItemClickListener(position -> {
+            Evento evento = listaEventos.get(position);
+            Intent intent = new Intent(MisEventos.this, DetallesEvento.class);
+
+            // Pasar los detalles del evento
+            intent.putExtra("nombre", evento.getNombre());
+            intent.putExtra("descripcion", evento.getDescripcion());
+            intent.putExtra("fecha", evento.getFecha().toDate().getTime());
+            intent.putExtra("hora", evento.getHoraFormateada());
+            intent.putExtra("ubicacion", evento.getUbicacion());
+            intent.putExtra("creador", evento.getIdCreador());
+            intent.putExtra("nombreAsociacion", evento.getNombreAsociacion());
+
+            startActivity(intent);
+        });
+
         recyclerView.setAdapter(eventosAdapter);
 
         obtenerEventosDelUsuarioActual();
@@ -48,22 +69,14 @@ public class MisEventos extends AppCompatActivity {
         Button btnAtrasMisEventos = findViewById(R.id.btnAtrasMisEventos);
 
         SharedPreferences sharedPreferences = getSharedPreferences("ColorBotones", MODE_PRIVATE);
-        int color = sharedPreferences.getInt("ColorBotones", Color.WHITE); // Color blanco por defecto
+        int color = sharedPreferences.getInt("ColorBotones", Color.WHITE);
 
-        // Aplicar el color al botón
         btnAtrasMisEventos.setBackgroundColor(color);
 
-        btnAtrasMisEventos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Cierra la actividad actual y vuelve a la actividad anterior
-                finish();
-            }
-        });
+        btnAtrasMisEventos.setOnClickListener(v -> finish());
     }
 
     private void obtenerEventosDelUsuarioActual() {
-
         String userId = mAuth.getCurrentUser().getUid();
         db.collection("eventos")
                 .whereEqualTo("idCreador", userId)
@@ -77,11 +90,8 @@ public class MisEventos extends AppCompatActivity {
                                 listaEventos.add(evento);
                             }
                             eventosAdapter.notifyDataSetChanged();
-                        } else {
-                            // Manejar el error si la consulta falla
                         }
                     }
                 });
-
     }
 }

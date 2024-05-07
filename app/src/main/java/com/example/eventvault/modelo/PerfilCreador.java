@@ -14,6 +14,7 @@ import com.example.eventvault.EditarEvento;
 import com.example.eventvault.EditarPerfil;
 import com.example.eventvault.EventVault;
 import com.example.eventvault.EventosSemana;
+import com.example.eventvault.modelo.MisEventos;
 import com.example.eventvault.R;
 import com.google.firebase.auth.FirebaseAuth;
 

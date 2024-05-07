@@ -22,10 +22,12 @@ public class EventosAdapter extends RecyclerView.Adapter<EventosAdapter.ViewHold
     private Context context;
     private OnItemClickListener mListener;
 
+    // Interfaz para el evento de clic
     public interface OnItemClickListener {
         void onItemClick(int position);
     }
 
+    // Establecer el listener de clic
     public void setOnItemClickListener(OnItemClickListener listener) {
         mListener = listener;
     }
@@ -39,23 +41,19 @@ public class EventosAdapter extends RecyclerView.Adapter<EventosAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_evento, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, mListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Evento evento = eventos.get(position);
         holder.textViewTituloEvento.setText(evento.getNombre());
+        holder.textViewFechaEvento.setText(obtenerFechaFormateada(evento.getFecha()));
 
-        // Cambiar el tipo de argumento para el método obtenerFechaFormateada
-        holder.textViewFechaEvento.setText(obtenerFechaFormateada(evento.getFecha()));  // Aquí el cambio es a Timestamp
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mListener != null) {
-                    mListener.onItemClick(position);
-                }
+        // Establecer evento de clic
+        holder.itemView.setOnClickListener(v -> {
+            if (mListener != null) {
+                mListener.onItemClick(position);
             }
         });
     }
@@ -69,16 +67,24 @@ public class EventosAdapter extends RecyclerView.Adapter<EventosAdapter.ViewHold
         TextView textViewTituloEvento;
         TextView textViewFechaEvento;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
             textViewTituloEvento = itemView.findViewById(R.id.textViewTituloEvento);
             textViewFechaEvento = itemView.findViewById(R.id.textViewFechaEvento);
+
+            itemView.setOnClickListener(v -> {
+                if (listener != null) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(position);
+                    }
+                }
+            });
         }
     }
 
-    // Ajustar para aceptar Timestamp en lugar de long
     private String obtenerFechaFormateada(Timestamp fecha) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
-        return dateFormat.format(fecha.toDate());  // Convertir Timestamp a Date
+        return dateFormat.format(fecha.toDate());
     }
 }
