@@ -34,6 +34,7 @@ public class CreacionEvento extends AppCompatActivity {
     private EditText editTextUbicacionEvento;
     private CalendarView calendarView;
     private TimePicker timePicker;
+    private Calendar fechaSeleccionada; // Almacenar la fecha seleccionada
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +50,20 @@ public class CreacionEvento extends AppCompatActivity {
         calendarView = findViewById(R.id.calendarView);
         timePicker = findViewById(R.id.timePicker);
 
+        // Inicializar la fecha seleccionada con la fecha actual del CalendarView
+        fechaSeleccionada = Calendar.getInstance();
+        fechaSeleccionada.setTimeInMillis(calendarView.getDate());
+
+        // Configurar un listener para actualizar la fecha seleccionada cuando se cambia el CalendarView
+        calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
+            fechaSeleccionada.set(Calendar.YEAR, year);
+            fechaSeleccionada.set(Calendar.MONTH, month);
+            fechaSeleccionada.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        });
+
         Button btnAceptarCreacion = findViewById(R.id.btnAceptarCreacion);
-        btnAceptarCreacion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                obtenerAsociacionYCrearEvento();
-            }
+        btnAceptarCreacion.setOnClickListener((v) -> {
+            obtenerAsociacionYCrearEvento(); // Acción para crear el evento
         });
     }
 
@@ -68,21 +77,15 @@ public class CreacionEvento extends AppCompatActivity {
         String userId = currentUser.getUid();
         DocumentReference userRef = db.collection("usuarios").document(userId);
 
-        userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if (documentSnapshot.exists()) {
-                    String asociacion = documentSnapshot.getString("Asociacion");
-                    crearEvento(asociacion);  // Crear el evento con la asociación
-                } else {
-                    Toast.makeText(CreacionEvento.this, "No se encontró la asociación del usuario", Toast.LENGTH_SHORT).show();
-                }
+        userRef.get().addOnSuccessListener((documentSnapshot) -> {
+            if (documentSnapshot.exists()) {
+                String asociacion = documentSnapshot.getString("Asociacion");
+                crearEvento(asociacion); // Crear el evento con la asociación
+            } else {
+                Toast.makeText(this, "No se encontró la asociación del usuario", Toast.LENGTH_SHORT).show();
             }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(CreacionEvento.this, "Error al obtener datos del usuario", Toast.LENGTH_SHORT).show();
-            }
+        }).addOnFailureListener((e) -> {
+            Toast.makeText(this, "Error al obtener datos del usuario", Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -91,31 +94,28 @@ public class CreacionEvento extends AppCompatActivity {
         String descripcionEvento = editTextDescripcionEvento.getText().toString();
         String ubicacionEvento = editTextUbicacionEvento.getText().toString();
 
-        long fechaEventoMillis = calendarView.getDate();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(fechaEventoMillis);
-
         int hora = timePicker.getCurrentHour();
         int minuto = timePicker.getCurrentMinute();
 
-        calendar.set(Calendar.HOUR_OF_DAY, hora);
-        calendar.set(Calendar.MINUTE, minuto);
+        // Establecer la hora y los minutos a la fecha seleccionada
+        fechaSeleccionada.set(Calendar.HOUR_OF_DAY, hora);
+        fechaSeleccionada.set(Calendar.MINUTE, minuto);
 
-        Timestamp timestamp = new Timestamp(calendar.getTimeInMillis() / 1000, 0);
+        // Crear un Timestamp a partir de la fecha seleccionada
+        Timestamp timestamp = new Timestamp(fechaSeleccionada.getTimeInMillis() / 1000, 0);
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        // Crear el evento con la asociación
         Evento nuevoEvento = new Evento(
                 nombreEvento,
                 descripcionEvento,
-                timestamp,
+                timestamp, // Usar el timestamp correcto
                 currentUser.getUid(),
                 ubicacionEvento,
-                asociacion  // Incluir la asociación
+                asociacion // Incluir la asociación
         );
 
-        guardarEventoEnFirestore(nuevoEvento);
+        guardarEventoEnFirestore(nuevoEvento); // Guardar el evento en Firestore
     }
 
     private void guardarEventoEnFirestore(Evento nuevoEvento) {
@@ -123,18 +123,12 @@ public class CreacionEvento extends AppCompatActivity {
 
         db.collection("eventos").document(eventoId)
                 .set(nuevoEvento)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(CreacionEvento.this, "Evento guardado con éxito", Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
+                .addOnSuccessListener((Void aVoid) -> {
+                    Toast.makeText(CreacionEvento.this, "Evento guardado con éxito", Toast.LENGTH_SHORT).show();
+                    finish(); // Cerrar la actividad al finalizar
                 })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(CreacionEvento.this, "Error al guardar el evento", Toast.LENGTH_SHORT).show();
-                    }
+                .addOnFailureListener((e) -> {
+                    Toast.makeText(CreacionEvento.this, "Error al guardar el evento", Toast.LENGTH_SHORT).show();
                 });
     }
 }
