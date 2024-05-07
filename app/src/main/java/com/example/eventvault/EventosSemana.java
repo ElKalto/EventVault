@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EventosSemana extends AppCompatActivity {
-
     private List<Evento> listaEventos = new ArrayList<>();
     private EventosAdapter eventosAdapter;
     private FirebaseFirestore db;
@@ -45,62 +44,50 @@ public class EventosSemana extends AppCompatActivity {
 
         obtenerEventosDeFirestore();
 
-        // Configurar clics en el RecyclerView
-        eventosAdapter.setOnItemClickListener(new EventosAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                Evento evento = listaEventos.get(position);
-                Intent intent = new Intent(EventosSemana.this, DetallesEvento.class);
-                // Pasar los detalles del evento a la actividad DetallesEvento
-                intent.putExtra("nombre", evento.getNombre());
-                intent.putExtra("descripcion", evento.getDescripcion());
-                intent.putExtra("fecha", evento.getFecha());
-                intent.putExtra("hora", evento.getHoraFormateada());
-                intent.putExtra("ubicacion", evento.getUbicacion()); // Agrega este extra
-                intent.putExtra("creador", evento.getIdCreador());
-                intent.putExtra("nombreAsociacion", evento.getNombreAsociacion()); // Agrega este extra
+        eventosAdapter.setOnItemClickListener((position) -> {
+            Evento evento = listaEventos.get(position);
+            Intent intent = new Intent(EventosSemana.this, DetallesEvento.class);
 
-                startActivity(intent);
-            }
+            // Log para verificar los datos antes de enviar
+            Log.d("EventosSemana", "Evento seleccionado: " + evento);
+
+            intent.putExtra("nombre", evento.getNombre());
+            intent.putExtra("descripcion", evento.getDescripcion());
+            intent.putExtra("fecha", evento.getFecha().getSeconds() * 1000); // Tiempo en milisegundos
+            intent.putExtra("ubicacion", evento.getUbicacion());
+            intent.putExtra("nombreAsociacion", evento.getNombreAsociacion());
+
+            startActivity(intent);
         });
 
         Button btnAtrasEventos = findViewById(R.id.btnAtrasEventos);
-
         SharedPreferences sharedPreferences = getSharedPreferences("ColorBotones", MODE_PRIVATE);
         int color = sharedPreferences.getInt("ColorBotones", Color.BLACK);
-
         btnAtrasEventos.setBackgroundColor(color);
 
-        btnAtrasEventos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
+        btnAtrasEventos.setOnClickListener((v) -> {
+            finish();
         });
     }
 
     private void obtenerEventosDeFirestore() {
         db.collection("eventos")
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            QuerySnapshot querySnapshot = task.getResult();
-                            if (querySnapshot != null) {
-                                for (QueryDocumentSnapshot document : querySnapshot) {
-                                    Evento evento = document.toObject(Evento.class);
-                                    listaEventos.add(evento);
-                                }
-                                eventosAdapter.notifyDataSetChanged();
-                            } else {
-                                Log.e("Firestore", "QuerySnapshot es null");
+                .addOnCompleteListener((task) -> {
+                    if (task.isSuccessful()) {
+                        QuerySnapshot querySnapshot = task.getResult();
+                        if (querySnapshot != null) {
+                            for (QueryDocumentSnapshot document : querySnapshot) {
+                                Evento evento = document.toObject(Evento.class);
+                                listaEventos.add(evento);
                             }
+                            eventosAdapter.notifyDataSetChanged();
                         } else {
-                            // Manejar error si la consulta falla
-                            Log.e("Firestore", "Error al obtener eventos", task.getException());
-                            Toast.makeText(getApplicationContext(), "Error al obtener eventos", Toast.LENGTH_SHORT).show();
+                            Log.e("Firestore", "QuerySnapshot es null");
                         }
+                    } else {
+                        Log.e("Firestore", "Error al obtener eventos", task.getException());
+                        Toast.makeText(getApplicationContext(), "Error al obtener eventos", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

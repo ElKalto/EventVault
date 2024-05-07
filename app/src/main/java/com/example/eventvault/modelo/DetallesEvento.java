@@ -1,10 +1,12 @@
 package com.example.eventvault.modelo;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.CheckBox;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.eventvault.R;
 
@@ -13,41 +15,43 @@ import java.util.Date;
 import java.util.Locale;
 
 public class DetallesEvento extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalles_evento);
 
-        // Obtener los extras del Intent
         Intent intent = getIntent();
+
+        // Log para verificar los datos recibidos
+        Log.d("DetallesEvento", "Intent recibido: " + intent.getExtras());
+
         String nombre = intent.getStringExtra("nombre");
         String descripcion = intent.getStringExtra("descripcion");
         String ubicacion = intent.getStringExtra("ubicacion");
-        long fecha = intent.getLongExtra("fecha", 0);
-        String creador = intent.getStringExtra("creador");
+        long fecha = intent.getLongExtra("fecha", 0); // Asegúrate de obtener correctamente el tiempo en milisegundos
         String nombreAsociacion = intent.getStringExtra("nombreAsociacion");
 
-        // Mostrar los detalles del evento en la interfaz de usuario
         TextView textViewNombre = findViewById(R.id.textViewNombre);
         TextView textViewDescripcion = findViewById(R.id.textViewDescripcion);
         TextView textViewUbicacion = findViewById(R.id.textViewUbicacion);
         TextView textViewFecha = findViewById(R.id.textViewFecha);
         TextView textViewHora = findViewById(R.id.textViewHora);
-        TextView textViewCreador = findViewById(R.id.textViewAsociacion);
+        TextView textViewAsociacion = findViewById(R.id.textViewAsociacion);
 
-        textViewNombre.setText(nombre);
-        textViewDescripcion.setText(descripcion);
-        textViewUbicacion.setText(ubicacion);
-        textViewCreador.setText(nombreAsociacion);
+        textViewNombre.setText(nombre != null ? nombre : "Sin nombre");
+        textViewDescripcion.setText(descripcion != null ? descripcion : "Sin descripción");
+        textViewUbicacion.setText(ubicacion != null ? ubicacion : "Sin ubicación");
+        textViewAsociacion.setText(nombreAsociacion != null ? nombreAsociacion : "Sin asociación");
 
-        // Convertir la fecha y la hora a formatos legibles y mostrarlos
-        SimpleDateFormat sdfFecha = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-        String fechaFormateada = sdfFecha.format(new Date(fecha));
-        textViewFecha.setText(fechaFormateada);
+        if (fecha > 0) {
+            SimpleDateFormat sdfFecha = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            SimpleDateFormat sdfHora = new SimpleDateFormat("HH:mm", Locale.getDefault());
 
-        SimpleDateFormat sdfHora = new SimpleDateFormat("HH:mm", Locale.getDefault());
-        String horaFormateada = sdfHora.format(new Date(fecha));
-        textViewHora.setText(horaFormateada);
+            textViewFecha.setText(sdfFecha.format(new Date(fecha)));
+            textViewHora.setText(sdfHora.format(new Date(fecha)));
+        } else {
+            textViewFecha.setText("Sin fecha");
+            textViewHora.setText("Sin hora");
+        }
     }
 }
