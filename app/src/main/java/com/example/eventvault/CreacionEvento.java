@@ -1,7 +1,5 @@
 package com.example.eventvault;
 
-import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.eventvault.modelo.Evento;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -38,23 +37,18 @@ public class CreacionEvento extends AppCompatActivity {
 
         Button btnAceptarCreacion = findViewById(R.id.btnAceptarCreacion);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("ColorBotones", MODE_PRIVATE);
-        int color = sharedPreferences.getInt("ColorBotones", Color.WHITE); // Color blanco por defecto
-
-        btnAceptarCreacion.setBackgroundColor(color);
-
         final EditText editTextNombreEvento = findViewById(R.id.edtTextNombreEvento);
         final EditText editTextDescripcionEvento = findViewById(R.id.edtTextDescripcion);
-        final EditText editTextUbicacionEvento = findViewById(R.id.edtTextUbicacion); // Agregar EditText para la ubicación
+        final EditText editTextUbicacionEvento = findViewById(R.id.edtTextUbicacion);
         final CalendarView calendarView = findViewById(R.id.calendarView);
-        final TimePicker timePicker = findViewById(R.id.timePicker); // Agregar TimePicker
+        final TimePicker timePicker = findViewById(R.id.timePicker);
 
         btnAceptarCreacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String nombreEvento = editTextNombreEvento.getText().toString();
                 String descripcionEvento = editTextDescripcionEvento.getText().toString();
-                String ubicacionEvento = editTextUbicacionEvento.getText().toString(); // Obtener la ubicación del EditText
+                String ubicacionEvento = editTextUbicacionEvento.getText().toString();
 
                 long fechaEventoMillis = calendarView.getDate();
                 Calendar calendar = Calendar.getInstance();
@@ -66,24 +60,16 @@ public class CreacionEvento extends AppCompatActivity {
                 calendar.set(Calendar.HOUR_OF_DAY, hora);
                 calendar.set(Calendar.MINUTE, minuto);
 
-                long fechaYHoraEvento = calendar.getTimeInMillis();
+                // Convertir a Timestamp
+                Timestamp timestamp = new Timestamp(calendar.getTimeInMillis() / 1000, 0);
 
                 FirebaseUser currentUser = mAuth.getCurrentUser();
                 String idCreador = currentUser.getUid();
 
-                Evento nuevoEvento = new Evento(nombreEvento, descripcionEvento, fechaYHoraEvento, idCreador,ubicacionEvento);
-                nuevoEvento.setUbicacion(ubicacionEvento); // Asignar la ubicación al evento
+                // Usar Timestamp para la fecha
+                Evento nuevoEvento = new Evento(nombreEvento, descripcionEvento, timestamp, idCreador, ubicacionEvento);
 
                 guardarEventoEnFirestore(nuevoEvento);
-            }
-        });
-
-        Button btnAtrasEditarEventos = findViewById(R.id.btnAtrasEditarEventos);
-        btnAtrasEditarEventos.setBackgroundColor(color);
-        btnAtrasEditarEventos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
             }
         });
     }

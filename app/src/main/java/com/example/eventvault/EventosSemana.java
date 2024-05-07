@@ -86,22 +86,22 @@ public class EventosSemana extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Evento evento = document.toObject(Evento.class);
-                                listaEventos.add(evento);
+                            QuerySnapshot querySnapshot = task.getResult();
+                            if (querySnapshot != null) {
+                                for (QueryDocumentSnapshot document : querySnapshot) {
+                                    Evento evento = document.toObject(Evento.class);
+                                    listaEventos.add(evento);
+                                }
+                                eventosAdapter.notifyDataSetChanged();
+                            } else {
+                                Log.e("Firestore", "QuerySnapshot es null");
                             }
-                            eventosAdapter.notifyDataSetChanged();
                         } else {
-                            // Manejar error
-                            Exception e = task.getException();
-                            if (e != null) {
-                                Log.e("Firestore", "Error al obtener eventos", e);
-
-                                Toast.makeText(getApplicationContext(), "Error al obtener eventos", Toast.LENGTH_SHORT).show();
-                            }
+                            // Manejar error si la consulta falla
+                            Log.e("Firestore", "Error al obtener eventos", task.getException());
+                            Toast.makeText(getApplicationContext(), "Error al obtener eventos", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
     }
-
 }

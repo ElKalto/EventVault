@@ -11,16 +11,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.eventvault.modelo.Evento;
+import com.google.firebase.Timestamp;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 public class EventosAdapter extends RecyclerView.Adapter<EventosAdapter.ViewHolder> {
     private List<Evento> eventos;
     private Context context;
-    private OnItemClickListener mListener; // Agregar interfaz para manejar clics
+    private OnItemClickListener mListener;
 
     public interface OnItemClickListener {
         void onItemClick(int position);
@@ -46,13 +46,15 @@ public class EventosAdapter extends RecyclerView.Adapter<EventosAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Evento evento = eventos.get(position);
         holder.textViewTituloEvento.setText(evento.getNombre());
-        holder.textViewFechaEvento.setText(obtenerFechaFormateada(evento.getFecha()));
+
+        // Cambiar el tipo de argumento para el método obtenerFechaFormateada
+        holder.textViewFechaEvento.setText(obtenerFechaFormateada(evento.getFecha()));  // Aquí el cambio es a Timestamp
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mListener != null) {
-                    mListener.onItemClick(position); // Notificar al listener cuando se hace clic en un elemento
+                    mListener.onItemClick(position);
                 }
             }
         });
@@ -74,9 +76,9 @@ public class EventosAdapter extends RecyclerView.Adapter<EventosAdapter.ViewHold
         }
     }
 
-    private String obtenerFechaFormateada(long fecha) {
-        Date date = new Date(fecha);
+    // Ajustar para aceptar Timestamp en lugar de long
+    private String obtenerFechaFormateada(Timestamp fecha) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
-        return dateFormat.format(date);
+        return dateFormat.format(fecha.toDate());  // Convertir Timestamp a Date
     }
 }

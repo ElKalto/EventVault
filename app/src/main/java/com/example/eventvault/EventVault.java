@@ -99,6 +99,8 @@ public class EventVault extends AppCompatActivity {
                                                 }
                                             });
                                 } else {
+                                    Exception exception = task.getException();
+                                    String errorMessage = exception != null ? exception.getMessage() : "Error desconocido";
                                     Toast.makeText(EventVault.this, "Credenciales no válidas", Toast.LENGTH_SHORT).show();
                                 }
                             }

@@ -1,22 +1,22 @@
 package com.example.eventvault.modelo;
 
+import com.google.firebase.Timestamp;
+
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
 
 public class Evento {
     private String id;
     private String nombre;
     private String descripcion;
-    private long fecha;
+    private Timestamp fecha; // Cambiar de long a Timestamp
     private String idCreador;
     private String ubicacion;
     private String nombreAsociacion;
 
-    public Evento() {
-    }
+    public Evento() {}
 
-    public Evento(String nombre, String descripcion, long fecha, String idCreador, String ubicacion) {
+    public Evento(String nombre, String descripcion, Timestamp fecha, String idCreador, String ubicacion) { // Usar Timestamp
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.fecha = fecha;
@@ -48,11 +48,11 @@ public class Evento {
         this.descripcion = descripcion;
     }
 
-    public long getFecha() {
+    public Timestamp getFecha() { // Devuelve Timestamp
         return fecha;
     }
 
-    public void setFecha(long fecha) {
+    public void setFecha(Timestamp fecha) { // Establece Timestamp
         this.fecha = fecha;
     }
 
@@ -72,16 +72,14 @@ public class Evento {
         this.ubicacion = ubicacion;
     }
 
-    public String getFechaFormateada() {
-        Date date = new Date(fecha);
+    public String getFechaFormateada() { // Cambia para obtener la fecha formateada desde Timestamp
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-        return dateFormat.format(date);
+        return dateFormat.format(fecha.toDate()); // Usa toDate() para convertir Timestamp a Date
     }
 
     public String getHoraFormateada() {
-        Date date = new Date(fecha);
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
-        return timeFormat.format(date);
+        return timeFormat.format(fecha.toDate()); // Usa toDate() para convertir Timestamp a Date
     }
 
     public String getNombreAsociacion() {
