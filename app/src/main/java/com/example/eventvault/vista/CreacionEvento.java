@@ -1,4 +1,4 @@
-package com.example.eventvault;
+package com.example.eventvault.vista;
 
 import android.os.Bundle;
 import android.view.View;
@@ -11,9 +11,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.eventvault.R;
 import com.example.eventvault.modelo.Evento;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -34,7 +33,6 @@ public class CreacionEvento extends AppCompatActivity {
     private EditText editTextUbicacionEvento;
     private CalendarView calendarView;
     private TimePicker timePicker;
-    private Calendar fechaSeleccionada; // Almacenar la fecha seleccionada
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,21 +48,8 @@ public class CreacionEvento extends AppCompatActivity {
         calendarView = findViewById(R.id.calendarView);
         timePicker = findViewById(R.id.timePicker);
 
-        // Inicializar la fecha seleccionada con la fecha actual del CalendarView
-        fechaSeleccionada = Calendar.getInstance();
-        fechaSeleccionada.setTimeInMillis(calendarView.getDate());
-
-        // Configurar un listener para actualizar la fecha seleccionada cuando se cambia el CalendarView
-        calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
-            fechaSeleccionada.set(Calendar.YEAR, year);
-            fechaSeleccionada.set(Calendar.MONTH, month);
-            fechaSeleccionada.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        });
-
         Button btnAceptarCreacion = findViewById(R.id.btnAceptarCreacion);
-        btnAceptarCreacion.setOnClickListener((v) -> {
-            obtenerAsociacionYCrearEvento(); // Acción para crear el evento
-        });
+        btnAceptarCreacion.setOnClickListener(v -> obtenerAsociacionYCrearEvento());
     }
 
     private void obtenerAsociacionYCrearEvento() {
@@ -75,16 +60,14 @@ public class CreacionEvento extends AppCompatActivity {
         }
 
         String userId = currentUser.getUid();
-        DocumentReference userRef = db.collection("usuarios").document(userId);
-
-        userRef.get().addOnSuccessListener((documentSnapshot) -> {
+        db.collection("usuarios").document(userId).get().addOnSuccessListener(documentSnapshot -> {
             if (documentSnapshot.exists()) {
                 String asociacion = documentSnapshot.getString("Asociacion");
-                crearEvento(asociacion); // Crear el evento con la asociación
+                crearEvento(asociacion);
             } else {
                 Toast.makeText(this, "No se encontró la asociación del usuario", Toast.LENGTH_SHORT).show();
             }
-        }).addOnFailureListener((e) -> {
+        }).addOnFailureListener(e -> {
             Toast.makeText(this, "Error al obtener datos del usuario", Toast.LENGTH_SHORT).show();
         });
     }
@@ -94,28 +77,31 @@ public class CreacionEvento extends AppCompatActivity {
         String descripcionEvento = editTextDescripcionEvento.getText().toString();
         String ubicacionEvento = editTextUbicacionEvento.getText().toString();
 
+        long fechaEventoMillis = calendarView.getDate();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(fechaEventoMillis);
+
         int hora = timePicker.getCurrentHour();
         int minuto = timePicker.getCurrentMinute();
 
-        // Establecer la hora y los minutos a la fecha seleccionada
-        fechaSeleccionada.set(Calendar.HOUR_OF_DAY, hora);
-        fechaSeleccionada.set(Calendar.MINUTE, minuto);
+        calendar.set(Calendar.HOUR_OF_DAY, hora);
+        calendar.set(Calendar.MINUTE, minuto);
 
-        // Crear un Timestamp a partir de la fecha seleccionada
-        Timestamp timestamp = new Timestamp(fechaSeleccionada.getTimeInMillis() / 1000, 0);
+        Timestamp timestamp = new Timestamp(calendar.getTimeInMillis() / 1000, 0);
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
+        // Crear el evento con la asociación
         Evento nuevoEvento = new Evento(
                 nombreEvento,
                 descripcionEvento,
-                timestamp, // Usar el timestamp correcto
+                timestamp,
                 currentUser.getUid(),
                 ubicacionEvento,
-                asociacion // Incluir la asociación
+                asociacion
         );
 
-        guardarEventoEnFirestore(nuevoEvento); // Guardar el evento en Firestore
+        guardarEventoEnFirestore(nuevoEvento);
     }
 
     private void guardarEventoEnFirestore(Evento nuevoEvento) {
@@ -123,12 +109,12 @@ public class CreacionEvento extends AppCompatActivity {
 
         db.collection("eventos").document(eventoId)
                 .set(nuevoEvento)
-                .addOnSuccessListener((Void aVoid) -> {
-                    Toast.makeText(CreacionEvento.this, "Evento guardado con éxito", Toast.LENGTH_SHORT).show();
-                    finish(); // Cerrar la actividad al finalizar
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(this, "Evento guardado con éxito", Toast.LENGTH_SHORT).show();
+                    finish();
                 })
-                .addOnFailureListener((e) -> {
-                    Toast.makeText(CreacionEvento.this, "Error al guardar el evento", Toast.LENGTH_SHORT).show();
+                .addOnFailureListener(e -> {
+                    Toast.makeText(this, "Error al guardar el evento", Toast.LENGTH_SHORT).show();
                 });
     }
 }

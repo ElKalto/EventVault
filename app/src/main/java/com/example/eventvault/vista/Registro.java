@@ -1,4 +1,4 @@
-package com.example.eventvault;
+package com.example.eventvault.vista;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.eventvault.R;
 import com.example.eventvault.modelo.PerfilBasico;
 import com.example.eventvault.modelo.PerfilCreador;
 import com.google.android.gms.tasks.OnCompleteListener;

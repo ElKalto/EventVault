@@ -1,4 +1,4 @@
-package com.example.eventvault;
+package com.example.eventvault.vista;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.eventvault.R;
 import com.example.eventvault.modelo.Evento;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;

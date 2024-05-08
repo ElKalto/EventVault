@@ -9,9 +9,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.eventvault.EditarPerfil;
-import com.example.eventvault.EventVault;
-import com.example.eventvault.EventosSemana;
+import com.example.eventvault.vista.EditarPerfil;
+import com.example.eventvault.servicios.EventVault;
+import com.example.eventvault.vista.EventosSemana;
 import com.example.eventvault.R;
 import com.google.firebase.auth.FirebaseAuth;
 

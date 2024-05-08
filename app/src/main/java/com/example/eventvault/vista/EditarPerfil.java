@@ -1,4 +1,4 @@
-package com.example.eventvault;
+package com.example.eventvault.vista;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
+
+import com.example.eventvault.R;
 
 public class EditarPerfil extends AppCompatActivity {
 

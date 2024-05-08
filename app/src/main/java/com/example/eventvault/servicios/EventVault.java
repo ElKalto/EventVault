@@ -1,4 +1,4 @@
-package com.example.eventvault;
+package com.example.eventvault.servicios;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,8 +13,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.eventvault.R;
 import com.example.eventvault.modelo.PerfilBasico;
 import com.example.eventvault.modelo.PerfilCreador;
+import com.example.eventvault.vista.PoliticaPrivacidad;
+import com.example.eventvault.vista.Registro;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

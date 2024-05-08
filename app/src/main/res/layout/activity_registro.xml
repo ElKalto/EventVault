@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#000000"
-        tools:context=".Registro">
+        tools:context=".vista.Registro">
 
     <EditText
         android:id="@+id/edTextMailReg"

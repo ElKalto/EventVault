@@ -1,4 +1,4 @@
-package com.example.eventvault;
+package com.example.eventvault.vista;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,9 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.eventvault.servicios.EventVault;
+import com.example.eventvault.R;
 
 public class PoliticaPrivacidad extends AppCompatActivity {
 

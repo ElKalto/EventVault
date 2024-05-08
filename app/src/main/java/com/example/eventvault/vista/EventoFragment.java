@@ -1,4 +1,4 @@
-package com.example.eventvault;
+package com.example.eventvault.vista;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -11,6 +11,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.eventvault.controladores.EventoViewModel;
+import com.example.eventvault.R;
 
 public class EventoFragment extends Fragment {
 

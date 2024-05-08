@@ -9,13 +9,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.eventvault.CreacionEvento;
-import com.example.eventvault.EditarEvento;
-import com.example.eventvault.EditarPerfil;
-import com.example.eventvault.EventVault;
-import com.example.eventvault.EventosSemana;
-import com.example.eventvault.modelo.MisEventos;
+import com.example.eventvault.vista.CreacionEvento;
+import com.example.eventvault.vista.EditarEvento;
+import com.example.eventvault.vista.EditarPerfil;
+import com.example.eventvault.servicios.EventVault;
+import com.example.eventvault.vista.EventosSemana;
 import com.example.eventvault.R;
+import com.example.eventvault.vista.MisEventos;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class PerfilCreador extends AppCompatActivity {

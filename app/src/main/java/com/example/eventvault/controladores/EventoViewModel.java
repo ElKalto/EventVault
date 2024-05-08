@@ -1,4 +1,4 @@
-package com.example.eventvault;
+package com.example.eventvault.controladores;
 
 import androidx.lifecycle.ViewModel;
 
