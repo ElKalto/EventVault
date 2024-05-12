@@ -1,196 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context=".vista.CreacionEvento">
+    android:background="@drawable/fiestacuatro"
+    tools:context=".vista.EditarEvento">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <ImageView
-            android:id="@+id/backgroundImage"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/fiestatres" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <TextView
+            android:id="@+id/textView11"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:text="Editar Evento"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="34sp" />
 
-            <!-- Título de la actividad -->
-            <TextView
-                android:id="@+id/textView11"
-                android:layout_width="293dp"
-                android:layout_height="45dp"
-                android:text="Editar de evento"
-                android:textAlignment="center"
-                android:textColor="#FFFFFF"
-                android:textSize="34sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <Spinner
+            android:id="@+id/spinnerEventos"
+            android:layout_width="377dp"
+            android:layout_height="59dp"
+            android:layout_marginTop="8dp" />
 
-            <!-- Nombre del evento -->
-            <TextView
-                android:id="@+id/textViewNombreEvento"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nombre del evento"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textView11" />
+        <TextView
+            android:id="@+id/textViewNombreEvento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nombre del evento"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
 
-            <EditText
-                android:id="@+id/edtTextNombreEvento"
-                android:layout_width="385dp"
-                android:layout_height="58dp"
-                android:hint="Nombre del evento"
-                android:inputType="text"
-                android:textColor="#FFFFFF"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textViewNombreEvento" />
+        <EditText
+            android:id="@+id/edtTextNombreEvento"
+            android:layout_width="379dp"
+            android:layout_height="63dp"
+            android:ems="10"
+            android:hint="Nombre del evento"
+            android:inputType="text"
+            android:textColor="#FFFFFF" />
 
-            <!-- Descripción del evento -->
-            <TextView
-                android:id="@+id/txtViewDescripcion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Descripción del evento"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/edtTextNombreEvento" />
+        <TextView
+            android:id="@+id/txtViewDescripcion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Descripción"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
 
-            <EditText
-                android:id="@+id/edtTextDescripcion"
-                android:layout_width="381dp"
-                android:layout_height="67dp"
-                android:hint="Descripción"
-                android:inputType="text"
-                android:textColor="#FFFFFF"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txtViewDescripcion" />
+        <EditText
+            android:id="@+id/edtTextDescripcion"
+            android:layout_width="381dp"
+            android:layout_height="67dp"
+            android:ems="10"
+            android:hint="Descripción"
+            android:inputType="text"
+            android:textColor="#FFFFFF" />
 
-            <!-- Fecha del evento -->
-            <TextView
-                android:id="@+id/txtViewFecha"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Fecha del evento"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/edtTextDescripcion" />
+        <TextView
+            android:id="@+id/txtViewFecha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fecha de evento"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
 
-            <CalendarView
-                android:id="@+id/calendarView"
-                android:layout_width="361dp"
-                android:layout_height="285dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txtViewFecha" />
+        <CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:selectedWeekBackgroundColor="#FFFFFF"
+            android:unfocusedMonthDateColor="#FFFFFF"
+            android:weekNumberColor="#FFFFFF"
+            android:weekSeparatorLineColor="#FFFFFF" />
 
-            <!-- Hora del evento -->
-            <TextView
-                android:id="@+id/txtViewHoraEvento"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Hora del evento"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/calendarView" />
+        <TextView
+            android:id="@+id/txtViewHoraEvento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Seleccione la hora del evento"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
 
-            <!-- Ubicación del evento -->
-            <TimePicker
-                android:id="@+id/timePicker"
-                android:layout_width="360dp"
-                android:layout_height="349dp"
-                android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.52"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txtViewHoraEvento" />
+        <TimePicker
+            android:id="@+id/timePicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-            <TextView
-                android:id="@+id/txtViewUbicacionEvento"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Ubicación del evento"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/timePicker" />
-
-            <EditText
-                android:id="@+id/edtTextUbicacion"
-                android:layout_width="398dp"
-                android:layout_height="70dp"
-                android:hint="Ubicación del evento"
-                android:inputType="text"
-                android:textColor="#FFFFFF"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txtViewUbicacionEvento" />
-
-            <!-- Imagen del evento -->
-            <TextView
-                android:id="@+id/txtViewImagen"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Imagen del evento"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/edtTextUbicacion" />
-
-            <ImageView
-                android:id="@+id/imageViewEvento"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:scaleType="centerCrop"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txtViewImagen" />
-
-            <!-- Botones para seleccionar imagen y tomar foto -->
-
-            <!-- Botones de acción -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
 
             <Button
-                android:id="@+id/btnAceptarCreacion"
+                android:id="@+id/btnAceptarEditarEvento"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:text="Aceptar"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/btnAtrasEditarEventos"
-                app:layout_constraintHorizontal_bias="0.966"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:text="Aceptar" />
 
             <Button
                 android:id="@+id/btnAtrasEditarEventos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="4dp"
-                android:text="Atrás"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </RelativeLayout>
-
+                android:text="Atrás" />
+        </LinearLayout>
+    </LinearLayout>
 </ScrollView>

@@ -45,6 +45,7 @@ public class EditarEvento extends AppCompatActivity {
 
         edtNombreEvento = findViewById(R.id.edtTextNombreEvento);
         edtDescripcionEvento = findViewById(R.id.edtTextDescripcion);
+        btnAceptarEditarEvento = findViewById(R.id.btnAceptarEditarEvento); // Inicialización del botón
 
         SharedPreferences sharedPreferences = getSharedPreferences("ColorBotones", MODE_PRIVATE);
         int color = sharedPreferences.getInt("ColorBotones", Color.WHITE); // Color blanco por defecto
@@ -101,6 +102,7 @@ public class EditarEvento extends AppCompatActivity {
     }
 
     private void configurarSpinner() {
+        spinnerEventos = findViewById(R.id.spinnerEventos); // Inicialización del spinner
         List<String> nombresEventos = new ArrayList<>();
         for (Evento evento : listaEventos) {
             nombresEventos.add(evento.getNombre());
