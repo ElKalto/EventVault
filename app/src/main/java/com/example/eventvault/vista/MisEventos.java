@@ -65,14 +65,9 @@ public class MisEventos extends AppCompatActivity {
 
         obtenerEventosDelUsuarioActual();
 
-        Button btnAtrasMisEventos = findViewById(R.id.btnAtrasMisEventos);
 
         SharedPreferences sharedPreferences = getSharedPreferences("ColorBotones", MODE_PRIVATE);
         int color = sharedPreferences.getInt("ColorBotones", Color.WHITE);
-
-        btnAtrasMisEventos.setBackgroundColor(color);
-
-        btnAtrasMisEventos.setOnClickListener(v -> finish());
     }
 
     private void obtenerEventosDelUsuarioActual() {
