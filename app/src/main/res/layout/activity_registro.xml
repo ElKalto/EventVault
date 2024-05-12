@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,139 +9,154 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#000000"
+        android:background="#8BC34A"
         tools:context=".vista.Registro">
 
-    <EditText
-        android:id="@+id/edTextMailReg"
-        android:layout_width="400dp"
-        android:layout_height="65dp"
-        android:layout_marginTop="44dp"
-        android:hint="E-mail"
-        android:inputType="textEmailAddress"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <!-- ImageView como fondo -->
 
-    <TextView
-        android:id="@+id/txtViewNombAsoc"
-        android:layout_width="400dp"
-        android:layout_height="58dp"
-        android:text="Indique el nombre de su asociacion o empresa"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.445" />
+        <ImageView
+            android:id="@+id/imageViewBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/fiestados"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/txtViewAsociacion"
-        android:layout_width="341dp"
-        android:layout_height="41dp"
-        android:text="¿Pertenece a una asociacion?"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.157"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.352" />
+        <EditText
+            android:id="@+id/edTextMailReg"
+            android:layout_width="400dp"
+            android:layout_height="65dp"
+            android:layout_marginTop="52dp"
+            android:hint="E-mail"
+            android:inputType="textEmailAddress"
+            android:textColor="#EA0303"
+            android:textColorHint="#AF0505"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <CheckBox
-        android:id="@+id/checkBoxReg"
-        android:layout_width="74dp"
-        android:layout_height="60dp"
-        android:text="Si"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.875"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.344" />
+        <TextView
+            android:id="@+id/txtViewNombAsoc"
+            android:layout_width="400dp"
+            android:layout_height="58dp"
+            android:text="Indique el nombre de su asociacion o empresa"
+            android:textColor="#EA0303"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.42" />
 
-    <EditText
-        android:id="@+id/edTextPassRepReg"
-        android:layout_width="400dp"
-        android:layout_height="64dp"
-        android:layout_marginTop="4dp"
-        android:hint="Contraseña"
-        android:inputType="textPassword"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.161" />
+        <TextView
+            android:id="@+id/txtViewAsociacion"
+            android:layout_width="341dp"
+            android:layout_height="41dp"
+            android:text="¿Pertenece a una asociacion?"
+            android:textColor="#EA0303"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.157"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.327" />
 
-    <EditText
-        android:id="@+id/edTextNomAsoReg"
-        android:layout_width="400dp"
-        android:layout_height="60dp"
-        android:ems="10"
-        android:hint="Nombre de asociacion o emprea"
-        android:inputType="text"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#A19B9B"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.532" />
+        <CheckBox
+            android:id="@+id/checkBoxReg"
+            android:layout_width="74dp"
+            android:layout_height="60dp"
+            android:text="Si"
+            android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.875"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.32" />
 
-    <EditText
-        android:id="@+id/editTextPassword"
-        android:layout_width="400dp"
-        android:layout_height="69dp"
-        android:hint="Repetir contraseña"
-        android:inputType="textPassword"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.262" />
+        <EditText
+            android:id="@+id/edTextPassRepReg"
+            android:layout_width="400dp"
+            android:layout_height="64dp"
+            android:layout_marginTop="4dp"
+            android:hint="Contraseña"
+            android:inputType="textPassword"
+            android:textColor="#EA0303"
+            android:textColorHint="#AF0505"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.136" />
 
-    <Button
-        android:id="@+id/btnAcpReg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Aceptar"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.715" />
+        <EditText
+            android:id="@+id/edTextNomAsoReg"
+            android:layout_width="400dp"
+            android:layout_height="60dp"
+            android:ems="10"
+            android:hint="Nombre de asociacion o emprea"
+            android:inputType="text"
+            android:textColor="#EA0303"
+            android:textColorHint="#AF0505"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.507" />
 
-    <TextView
-        android:id="@+id/txtViewReg1"
-        android:layout_width="206dp"
-        android:layout_height="43dp"
-        android:text="Registro"
-        android:textAlignment="center"
-        android:textColor="#FFFFFF"
-        android:textSize="34sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.002" />
+        <EditText
+            android:id="@+id/editTextPassword"
+            android:layout_width="400dp"
+            android:layout_height="69dp"
+            android:hint="Repetir contraseña"
+            android:inputType="textPassword"
+            android:textColor="#EA0303"
+            android:textColorHint="#AF0505"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.237" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/btnAcpReg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Aceptar"
+            android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.604" />
+
+        <TextView
+            android:id="@+id/txtViewReg1"
+            android:layout_width="206dp"
+            android:layout_height="43dp"
+            android:text="Registro"
+            android:textAlignment="center"
+            android:textColor="#EA0303"
+            android:textSize="34sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.014" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

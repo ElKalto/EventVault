@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#110000">
+    android:layout_height="match_parent">
 
+    <!-- La imagen como fondo -->
     <ImageView
-        android:layout_width="353dp"
-        android:layout_height="354dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="27dp"
-        android:layout_marginTop="22dp"
-        android:layout_marginEnd="29dp"
-        android:layout_marginBottom="355dp"
-        android:contentDescription="logo"
-        android:src="@drawable/logo" />
+        android:id="@+id/backgroundImageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/fiesta" />
+
+    <!-- Contenido adicional, como tu imagen original -->
 
 </RelativeLayout>

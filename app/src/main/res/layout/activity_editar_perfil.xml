@@ -5,11 +5,26 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="#8BC34A"
     tools:context=".vista.EditarPerfil">
 
+    <!-- Fondo de la imagen -->
+
+    <ImageView
+        android:id="@+id/backgroundImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/fiestacuatro"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
     <EditText
-        android:id="@+id/editTextText2"
+        android:id="@+id/editTxtDescripcion"
         android:layout_width="375dp"
         android:layout_height="58dp"
         android:ems="10"
@@ -24,10 +39,10 @@
 
     <Button
         android:id="@+id/BtnAtras"
+        style="@style/ButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Atras"
-        style="@style/ButtonStyle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"
@@ -41,7 +56,7 @@
         android:layout_height="95dp"
         android:text="Editar Perfil"
         android:textAlignment="center"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -55,7 +70,7 @@
         android:layout_width="385dp"
         android:layout_height="63dp"
         android:text="Editar imagen de perfil"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -69,7 +84,7 @@
         android:layout_width="385dp"
         android:layout_height="63dp"
         android:text="Editar Descripcion"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -94,6 +109,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="112dp"
+        android:background="#5947AA16"
         android:max="255"
         android:progress="0"
         app:layout_constraintEnd_toEndOf="parent"
@@ -105,28 +121,30 @@
         android:id="@+id/seekBarGreen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#5947AA16"
         android:max="255"
         android:progress="0"
-        app:layout_constraintTop_toBottomOf="@+id/seekBarRed"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/seekBarRed" />
 
     <SeekBar
         android:id="@+id/seekBarBlue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#5947AA16"
         android:max="255"
         android:progress="0"
-        app:layout_constraintTop_toBottomOf="@+id/seekBarGreen"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/seekBarGreen" />
 
     <Button
         android:id="@+id/BtnAplicarColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="104dp"
-        android:text="Aplicar Color"
+        android:text="Aceptar Cambios"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/seekBarBlue" />

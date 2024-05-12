@@ -50,8 +50,7 @@ public class EventVault extends AppCompatActivity {
         textViewPoliticaPrivacidad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EventVault.this, PoliticaPrivacidad.class);
-                startActivity(intent);
+                abrirPoliticaPrivacidad(v); // Pasar el argumento 'v'
             }
         });
 
@@ -111,4 +110,11 @@ public class EventVault extends AppCompatActivity {
             }
         });
     }
+
+    // Declara el método fuera del método onCreate
+    public void abrirPoliticaPrivacidad(View view) {
+        Intent intent = new Intent(this, PoliticaPrivacidad.class);
+        startActivity(intent);
+    }
+
 }

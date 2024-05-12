@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
+    android:background="#8BC34A"
     tools:context=".modelo.PerfilCreador"
     tools:layout_editor_absoluteX="-1dp"
     tools:layout_editor_absoluteY="1dp">

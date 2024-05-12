@@ -43,10 +43,8 @@ public class EditarEvento extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_evento);
 
-        spinnerEventos = findViewById(R.id.spinnerEventos);
         edtNombreEvento = findViewById(R.id.edtTextNombreEvento);
         edtDescripcionEvento = findViewById(R.id.edtTextDescripcion);
-        btnAceptarEditarEvento = findViewById(R.id.btnAceptarEditarEvento);
 
         SharedPreferences sharedPreferences = getSharedPreferences("ColorBotones", MODE_PRIVATE);
         int color = sharedPreferences.getInt("ColorBotones", Color.WHITE); // Color blanco por defecto
