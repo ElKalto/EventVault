@@ -58,14 +58,8 @@ public class EventosSemana extends AppCompatActivity {
             startActivity(intent);
         });
 
-        Button btnAtrasEventos = findViewById(R.id.btnAtrasEventos);
         SharedPreferences sharedPreferences = getSharedPreferences("ColorBotones", MODE_PRIVATE);
         int color = sharedPreferences.getInt("ColorBotones", Color.BLACK);
-        btnAtrasEventos.setBackgroundColor(color);
-
-        btnAtrasEventos.setOnClickListener((v) -> {
-            finish();
-        });
     }
 
     private void obtenerEventosDeFirestore() {
