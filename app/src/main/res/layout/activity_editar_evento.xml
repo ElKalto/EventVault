@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -20,55 +19,39 @@
             android:layout_height="wrap_content"
             android:text="Editar Evento"
             android:textAlignment="center"
-            android:textColor="#FFFFFF"
+            android:textColor="#000000"
             android:textSize="34sp" />
 
         <Spinner
             android:id="@+id/spinnerEventos"
-            android:layout_width="377dp"
+            android:layout_width="match_parent"
             android:layout_height="59dp"
             android:layout_marginTop="8dp" />
 
-        <TextView
-            android:id="@+id/textViewNombreEvento"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Nombre del evento"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
-
         <EditText
             android:id="@+id/edtTextNombreEvento"
-            android:layout_width="379dp"
+            android:layout_width="match_parent"
             android:layout_height="63dp"
             android:ems="10"
             android:hint="Nombre del evento"
             android:inputType="text"
-            android:textColor="#FFFFFF" />
-
-        <TextView
-            android:id="@+id/txtViewDescripcion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Descripción"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:textColor="#000000" />
 
         <EditText
             android:id="@+id/edtTextDescripcion"
-            android:layout_width="381dp"
+            android:layout_width="match_parent"
             android:layout_height="67dp"
             android:ems="10"
             android:hint="Descripción"
             android:inputType="text"
-            android:textColor="#FFFFFF" />
+            android:textColor="#000000" />
 
         <TextView
             android:id="@+id/txtViewFecha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Fecha de evento"
-            android:textColor="#FFFFFF"
+            android:text="Seleccione la fecha de evento"
+            android:textColor="#000000"
             android:textSize="20sp" />
 
         <CalendarView
@@ -82,16 +65,25 @@
 
         <TextView
             android:id="@+id/txtViewHoraEvento"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="378dp"
+            android:layout_height="42dp"
             android:text="Seleccione la hora del evento"
-            android:textColor="#FFFFFF"
+            android:textColor="#000000"
             android:textSize="20sp" />
 
         <TimePicker
             android:id="@+id/timePicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/edtTextUbicacion"
+            android:layout_width="382dp"
+            android:layout_height="53dp"
+            android:ems="10"
+            android:hint="Ubicación del evento"
+            android:inputType="text"
+            android:textColor="#000000" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -101,15 +93,10 @@
 
             <Button
                 android:id="@+id/btnAceptarEditarEvento"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Aceptar" />
 
-            <Button
-                android:id="@+id/btnAtrasEditarEventos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Atrás" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

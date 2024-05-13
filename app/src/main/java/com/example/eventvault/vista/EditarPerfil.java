@@ -24,15 +24,6 @@ public class EditarPerfil extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_perfil);
 
-        btnAtras = findViewById(R.id.BtnAtras);
-        btnAtras.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Finalizar la actividad actual
-                finish();
-            }
-        });
-
         seekBarRed = findViewById(R.id.seekBarRed);
         seekBarGreen = findViewById(R.id.seekBarGreen);
         seekBarBlue = findViewById(R.id.seekBarBlue);

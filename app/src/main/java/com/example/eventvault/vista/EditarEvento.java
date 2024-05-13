@@ -35,6 +35,7 @@ public class EditarEvento extends AppCompatActivity {
     private Spinner spinnerEventos;
     private EditText edtNombreEvento;
     private EditText edtDescripcionEvento;
+    private EditText edtUbicacionEvento; // Agregar EditText para la ubicación
     private Button btnAceptarEditarEvento;
     private FirebaseFirestore db;
 
@@ -45,6 +46,7 @@ public class EditarEvento extends AppCompatActivity {
 
         edtNombreEvento = findViewById(R.id.edtTextNombreEvento);
         edtDescripcionEvento = findViewById(R.id.edtTextDescripcion);
+        edtUbicacionEvento = findViewById(R.id.edtTextUbicacion); // Inicialización del EditText para la ubicación
         btnAceptarEditarEvento = findViewById(R.id.btnAceptarEditarEvento); // Inicialización del botón
 
         SharedPreferences sharedPreferences = getSharedPreferences("ColorBotones", MODE_PRIVATE);
@@ -56,15 +58,6 @@ public class EditarEvento extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         obtenerEventosUsuarioActual();
-
-        Button btnAtrasEditarEventos = findViewById(R.id.btnAtrasEditarEventos);
-        btnAtrasEditarEventos.setBackgroundColor(color);
-        btnAtrasEditarEventos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
         btnAceptarEditarEvento.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,15 +111,17 @@ public class EditarEvento extends AppCompatActivity {
 
         String nuevoNombreEvento = edtNombreEvento.getText().toString().trim();
         String nuevaDescripcionEvento = edtDescripcionEvento.getText().toString().trim();
+        String nuevaUbicacionEvento = edtUbicacionEvento.getText().toString().trim(); // Obtener la nueva ubicación del evento
 
         for (Evento evento : listaEventos) {
             if (evento.getNombre().equals(nombreEventoSeleccionado)) {
                 evento.setNombre(nuevoNombreEvento);
                 evento.setDescripcion(nuevaDescripcionEvento);
+                evento.setUbicacion(nuevaUbicacionEvento); // Establecer la nueva ubicación del evento
 
                 DocumentReference eventoRef = db.collection("eventos").document(evento.getId()); // Utilizar el id del evento
 
-                eventoRef.update("nombre", nuevoNombreEvento, "descripcion", nuevaDescripcionEvento)
+                eventoRef.update("nombre", nuevoNombreEvento, "descripcion", nuevaDescripcionEvento, "ubicacion", nuevaUbicacionEvento) // Agregar "ubicacion" al método update()
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
