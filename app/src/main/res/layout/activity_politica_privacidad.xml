@@ -14,7 +14,7 @@
       android:layout_height="61dp"
       android:text="Política de Privacidad"
       android:textAlignment="center"
-      android:textColor="#EA0303"
+      android:textColor="#000000"
       android:textSize="34sp"
       android:textStyle="bold"
       app:layout_constraintBottom_toTopOf="@+id/scrollView"
@@ -42,7 +42,7 @@
         android:fontFamily="serif"
         android:padding="16dp"
         android:text="@string/PoliticaPrivacidad"
-        android:textColor="#001995"
+        android:textColor="#000000"
         android:textSize="24sp" />
 
   </ScrollView>
