@@ -30,10 +30,13 @@
             android:id="@+id/edtTextNombreEvento"
             android:layout_width="match_parent"
             android:layout_height="63dp"
+            android:layout_marginTop="10dp"
+            android:background="#8F778FE4"
             android:ems="10"
             android:hint="Nombre del evento"
             android:inputType="text"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:textColorHint="#000000" />
 
         <!-- Descripción del evento -->
 
@@ -41,42 +44,55 @@
             android:id="@+id/edtTextDescripcion"
             android:layout_width="match_parent"
             android:layout_height="67dp"
+            android:layout_marginTop="10dp"
+            android:background="#8F778FE4"
             android:ems="10"
             android:hint="Descripción"
             android:inputType="text"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:textColorHint="#000000" />
 
         <!-- Fecha del evento -->
         <TextView
             android:id="@+id/txtViewFecha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="#8F778FE4"
             android:text="Seleccione la fecha del evento"
             android:textColor="#000000"
+            android:textColorHint="#000000"
             android:textSize="20sp" />
 
         <CalendarView
             android:id="@+id/calendarView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#8F778FE4"
             android:selectedWeekBackgroundColor="#FFFFFF"
             android:unfocusedMonthDateColor="#FFFFFF"
             android:weekNumberColor="#FFFFFF"
             android:weekSeparatorLineColor="#FFFFFF" />
 
         <!-- Hora del evento -->
+
         <TextView
             android:id="@+id/txtViewHoraEvento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="#8F778FE4"
             android:text="Seleccione la hora del evento"
             android:textColor="#000000"
+            android:textColorHint="#000000"
             android:textSize="20sp" />
 
         <TimePicker
             android:id="@+id/timePicker"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" />
 
         <!-- Ubicación del evento -->
 
@@ -84,10 +100,12 @@
             android:id="@+id/edtTextUbicacion"
             android:layout_width="match_parent"
             android:layout_height="55dp"
+            android:background="#8F778FE4"
             android:ems="10"
             android:hint="Ubicación del evento"
             android:inputType="text"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:textColorHint="#000000" />
 
         <!-- Botón de aceptar -->
         <Button

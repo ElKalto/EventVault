@@ -4,13 +4,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.widget.Button;
-
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.eventvault.adaptadores.EventosAdapter;
 import com.example.eventvault.R;
 import com.example.eventvault.modelo.DetallesEvento;
@@ -21,7 +19,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,6 +40,10 @@ public class MisEventos extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recyclerViewMisEventos);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         eventosAdapter = new EventosAdapter(this, listaEventos);
+        recyclerView.setAdapter(eventosAdapter);
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), LinearLayoutManager.VERTICAL);
+        recyclerView.addItemDecoration(dividerItemDecoration);
 
         // Configurar evento de clic para abrir detalles
         eventosAdapter.setOnItemClickListener(position -> {

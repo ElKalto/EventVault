@@ -8,56 +8,42 @@
     tools:context=".vista.PoliticaPrivacidad">
 
   <!-- Resto de tus elementos UI -->
+
   <TextView
       android:id="@+id/textViewTitulo"
-      android:layout_width="0dp"
-      android:layout_height="61dp"
+      android:layout_width="396dp"
+      android:layout_height="49dp"
+      android:paddingBottom="0dp"
       android:text="Política de Privacidad"
       android:textAlignment="center"
       android:textColor="#000000"
       android:textSize="34sp"
       android:textStyle="bold"
-      app:layout_constraintBottom_toTopOf="@+id/scrollView"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="1.0"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintVertical_bias="0.019" />
+      app:layout_constraintTop_toTopOf="parent" />
 
   <ScrollView
       android:id="@+id/scrollView"
-      android:layout_width="402dp"
-      android:layout_height="0dp"
-      app:layout_constraintBottom_toTopOf="@+id/btnVolver"
+      android:layout_width="385dp"
+      android:layout_height="669dp"
+      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.5"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/textViewTitulo"
-      app:layout_constraintVertical_bias="0.4">
+      app:layout_constraintTop_toBottomOf="@+id/textViewTitulo">
 
     <TextView
         android:id="@+id/textViewContenido"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:background="#88A686E1"
         android:fontFamily="serif"
         android:padding="16dp"
         android:text="@string/PoliticaPrivacidad"
         android:textColor="#000000"
-        android:textSize="24sp" />
+        android:textSize="20sp" />
 
   </ScrollView>
-
-  <Button
-      android:id="@+id/btnVolver"
-      android:layout_width="193dp"
-      android:layout_height="44dp"
-      android:text="Volver"
-      android:textColor="#FFFFFF"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.926"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/scrollView"
-      app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

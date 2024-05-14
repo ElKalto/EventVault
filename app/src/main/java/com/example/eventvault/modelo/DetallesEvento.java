@@ -3,13 +3,9 @@ package com.example.eventvault.modelo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.CheckBox;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.eventvault.R;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;

@@ -14,30 +14,29 @@
 
         <!-- ImageView como fondo -->
 
-        <CheckBox
-            android:id="@+id/checkBoxReg"
-            android:layout_width="74dp"
-            android:layout_height="60dp"
-            android:text="Si"
+        <TextView
+            android:id="@+id/txtViewAsociacion"
+            android:layout_width="272dp"
+            android:layout_height="57dp"
+            android:text="¿Pertenece a una asociacion?"
             android:textColor="#000000"
             android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.982"
+            app:layout_constraintHorizontal_bias="0.402"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.284" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
 
         <EditText
             android:id="@+id/editTextPassword"
             android:layout_width="270dp"
             android:layout_height="48dp"
+            android:layout_marginTop="4dp"
             android:hint="Repetir contraseña"
             android:inputType="textPassword"
             android:textColor="#000000"
             android:textColorHint="#000000"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.432"
+            app:layout_constraintHorizontal_bias="0.404"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edTextPassRepReg" />
 
@@ -45,12 +44,13 @@
             android:id="@+id/edTextMailReg"
             android:layout_width="270dp"
             android:layout_height="48dp"
+            android:layout_marginTop="4dp"
             android:hint="E-mail"
             android:inputType="textEmailAddress"
             android:textColor="#000000"
             android:textColorHint="#000000"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.432"
+            app:layout_constraintHorizontal_bias="0.404"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtViewReg1" />
 
@@ -62,34 +62,9 @@
             android:textColor="#000000"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.432"
+            app:layout_constraintHorizontal_bias="0.397"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtViewAsociacion" />
-
-        <TextView
-            android:id="@+id/txtViewAsociacion"
-            android:layout_width="270dp"
-            android:layout_height="48dp"
-            android:text="¿Pertenece a una asociacion?"
-            android:textColor="#000000"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.432"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
-
-        <EditText
-            android:id="@+id/edTextPassRepReg"
-            android:layout_width="270dp"
-            android:layout_height="48dp"
-            android:hint="Contraseña"
-            android:inputType="textPassword"
-            android:textColor="#000000"
-            android:textColorHint="#000000"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.432"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edTextMailReg" />
 
         <EditText
             android:id="@+id/edTextNomAsoReg"
@@ -101,9 +76,36 @@
             android:textColor="#000000"
             android:textColorHint="#000000"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.432"
+            app:layout_constraintHorizontal_bias="0.404"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtViewNombAsoc" />
+
+        <EditText
+            android:id="@+id/edTextPassRepReg"
+            android:layout_width="270dp"
+            android:layout_height="48dp"
+            android:hint="Contraseña"
+            android:inputType="textPassword"
+            android:textColor="#000000"
+            android:textColorHint="#000000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.397"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edTextMailReg" />
+
+        <CheckBox
+            android:id="@+id/checkBoxReg"
+            android:layout_width="74dp"
+            android:layout_height="60dp"
+            android:text="Si"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.973"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.296" />
 
         <Button
             android:id="@+id/btnAcpReg"

@@ -18,10 +18,16 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewMisEventos"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="283dp"
+        android:layout_height="592dp"
         android:layout_below="@id/textViewMisEventos"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"/>
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginBottom="48dp"
+        android:background="#88A686E1" />
 
 </RelativeLayout>

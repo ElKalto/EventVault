@@ -1,19 +1,17 @@
 package com.example.eventvault.modelo;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
 import com.example.eventvault.vista.CreacionEvento;
 import com.example.eventvault.vista.EditarEvento;
 import com.example.eventvault.vista.EditarApp;
 import com.example.eventvault.servicios.EventVault;
-import com.example.eventvault.vista.EventosSemana;
+import com.example.eventvault.vista.ListaEventos;
 import com.example.eventvault.R;
 import com.example.eventvault.vista.MisEventos;
 import com.google.firebase.auth.FirebaseAuth;
@@ -57,7 +55,7 @@ public class PerfilCreador extends AppCompatActivity {
         btnEventos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PerfilCreador.this, EventosSemana.class);
+                Intent intent = new Intent(PerfilCreador.this, ListaEventos.class);
                 startActivity(intent);
             }
         });

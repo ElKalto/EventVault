@@ -9,10 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.eventvault.R;
 import com.example.eventvault.modelo.PerfilBasico;
 import com.example.eventvault.modelo.PerfilCreador;
@@ -50,7 +48,7 @@ public class EventVault extends AppCompatActivity {
         textViewPoliticaPrivacidad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                abrirPoliticaPrivacidad(v); // Pasar el argumento 'v'
+                abrirPoliticaPrivacidad(); // Llamada al método sin pasar el argumento 'v'
             }
         });
 
@@ -75,6 +73,7 @@ public class EventVault extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
+                                    // Verificar el tipo de usuario y redirigir
                                     String userID = mAuth.getCurrentUser().getUid();
                                     FirebaseFirestore.getInstance().collection("usuarios")
                                             .document(userID)
@@ -101,9 +100,8 @@ public class EventVault extends AppCompatActivity {
                                                 }
                                             });
                                 } else {
-                                    Exception exception = task.getException();
-                                    String errorMessage = exception != null ? exception.getMessage() : "Error desconocido";
-                                    Toast.makeText(EventVault.this, "Credenciales no válidas", Toast.LENGTH_SHORT).show();
+                                    // Mensaje de error general
+                                    Toast.makeText(EventVault.this, "Datos erróneos", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
@@ -111,10 +109,9 @@ public class EventVault extends AppCompatActivity {
         });
     }
 
-    // Declara el método fuera del método onCreate
-    public void abrirPoliticaPrivacidad(View view) {
+    // Método para abrir la actividad de política de privacidad
+    public void abrirPoliticaPrivacidad() {
         Intent intent = new Intent(this, PoliticaPrivacidad.class);
         startActivity(intent);
     }
-
 }

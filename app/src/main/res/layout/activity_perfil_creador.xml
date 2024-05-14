@@ -35,7 +35,7 @@
         android:id="@+id/btnPerfil"
         android:layout_width="400dp"
         android:layout_height="60dp"
-        android:text="Editar Perfil"
+        android:text="Editar App"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.454"

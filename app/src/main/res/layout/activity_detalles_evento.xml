@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fiestacinco"
+    android:background="@drawable/fiestanueve"
     android:padding="16dp">
 
     <TextView
@@ -20,17 +20,27 @@
         android:layout_width="378dp"
         android:layout_height="92dp"
         android:layout_below="@id/textViewNombre"
-        android:layout_marginBottom="8dp"
+        android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/textViewUbicacion"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewHora"
+        android:layout_marginTop="0dp"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textViewFecha"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textViewDescripcion"
-        android:layout_marginTop="345dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="416dp"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="24sp"
@@ -38,22 +48,10 @@
 
     <TextView
         android:id="@+id/textViewHora"
-        android:layout_width="match_parent"
+        android:layout_width="380dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/textViewFecha"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="8dp"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/textViewUbicacion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textViewHora"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="1dp"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="24sp"
@@ -61,16 +59,16 @@
 
     <TextView
         android:id="@+id/textViewAsociacion"
-        android:layout_width="394dp"
-        android:layout_height="57dp"
+        android:layout_width="395dp"
+        android:layout_height="49dp"
         android:layout_below="@+id/textViewUbicacion"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="23dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="4dp"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="24sp"

@@ -4,30 +4,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fiestaocho"
-    tools:context=".vista.EventosSemana">
+    tools:context=".vista.ListaEventos">
 
     <TextView
         android:id="@+id/textView8"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
-        android:text="Eventos"
+        android:text="Eventos Disponibles"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="34sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewEventos"
-        android:layout_width="276dp"
-        android:layout_height="751dp"
+        android:layout_width="287dp"
+        android:layout_height="504dp"
         android:layout_below="@id/textView8"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="22dp"
-        android:layout_marginEnd="131dp"
-        android:layout_marginBottom="7dp"
+        android:layout_marginStart="65dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="59dp"
+        android:layout_marginBottom="136dp"
+        android:background="#88A686E1"
         android:textAlignment="center" />
 
 </RelativeLayout>

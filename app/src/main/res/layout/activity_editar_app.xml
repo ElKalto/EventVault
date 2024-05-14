@@ -34,10 +34,10 @@
         android:id="@+id/containerBotones"
         android:layout_width="338dp"
         android:layout_height="59dp"
-        android:layout_marginBottom="84dp"
-        app:layout_constraintBottom_toTopOf="@+id/BtnAplicarCambios"
+        android:layout_marginBottom="256dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent">
 
         <SeekBar
@@ -156,16 +156,6 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
-        android:id="@+id/BtnAplicarCambios"
-        android:layout_width="154dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="40dp"
-        android:text="Probar Cambios"
-        app:layout_constraintBottom_toTopOf="@+id/BtnAplicarColor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
         android:id="@+id/BtnAplicarColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -173,7 +163,10 @@
         android:text="Aplicar Color"
         app:layout_constraintBottom_toBottomOf="@+id/backgroundImage"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/containerBotones"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/textViewColorLetra"

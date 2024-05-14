@@ -40,7 +40,7 @@
             android:name=".vista.EditarApp"
             android:exported="false" />
         <activity
-            android:name=".vista.EventosSemana"
+            android:name=".vista.ListaEventos"
             android:exported="false" />
         <activity
             android:name=".modelo.PerfilCreador"

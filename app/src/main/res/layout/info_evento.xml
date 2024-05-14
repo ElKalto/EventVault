@@ -10,6 +10,8 @@
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:text="Título del Evento"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -19,6 +21,8 @@
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:text="Fecha del Evento"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
         android:textSize="16sp" />
 
     <TextView
@@ -27,6 +31,8 @@
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:text="Descripción del Evento"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
         android:textSize="14sp" />
 
 </LinearLayout>

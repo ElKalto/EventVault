@@ -6,14 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.eventvault.R;
 import com.example.eventvault.modelo.Evento;
 import com.google.firebase.Timestamp;
-
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;

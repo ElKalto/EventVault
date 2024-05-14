@@ -8,10 +8,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.eventvault.R;
 import com.example.eventvault.modelo.PerfilBasico;
 import com.example.eventvault.modelo.PerfilCreador;
@@ -22,7 +20,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -73,12 +70,22 @@ public class Registro extends AppCompatActivity {
         if (editTextMailReg.getText().toString().isEmpty() ||
                 editTextPassword.getText().toString().isEmpty() ||
                 edTextPassRepReg.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Todos los campos son ABLIGATORIOS", Toast.LENGTH_SHORT).show();
             return false;
         }
 
         if (!editTextPassword.getText().toString().equals(edTextPassRepReg.getText().toString())) {
-            Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Las contraseñas NO coinciden", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (editTextPassword.getText().toString().length() < 6) {
+            Toast.makeText(this, "La contraseña debe contener al menos SEIS caracteres", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(editTextMailReg.getText().toString().trim()).matches()) {
+            Toast.makeText(this, "Correo electrónico NO válido", Toast.LENGTH_SHORT).show();
             return false;
         }
 
@@ -89,6 +96,7 @@ public class Registro extends AppCompatActivity {
 
         return true;
     }
+
 
     private void registrarUsuario(final boolean esCreador) {
         String email = editTextMailReg.getText().toString().trim();
