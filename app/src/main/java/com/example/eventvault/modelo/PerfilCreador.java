@@ -11,7 +11,7 @@ import android.widget.Button;
 
 import com.example.eventvault.vista.CreacionEvento;
 import com.example.eventvault.vista.EditarEvento;
-import com.example.eventvault.vista.EditarPerfil;
+import com.example.eventvault.vista.EditarApp;
 import com.example.eventvault.servicios.EventVault;
 import com.example.eventvault.vista.EventosSemana;
 import com.example.eventvault.R;
@@ -81,7 +81,7 @@ public class PerfilCreador extends AppCompatActivity {
         btnPerf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PerfilCreador.this, EditarPerfil.class);
+                Intent intent = new Intent(PerfilCreador.this, EditarApp.class);
                 startActivity(intent);
             }
         });

@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.eventvault.vista.EditarPerfil;
+import com.example.eventvault.vista.EditarApp;
 import com.example.eventvault.servicios.EventVault;
 import com.example.eventvault.vista.EventosSemana;
 import com.example.eventvault.R;
@@ -49,7 +49,7 @@ public class PerfilBasico extends AppCompatActivity {
         btnPerf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PerfilBasico.this, EditarPerfil.class);
+                Intent intent = new Intent(PerfilBasico.this, EditarApp.class);
                 startActivity(intent);
             }
         });
