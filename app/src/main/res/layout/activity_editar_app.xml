@@ -18,7 +18,7 @@
         tools:layout_editor_absoluteY="0dp" />
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/textViewTituloEdit"
         android:layout_width="363dp"
         android:layout_height="57dp"
         android:layout_marginTop="16dp"
@@ -89,10 +89,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.521"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewColorBotones">
+        app:layout_constraintTop_toBottomOf="@+id/textViewColorTexto">
 
         <SeekBar
-            android:id="@+id/seekBarRedFuente"
+            android:id="@+id/seekBarRojoFuente"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -105,7 +105,7 @@
             tools:ignore="MissingConstraints" />
 
         <SeekBar
-            android:id="@+id/seekBarGreenFontFuente"
+            android:id="@+id/seekBarVerdeFuente"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -115,10 +115,10 @@
             android:progress="0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/seekBarRedFuente" />
+            app:layout_constraintTop_toBottomOf="@id/seekBarRojoFuente" />
 
         <SeekBar
-            android:id="@+id/seekBarBlueFuente"
+            android:id="@+id/seekBarAzulFuente"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -128,7 +128,7 @@
             android:progress="0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/seekBarGreenFontFuente" />
+            app:layout_constraintTop_toBottomOf="@id/seekBarVerdeFuente" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -137,7 +137,7 @@
         android:layout_width="340dp"
         android:layout_height="27dp"
         android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/textViewColorLetra"
+        app:layout_constraintBottom_toTopOf="@+id/textViewColorBotones"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -169,18 +169,19 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/textViewColorLetra"
-        android:layout_width="234dp"
+        android:id="@+id/textViewColorTexto"
+        android:layout_width="162dp"
         android:layout_height="29dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginTop="24dp"
+        android:width="190dp"
         android:background="#88A686E1"
-        android:text="Color de los botones"
+        android:text="Color del texto"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/containerBotones"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTituloEdit" />
 
     <TextView
         android:id="@+id/textViewTamañoLetra"
@@ -199,17 +200,16 @@
 
     <TextView
         android:id="@+id/textViewColorBotones"
-        android:layout_width="162dp"
+        android:layout_width="234dp"
         android:layout_height="29dp"
-        android:layout_marginTop="24dp"
-        android:width="190dp"
+        android:layout_marginBottom="24dp"
         android:background="#88A686E1"
-        android:text="Color del texto"
+        android:text="Color de los botones"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/containerBotones"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

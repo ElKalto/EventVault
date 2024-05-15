@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
+import android.widget.TextView;
 import com.example.eventvault.R;
 
 public class EditarApp extends AppCompatActivity {
@@ -17,6 +18,7 @@ public class EditarApp extends AppCompatActivity {
     private SeekBar seekBarColorRojoFuentes, seekBarColorVerdeFuentes, seekBarColorAzulFuentes;
     private Button btnAplicarColor;
     private ConstraintLayout constraintLayout;
+    private TextView textViewTituloEdit, textViewColorBotones, textViewTamañoLetra,textViewColorTexto;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -24,19 +26,27 @@ public class EditarApp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_app);
 
+        textViewTituloEdit = findViewById(R.id.textViewTituloEdit);
+        textViewColorTexto = findViewById(R.id.textViewColorTexto);
+        textViewTamañoLetra = findViewById(R.id.textViewTamañoLetra);
+        textViewColorBotones = findViewById(R.id.textViewColorBotones);
+
         seekBarColorRojoBotones = findViewById(R.id.seekBarColorRojoBotones);
         seekBarColorVerdeBotones = findViewById(R.id.seekBarColorVerdeBotones);
         seekBarColorAzulBotones = findViewById(R.id.seekBarColorAzulBotones);
-        seekBarColorRojoFuentes = findViewById(R.id.seekBarTamLetra);
-        seekBarColorVerdeFuentes = findViewById(R.id.seekBarBlueFuente);
-        seekBarColorAzulFuentes = findViewById(R.id.seekBarRedFuente);
+        seekBarColorRojoFuentes = findViewById(R.id.seekBarRojoFuente);
+        seekBarColorVerdeFuentes = findViewById(R.id.seekBarVerdeFuente);
+        seekBarColorAzulFuentes = findViewById(R.id.seekBarAzulFuente);
         btnAplicarColor = findViewById(R.id.BtnAplicarColor);
         constraintLayout = findViewById(R.id.constraintLayout);
 
-        // Agregar listeners a los SeekBars de los botones
+        // Agregar listeners a los SeekBars de los botones y los textos
         seekBarColorRojoBotones.setOnSeekBarChangeListener(seekBarChangeListener);
         seekBarColorVerdeBotones.setOnSeekBarChangeListener(seekBarChangeListener);
         seekBarColorAzulBotones.setOnSeekBarChangeListener(seekBarChangeListener);
+        seekBarColorRojoFuentes.setOnSeekBarChangeListener(seekBarChangeListener);
+        seekBarColorVerdeFuentes.setOnSeekBarChangeListener(seekBarChangeListener);
+        seekBarColorAzulFuentes.setOnSeekBarChangeListener(seekBarChangeListener);
 
         btnAplicarColor.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,14 +55,28 @@ public class EditarApp extends AppCompatActivity {
                 aplicarColorFuentes();
             }
         });
+
+        // Recuperar el color guardado en SharedPreferences y aplicarlo a los elementos de texto
+        SharedPreferences sharedPreferences = getSharedPreferences("ColorTextos", MODE_PRIVATE);
+        int colortexto = sharedPreferences.getInt("ColorTextos", Color.BLACK); // Color por defecto si no se encuentra
+
+        textViewTituloEdit.setTextColor(colortexto);
+        textViewColorBotones.setTextColor(colortexto);
+        textViewTamañoLetra.setTextColor(colortexto);
+        textViewColorTexto.setTextColor(colortexto);
     }
 
-    // Listener para los SeekBars de los botones
+    // Listener para los SeekBars de los botones y los textos
     private SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            // Aplicar el color de los botones según el progreso de los SeekBars
-            aplicarColorBotones();
+            if (seekBar == seekBarColorRojoBotones || seekBar == seekBarColorVerdeBotones || seekBar == seekBarColorAzulBotones) {
+                // Aplicar el color de los botones según el progreso de los SeekBars
+                aplicarColorBotones();
+            } else if (seekBar == seekBarColorRojoFuentes || seekBar == seekBarColorVerdeFuentes || seekBar == seekBarColorAzulFuentes) {
+                // Aplicar el color de los textos según el progreso de los SeekBars
+                aplicarColorFuentes();
+            }
         }
 
         @Override
@@ -73,6 +97,7 @@ public class EditarApp extends AppCompatActivity {
 
         int color = Color.rgb(red, green, blue);
 
+        // Aplicar el color a los botones y guardar en SharedPreferences para uso futuro
         SharedPreferences sharedPreferences = getSharedPreferences("ColorBotones", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt("ColorBotones", color);
@@ -82,12 +107,25 @@ public class EditarApp extends AppCompatActivity {
     }
 
     private void aplicarColorFuentes() {
+        // Obtener los valores de progreso de los SeekBars
         int red = seekBarColorRojoFuentes.getProgress();
         int green = seekBarColorVerdeFuentes.getProgress();
         int blue = seekBarColorAzulFuentes.getProgress();
 
-        int color = Color.rgb(red, green, blue);
+        // Crear el color con los valores obtenidos
+        int colortexto = Color.rgb(red, green, blue);
 
-        // Aquí debes aplicar el color a las fuentes de tu aplicación, por ejemplo, a través de estilos o directamente a los TextViews
+        // Aplicar el color a los TextViews correspondientes
+        textViewTituloEdit.setTextColor(colortexto);
+        textViewColorBotones.setTextColor(colortexto);
+        textViewTamañoLetra.setTextColor(colortexto);
+        textViewColorTexto.setTextColor(colortexto);
+        // Añade más TextViews aquí si es necesario
+
+        // Guardar el color en SharedPreferences para uso futuro
+        SharedPreferences sharedPreferences = getSharedPreferences("ColorTextos", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("ColorTextos", colortexto);
+        editor.apply();
     }
 }
