@@ -1,9 +1,12 @@
 package com.example.eventvault.vista;
 
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,6 +46,26 @@ public class CreacionEvento extends AppCompatActivity {
 
         Button btnAceptarCreacion = findViewById(R.id.btnAceptarCreacion);
         btnAceptarCreacion.setOnClickListener(v -> obtenerAsociacionYCrearEvento());
+
+        // Recuperar el color guardado en SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("ColorBotones", MODE_PRIVATE);
+        int color = sharedPreferences.getInt("ColorBotones", Color.BLUE); // Color blanco por defecto
+
+        // Aplicar el color a los elementos de texto
+        TextView textViewCreaEvent = findViewById(R.id.textViewCreaEvent);
+        TextView txtViewFecha = findViewById(R.id.txtViewFecha);
+        TextView txtViewHoraEvento = findViewById(R.id.txtViewHoraEvento);
+
+        editTextNombreEvento.setTextColor(color); // Modificado para usar la variable de clase existente
+        editTextNombreEvento.setHintTextColor(color);
+        editTextDescripcionEvento.setTextColor(color); // Modificado para usar la variable de clase existente
+        editTextDescripcionEvento.setHintTextColor(color);
+        editTextUbicacionEvento.setTextColor(color); // Modificado para usar la variable de clase existente
+        editTextUbicacionEvento.setHintTextColor(color);
+
+        textViewCreaEvent.setTextColor(color);
+        txtViewFecha.setTextColor(color);
+        txtViewHoraEvento.setTextColor(color);
     }
 
     private void obtenerAsociacionYCrearEvento() {

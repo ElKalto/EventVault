@@ -16,7 +16,7 @@
 
         <!-- Título de la actividad -->
         <TextView
-            android:id="@+id/textView11"
+            android:id="@+id/textViewCreaEvent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Creación de evento"

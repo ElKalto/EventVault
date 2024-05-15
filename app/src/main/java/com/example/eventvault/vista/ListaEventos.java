@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,12 +38,11 @@ public class ListaEventos extends AppCompatActivity {
         eventosAdapter = new EventosAdapter(this, listaEventos);
         recyclerView.setAdapter(eventosAdapter);
 
-// Agrega un decorador de división entre los elementos del RecyclerView
+        // Agrega un decorador de división entre los elementos del RecyclerView
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), LinearLayoutManager.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
 
         obtenerEventosDeFirestore();
-
 
         eventosAdapter.setOnItemClickListener((position) -> {
             Evento evento = listaEventos.get(position);
@@ -60,8 +60,13 @@ public class ListaEventos extends AppCompatActivity {
             startActivity(intent);
         });
 
+        // Obtener el color de los botones desde SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("ColorBotones", MODE_PRIVATE);
         int color = sharedPreferences.getInt("ColorBotones", Color.BLACK);
+
+        // Aplicar el color al TextView
+        TextView textViewEventosDisponibles = findViewById(R.id.textView8);
+        textViewEventosDisponibles.setTextColor(color);
     }
 
     private void obtenerEventosDeFirestore() {

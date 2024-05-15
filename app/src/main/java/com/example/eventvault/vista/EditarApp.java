@@ -18,7 +18,7 @@ public class EditarApp extends AppCompatActivity {
     private SeekBar seekBarColorRojoFuentes, seekBarColorVerdeFuentes, seekBarColorAzulFuentes;
     private Button btnAplicarColor;
     private ConstraintLayout constraintLayout;
-    private TextView textViewTituloEdit, textViewColorBotones, textViewTamañoLetra,textViewColorTexto;
+    private TextView textViewTituloEdit, textViewColorBotones, textViewTamañoLetra, textViewColorTexto;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -60,10 +60,8 @@ public class EditarApp extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("ColorTextos", MODE_PRIVATE);
         int colortexto = sharedPreferences.getInt("ColorTextos", Color.BLACK); // Color por defecto si no se encuentra
 
-        textViewTituloEdit.setTextColor(colortexto);
-        textViewColorBotones.setTextColor(colortexto);
-        textViewTamañoLetra.setTextColor(colortexto);
-        textViewColorTexto.setTextColor(colortexto);
+        // Llamar al método para aplicar el color a los textos en toda la aplicación
+        aplicarColorFuentes(colortexto);
     }
 
     // Listener para los SeekBars de los botones y los textos
@@ -115,6 +113,12 @@ public class EditarApp extends AppCompatActivity {
         // Crear el color con los valores obtenidos
         int colortexto = Color.rgb(red, green, blue);
 
+        // Llamar al método para aplicar el color a los textos en toda la aplicación
+        aplicarColorFuentes(colortexto);
+    }
+
+    // Método para aplicar el color a los textos en toda la aplicación
+    private void aplicarColorFuentes(int colortexto) {
         // Aplicar el color a los TextViews correspondientes
         textViewTituloEdit.setTextColor(colortexto);
         textViewColorBotones.setTextColor(colortexto);

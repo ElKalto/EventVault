@@ -36,6 +36,7 @@ public class EditarEvento extends AppCompatActivity {
     private EditText edtUbicacionEvento; // Agregar EditText para la ubicación
     private Button btnAceptarEditarEvento;
     private FirebaseFirestore db;
+    private int color;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,14 +45,20 @@ public class EditarEvento extends AppCompatActivity {
 
         edtNombreEvento = findViewById(R.id.edtTextNombreEvento);
         edtDescripcionEvento = findViewById(R.id.edtTextDescripcion);
-        edtUbicacionEvento = findViewById(R.id.edtTextUbicacion); // Inicialización del EditText para la ubicación
-        btnAceptarEditarEvento = findViewById(R.id.btnAceptarEditarEvento); // Inicialización del botón
+        edtUbicacionEvento = findViewById(R.id.edtTextUbicacion);
+        btnAceptarEditarEvento = findViewById(R.id.btnAceptarEditarEvento);
 
         SharedPreferences sharedPreferences = getSharedPreferences("ColorBotones", MODE_PRIVATE);
-        int color = sharedPreferences.getInt("ColorBotones", Color.WHITE); // Color blanco por defecto
+        color = sharedPreferences.getInt("ColorBotones", Color.BLUE); // Color blanco por defecto
 
-        // Aplicar el color al botón
-        btnAceptarEditarEvento.setBackgroundColor(color);
+
+        edtNombreEvento.setTextColor(color);
+        edtNombreEvento.setHintTextColor(color);
+        edtDescripcionEvento.setTextColor(color);
+        edtDescripcionEvento.setHintTextColor(color);
+        edtUbicacionEvento.setTextColor(color);
+        edtUbicacionEvento.setHintTextColor(color);
+
 
         db = FirebaseFirestore.getInstance();
 

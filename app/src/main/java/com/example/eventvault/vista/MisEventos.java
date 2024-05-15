@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.widget.TextView;
+
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,6 +39,12 @@ public class MisEventos extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
+        SharedPreferences sharedPreferences = getSharedPreferences("ColorBotones", MODE_PRIVATE);
+        int color = sharedPreferences.getInt("ColorBotones", Color.BLUE); // Color blanco por defecto
+
+        TextView textViewMisEventos = findViewById(R.id.textViewMisEventos);
+        textViewMisEventos.setTextColor(color);
+
         RecyclerView recyclerView = findViewById(R.id.recyclerViewMisEventos);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         eventosAdapter = new EventosAdapter(this, listaEventos);
@@ -66,9 +74,6 @@ public class MisEventos extends AppCompatActivity {
 
         obtenerEventosDelUsuarioActual();
 
-
-        SharedPreferences sharedPreferences = getSharedPreferences("ColorBotones", MODE_PRIVATE);
-        int color = sharedPreferences.getInt("ColorBotones", Color.WHITE);
     }
 
     private void obtenerEventosDelUsuarioActual() {

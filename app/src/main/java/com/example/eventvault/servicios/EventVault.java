@@ -35,11 +35,25 @@ public class EventVault extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         Button btnRegistro = findViewById(R.id.btnRegistro);
-        Button btnContinuar = findViewById(R.id.button2);
-        TextView textViewPoliticaPrivacidad = findViewById(R.id.textViewPoliticaPrivacidad);
+        Button btnContinuar = findViewById(R.id.buttonContinuar);
 
         SharedPreferences sharedPreferences = getSharedPreferences("ColorBotones", MODE_PRIVATE);
-        int color = sharedPreferences.getInt("ColorBotones", Color.WHITE); // Color blanco por defecto
+        int color = sharedPreferences.getInt("ColorBotones", Color.BLUE); // Color azul por defecto
+
+        TextView textViewPoliticaPrivacidad = findViewById(R.id.textViewPoliticaPrivacidad);
+        TextView TxMail = findViewById(R.id.TxMail);
+        TextView TxPass = findViewById(R.id.TxPass);
+
+        EditText edtMail = findViewById(R.id.TxMail);
+        EditText edtPass = findViewById(R.id.TxPass);
+
+        textViewPoliticaPrivacidad.setTextColor(color);
+        TxMail.setTextColor(color);
+        TxPass.setTextColor(color);
+
+// Aplicar el color a los hints de los EditText
+        edtMail.setHintTextColor(color);
+        edtPass.setHintTextColor(color);
 
         // Aplicar el color al botón
         btnRegistro.setBackgroundColor(color);
@@ -67,44 +81,50 @@ public class EventVault extends AppCompatActivity {
                 String email = ((EditText) findViewById(R.id.TxMail)).getText().toString();
                 String password = ((EditText) findViewById(R.id.TxPass)).getText().toString();
 
-                // Verificar las credenciales
-                mAuth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    // Verificar el tipo de usuario y redirigir
-                                    String userID = mAuth.getCurrentUser().getUid();
-                                    FirebaseFirestore.getInstance().collection("usuarios")
-                                            .document(userID)
-                                            .get()
-                                            .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                                    if (task.isSuccessful()) {
-                                                        DocumentSnapshot document = task.getResult();
-                                                        if (document.exists()) {
-                                                            String tipoUsuario = document.getString("TipoUsuario");
-                                                            if ("Creador".equals(tipoUsuario)) {
-                                                                startActivity(new Intent(EventVault.this, PerfilCreador.class));
+                // Verificar si los campos de correo electrónico y contraseña están vacíos
+                if (email.isEmpty() || password.isEmpty()) {
+                    // Mostrar un mensaje de error indicando que los campos son obligatorios
+                    Toast.makeText(EventVault.this, "Por favor, ingresa tu correo electrónico y contraseña", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Continuar con el proceso de autenticación
+                    mAuth.signInWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        // Verificar el tipo de usuario y redirigir
+                                        String userID = mAuth.getCurrentUser().getUid();
+                                        FirebaseFirestore.getInstance().collection("usuarios")
+                                                .document(userID)
+                                                .get()
+                                                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                        if (task.isSuccessful()) {
+                                                            DocumentSnapshot document = task.getResult();
+                                                            if (document.exists()) {
+                                                                String tipoUsuario = document.getString("TipoUsuario");
+                                                                if ("Creador".equals(tipoUsuario)) {
+                                                                    startActivity(new Intent(EventVault.this, PerfilCreador.class));
+                                                                } else {
+                                                                    startActivity(new Intent(EventVault.this, PerfilBasico.class));
+                                                                }
+                                                                finish();
                                                             } else {
-                                                                startActivity(new Intent(EventVault.this, PerfilBasico.class));
+                                                                Toast.makeText(EventVault.this, "El tipo de usuario no está definido", Toast.LENGTH_SHORT).show();
                                                             }
-                                                            finish();
                                                         } else {
-                                                            Toast.makeText(EventVault.this, "El tipo de usuario no está definido", Toast.LENGTH_SHORT).show();
+                                                            Toast.makeText(EventVault.this, "Error al obtener el tipo de usuario", Toast.LENGTH_SHORT).show();
                                                         }
-                                                    } else {
-                                                        Toast.makeText(EventVault.this, "Error al obtener el tipo de usuario", Toast.LENGTH_SHORT).show();
                                                     }
-                                                }
-                                            });
-                                } else {
-                                    // Mensaje de error general
-                                    Toast.makeText(EventVault.this, "Datos erróneos", Toast.LENGTH_SHORT).show();
+                                                });
+                                    } else {
+                                        // Mensaje de error general
+                                        Toast.makeText(EventVault.this, "Datos erróneos", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                            }
-                        });
+                            });
+                }
             }
         });
     }
