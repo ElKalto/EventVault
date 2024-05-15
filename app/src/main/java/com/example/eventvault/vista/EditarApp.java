@@ -33,6 +33,11 @@ public class EditarApp extends AppCompatActivity {
         btnAplicarColor = findViewById(R.id.BtnAplicarColor);
         constraintLayout = findViewById(R.id.constraintLayout);
 
+        // Agregar listeners a los SeekBars de los botones
+        seekBarColorRojoBotones.setOnSeekBarChangeListener(seekBarChangeListener);
+        seekBarColorVerdeBotones.setOnSeekBarChangeListener(seekBarChangeListener);
+        seekBarColorAzulBotones.setOnSeekBarChangeListener(seekBarChangeListener);
+
         btnAplicarColor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,6 +46,25 @@ public class EditarApp extends AppCompatActivity {
             }
         });
     }
+
+    // Listener para los SeekBars de los botones
+    private SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            // Aplicar el color de los botones según el progreso de los SeekBars
+            aplicarColorBotones();
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+            // No necesitamos implementar esta función
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+            // No necesitamos implementar esta función
+        }
+    };
 
     private void aplicarColorBotones() {
         int red = seekBarColorRojoBotones.getProgress();
