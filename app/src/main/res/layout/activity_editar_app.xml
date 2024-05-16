@@ -14,8 +14,8 @@
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         android:src="@drawable/fiestacuatro"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="0dp" />
+        tools:layout_editor_absoluteX="109dp"
+        tools:layout_editor_absoluteY="342dp" />
 
     <TextView
         android:id="@+id/textViewTituloEdit"
@@ -32,126 +32,95 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/containerBotones"
-        android:layout_width="338dp"
-        android:layout_height="59dp"
-        android:layout_marginBottom="256dp"
+        android:layout_width="239dp"
+        android:layout_height="89dp"
+        android:layout_marginBottom="304dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintHorizontal_bias="0.457"
         app:layout_constraintStart_toStartOf="parent">
 
         <SeekBar
             android:id="@+id/seekBarColorRojoBotones"
-            android:layout_width="0dp"
+            android:layout_width="235dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
             android:background="#88A686E1"
             android:max="255"
             android:progress="0"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints" />
 
         <SeekBar
             android:id="@+id/seekBarColorVerdeBotones"
-            android:layout_width="0dp"
+            android:layout_width="235dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginTop="16dp"
             android:background="#88A686E1"
             android:max="255"
             android:progress="0"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/seekBarColorRojoBotones" />
+            app:layout_constraintTop_toBottomOf="@+id/seekBarColorRojoBotones" />
 
         <SeekBar
             android:id="@+id/seekBarColorAzulBotones"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="#88A686E1"
-            android:max="255"
-            android:progress="0"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/seekBarColorVerdeBotones" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/containerFuentes"
-        android:layout_width="340dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.521"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewColorTexto">
-
-        <SeekBar
-            android:id="@+id/seekBarRojoFuente"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="#88A686E1"
-            android:max="255"
-            android:progress="0"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:ignore="MissingConstraints" />
-
-        <SeekBar
-            android:id="@+id/seekBarVerdeFuente"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="#88A686E1"
-            android:max="255"
-            android:progress="0"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/seekBarRojoFuente" />
-
-        <SeekBar
-            android:id="@+id/seekBarAzulFuente"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="#88A686E1"
-            android:max="255"
-            android:progress="0"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/seekBarVerdeFuente" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/containerLetra"
-        android:layout_width="340dp"
-        android:layout_height="27dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/textViewColorBotones"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <SeekBar
-            android:id="@+id/seekBarTamLetra"
-            android:layout_width="340dp"
+            android:layout_width="235dp"
             android:layout_height="wrap_content"
             android:background="#88A686E1"
             android:max="255"
             android:progress="0"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/seekBarColorVerdeBotones"
+            app:layout_constraintVertical_bias="1.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/containerFuentes"
+        android:layout_width="246dp"
+        android:layout_height="87dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewColorTexto">
+
+        <SeekBar
+            android:id="@+id/seekBarRojoFuente"
+            android:layout_width="235dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:background="#88A686E1"
+            android:max="255"
+            android:progress="0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <SeekBar
+            android:id="@+id/seekBarVerdeFuente"
+            android:layout_width="235dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="8dp"
+            android:background="#88A686E1"
+            android:max="255"
+            android:progress="0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/seekBarRojoFuente" />
+
+        <SeekBar
+            android:id="@+id/seekBarAzulFuente"
+            android:layout_width="235dp"
+            android:layout_height="21dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="8dp"
+            android:background="#88A686E1"
+            android:max="255"
+            android:progress="0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/seekBarVerdeFuente" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -184,25 +153,10 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewTituloEdit" />
 
     <TextView
-        android:id="@+id/textViewTamañoLetra"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
-        android:background="#88A686E1"
-        android:text="Tamaño de letra"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/containerLetra"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.511"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
         android:id="@+id/textViewColorBotones"
         android:layout_width="234dp"
         android:layout_height="29dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="40dp"
         android:background="#88A686E1"
         android:text="Color de los botones"
         android:textAlignment="center"
@@ -210,6 +164,7 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/containerBotones"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

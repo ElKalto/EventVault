@@ -28,7 +28,6 @@ public class EditarApp extends AppCompatActivity {
 
         textViewTituloEdit = findViewById(R.id.textViewTituloEdit);
         textViewColorTexto = findViewById(R.id.textViewColorTexto);
-        textViewTamañoLetra = findViewById(R.id.textViewTamañoLetra);
         textViewColorBotones = findViewById(R.id.textViewColorBotones);
 
         seekBarColorRojoBotones = findViewById(R.id.seekBarColorRojoBotones);
@@ -119,7 +118,6 @@ public class EditarApp extends AppCompatActivity {
         // Aplicar el color a los TextView y EditText en toda la aplicación
         textViewTituloEdit.setTextColor(colorTexto);
         textViewColorBotones.setTextColor(colorTexto);
-        textViewTamañoLetra.setTextColor(colorTexto);
         textViewColorTexto.setTextColor(colorTexto);
         // Añadir más TextViews y EditTexts aquí si es necesario
 

@@ -15,7 +15,6 @@ import com.example.eventvault.R;
 import com.example.eventvault.modelo.PerfilBasico;
 import com.example.eventvault.modelo.PerfilCreador;
 import com.example.eventvault.vista.PoliticaPrivacidad;
-import com.example.eventvault.vista.Registro;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -26,6 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class EventVault extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+    private boolean isUserLoggedIn = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +33,12 @@ public class EventVault extends AppCompatActivity {
         setContentView(R.layout.activity_event_vault);
 
         mAuth = FirebaseAuth.getInstance();
+
+        // Comprobar si el usuario ya está conectado
+        if (mAuth.getCurrentUser() != null) {
+            isUserLoggedIn = true;
+            redirectToProfile();
+        }
 
         Button btnRegistro = findViewById(R.id.btnRegistro);
         Button btnContinuar = findViewById(R.id.buttonContinuar);
@@ -90,31 +96,7 @@ public class EventVault extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
                                         // Verificar el tipo de usuario y redirigir
-                                        String userID = mAuth.getCurrentUser().getUid();
-                                        FirebaseFirestore.getInstance().collection("usuarios")
-                                                .document(userID)
-                                                .get()
-                                                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                                        if (task.isSuccessful()) {
-                                                            DocumentSnapshot document = task.getResult();
-                                                            if (document.exists()) {
-                                                                String tipoUsuario = document.getString("TipoUsuario");
-                                                                if ("Creador".equals(tipoUsuario)) {
-                                                                    startActivity(new Intent(EventVault.this, PerfilCreador.class));
-                                                                } else {
-                                                                    startActivity(new Intent(EventVault.this, PerfilBasico.class));
-                                                                }
-                                                                finish();
-                                                            } else {
-                                                                Toast.makeText(EventVault.this, "El tipo de usuario no está definido", Toast.LENGTH_SHORT).show();
-                                                            }
-                                                        } else {
-                                                            Toast.makeText(EventVault.this, "Error al obtener el tipo de usuario", Toast.LENGTH_SHORT).show();
-                                                        }
-                                                    }
-                                                });
+                                        redirectToProfile();
                                     } else {
                                         // Mensaje de error general
                                         Toast.makeText(EventVault.this, "Datos erróneos", Toast.LENGTH_SHORT).show();
@@ -130,5 +112,35 @@ public class EventVault extends AppCompatActivity {
     public void abrirPoliticaPrivacidad() {
         Intent intent = new Intent(this, PoliticaPrivacidad.class);
         startActivity(intent);
+    }
+
+    private void redirectToProfile() {
+        String userID = mAuth.getCurrentUser().getUid();
+        FirebaseFirestore.getInstance().collection("usuarios")
+                .document(userID)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                String tipoUsuario = document.getString("TipoUsuario");
+                                Class destinationActivity;
+                                if ("Creador".equals(tipoUsuario)) {
+                                    destinationActivity = PerfilCreador.class;
+                                } else {
+                                    destinationActivity = PerfilBasico.class;
+                                }
+                                startActivity(new Intent(EventVault.this, destinationActivity));
+                                finish();
+                            } else {
+                                Toast.makeText(EventVault.this, "El tipo de usuario no está definido", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(EventVault.this, "Error al obtener el tipo de usuario", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 }
