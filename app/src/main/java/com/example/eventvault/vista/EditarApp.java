@@ -53,6 +53,8 @@ public class EditarApp extends AppCompatActivity {
             public void onClick(View v) {
                 aplicarColorBotones();
                 aplicarColorFuentes();
+                // Finalizar la actividad actual y volver a la actividad anterior
+                finish();
             }
         });
 
