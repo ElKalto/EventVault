@@ -60,14 +60,16 @@ public class ListaEventos extends AppCompatActivity {
             startActivity(intent);
         });
 
-        // Obtener el color de los botones desde SharedPreferences
-        SharedPreferences sharedPreferences = getSharedPreferences("ColorBotones", MODE_PRIVATE);
-        int color = sharedPreferences.getInt("ColorBotones", Color.BLACK);
+        // Recuperar el color del texto desde SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("ColorTextos", MODE_PRIVATE);
+        int color = sharedPreferences.getInt("ColorTextos", Color.BLACK); // Color negro por defecto
 
         // Aplicar el color al TextView
-        TextView textViewEventosDisponibles = findViewById(R.id.textView8);
+        TextView textViewEventosDisponibles = findViewById(R.id.txtviewTituloLista);
         textViewEventosDisponibles.setTextColor(color);
     }
+
+
 
     private void obtenerEventosDeFirestore() {
         db.collection("eventos")

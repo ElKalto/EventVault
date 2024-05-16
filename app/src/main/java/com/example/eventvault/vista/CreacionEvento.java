@@ -47,26 +47,28 @@ public class CreacionEvento extends AppCompatActivity {
         Button btnAceptarCreacion = findViewById(R.id.btnAceptarCreacion);
         btnAceptarCreacion.setOnClickListener(v -> obtenerAsociacionYCrearEvento());
 
-        // Recuperar el color guardado en SharedPreferences
-        SharedPreferences sharedPreferences = getSharedPreferences("ColorBotones", MODE_PRIVATE);
-        int color = sharedPreferences.getInt("ColorBotones", Color.BLUE); // Color blanco por defecto
+        // Recuperar el color del texto desde SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("ColorTextos", MODE_PRIVATE);
+        int colorTexto = sharedPreferences.getInt("ColorTextos", Color.BLACK); // Color negro por defecto
 
         // Aplicar el color a los elementos de texto
         TextView textViewCreaEvent = findViewById(R.id.textViewCreaEvent);
         TextView txtViewFecha = findViewById(R.id.txtViewFecha);
         TextView txtViewHoraEvento = findViewById(R.id.txtViewHoraEvento);
 
-        editTextNombreEvento.setTextColor(color); // Modificado para usar la variable de clase existente
-        editTextNombreEvento.setHintTextColor(color);
-        editTextDescripcionEvento.setTextColor(color); // Modificado para usar la variable de clase existente
-        editTextDescripcionEvento.setHintTextColor(color);
-        editTextUbicacionEvento.setTextColor(color); // Modificado para usar la variable de clase existente
-        editTextUbicacionEvento.setHintTextColor(color);
+        // Aplicar el color a los elementos de texto
+        editTextNombreEvento.setTextColor(colorTexto);
+        editTextNombreEvento.setHintTextColor(colorTexto);
+        editTextDescripcionEvento.setTextColor(colorTexto);
+        editTextDescripcionEvento.setHintTextColor(colorTexto);
+        editTextUbicacionEvento.setTextColor(colorTexto);
+        editTextUbicacionEvento.setHintTextColor(colorTexto);
 
-        textViewCreaEvent.setTextColor(color);
-        txtViewFecha.setTextColor(color);
-        txtViewHoraEvento.setTextColor(color);
+        textViewCreaEvent.setTextColor(colorTexto);
+        txtViewFecha.setTextColor(colorTexto);
+        txtViewHoraEvento.setTextColor(colorTexto);
     }
+
 
     private void obtenerAsociacionYCrearEvento() {
         FirebaseUser currentUser = mAuth.getCurrentUser();

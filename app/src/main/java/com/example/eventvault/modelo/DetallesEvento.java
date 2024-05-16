@@ -1,6 +1,8 @@
 package com.example.eventvault.modelo;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -15,6 +17,10 @@ public class DetallesEvento extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalles_evento);
+
+        // Recuperar el color del texto desde SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("ColorTextos", MODE_PRIVATE);
+        int colorTexto = sharedPreferences.getInt("ColorTextos", Color.BLACK); // Color negro por defecto
 
         Intent intent = getIntent();
 
@@ -33,6 +39,14 @@ public class DetallesEvento extends AppCompatActivity {
         TextView textViewFecha = findViewById(R.id.textViewFecha);
         TextView textViewHora = findViewById(R.id.textViewHora);
         TextView textViewAsociacion = findViewById(R.id.textViewAsociacion);
+
+        // Aplicar el color a los TextView
+        textViewNombre.setTextColor(colorTexto);
+        textViewDescripcion.setTextColor(colorTexto);
+        textViewUbicacion.setTextColor(colorTexto);
+        textViewFecha.setTextColor(colorTexto);
+        textViewHora.setTextColor(colorTexto);
+        textViewAsociacion.setTextColor(colorTexto);
 
         textViewNombre.setText(nombre != null ? nombre : "Sin nombre");
         textViewDescripcion.setText(descripcion != null ? descripcion : "Sin descripción");

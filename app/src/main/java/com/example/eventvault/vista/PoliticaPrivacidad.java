@@ -15,13 +15,13 @@ public class PoliticaPrivacidad extends AppCompatActivity {
         setContentView(R.layout.activity_politica_privacidad);
 
         // Recuperar el color guardado en SharedPreferences
-        SharedPreferences sharedPreferences = getSharedPreferences("ColorBotones", MODE_PRIVATE);
-        int color = sharedPreferences.getInt("ColorBotones", Color.WHITE); // Color blanco por defecto
+        SharedPreferences sharedPreferences = getSharedPreferences("ColorTextos", MODE_PRIVATE);
+        int colorTexto = sharedPreferences.getInt("ColorTextos", Color.WHITE); // Color blanco por defecto
 
         // Aplicar el color a los elementos de texto
         TextView textViewTitulo = findViewById(R.id.textViewTitulo);
         TextView textViewContenido = findViewById(R.id.textViewContenido);
-        textViewTitulo.setTextColor(color);
-        textViewContenido.setTextColor(color);
+        textViewTitulo.setTextColor(colorTexto);
+        textViewContenido.setTextColor(colorTexto);
     }
 }

@@ -60,8 +60,9 @@ public class EditarApp extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("ColorTextos", MODE_PRIVATE);
         int colortexto = sharedPreferences.getInt("ColorTextos", Color.BLACK); // Color por defecto si no se encuentra
 
+
         // Llamar al método para aplicar el color a los textos en toda la aplicación
-        aplicarColorFuentes(colortexto);
+        aplicarColorFuentes();
     }
 
     // Listener para los SeekBars de los botones y los textos
@@ -105,31 +106,25 @@ public class EditarApp extends AppCompatActivity {
     }
 
     private void aplicarColorFuentes() {
-        // Obtener los valores de progreso de los SeekBars
+        // Obtener los valores de progreso de los SeekBars para el color del texto
         int red = seekBarColorRojoFuentes.getProgress();
         int green = seekBarColorVerdeFuentes.getProgress();
         int blue = seekBarColorAzulFuentes.getProgress();
 
         // Crear el color con los valores obtenidos
-        int colortexto = Color.rgb(red, green, blue);
+        int colorTexto = Color.rgb(red, green, blue);
 
-        // Llamar al método para aplicar el color a los textos en toda la aplicación
-        aplicarColorFuentes(colortexto);
-    }
+        // Aplicar el color a los TextView y EditText en toda la aplicación
+        textViewTituloEdit.setTextColor(colorTexto);
+        textViewColorBotones.setTextColor(colorTexto);
+        textViewTamañoLetra.setTextColor(colorTexto);
+        textViewColorTexto.setTextColor(colorTexto);
+        // Añadir más TextViews y EditTexts aquí si es necesario
 
-    // Método para aplicar el color a los textos en toda la aplicación
-    private void aplicarColorFuentes(int colortexto) {
-        // Aplicar el color a los TextViews correspondientes
-        textViewTituloEdit.setTextColor(colortexto);
-        textViewColorBotones.setTextColor(colortexto);
-        textViewTamañoLetra.setTextColor(colortexto);
-        textViewColorTexto.setTextColor(colortexto);
-        // Añade más TextViews aquí si es necesario
-
-        // Guardar el color en SharedPreferences para uso futuro
+        // Guardar el color del texto en SharedPreferences para uso futuro
         SharedPreferences sharedPreferences = getSharedPreferences("ColorTextos", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("ColorTextos", colortexto);
+        editor.putInt("ColorTextos", colorTexto);
         editor.apply();
     }
 }

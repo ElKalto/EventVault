@@ -37,8 +37,17 @@ public class EventVault extends AppCompatActivity {
         Button btnRegistro = findViewById(R.id.btnRegistro);
         Button btnContinuar = findViewById(R.id.buttonContinuar);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("ColorBotones", MODE_PRIVATE);
-        int color = sharedPreferences.getInt("ColorBotones", Color.BLUE); // Color azul por defecto
+        // Recuperar el color de los botones desde SharedPreferences
+        SharedPreferences btnSharedPreferences = getSharedPreferences("ColorBotones", MODE_PRIVATE);
+        int colorBotones = btnSharedPreferences.getInt("ColorBotones", Color.BLUE); // Color azul por defecto
+
+        // Aplicar el color a los botones
+        btnRegistro.setBackgroundColor(colorBotones);
+        btnContinuar.setBackgroundColor(colorBotones);
+
+        // Recuperar el color del texto desde SharedPreferences
+        SharedPreferences textSharedPreferences = getSharedPreferences("ColorTextos", MODE_PRIVATE);
+        int colorTextos = textSharedPreferences.getInt("ColorTextos", Color.BLACK); // Color negro por defecto
 
         TextView textViewPoliticaPrivacidad = findViewById(R.id.textViewPoliticaPrivacidad);
         TextView TxMail = findViewById(R.id.TxMail);
@@ -47,31 +56,19 @@ public class EventVault extends AppCompatActivity {
         EditText edtMail = findViewById(R.id.TxMail);
         EditText edtPass = findViewById(R.id.TxPass);
 
-        textViewPoliticaPrivacidad.setTextColor(color);
-        TxMail.setTextColor(color);
-        TxPass.setTextColor(color);
+        // Aplicar el color a los TextView
+        textViewPoliticaPrivacidad.setTextColor(colorTextos);
+        TxMail.setTextColor(colorTextos);
+        TxPass.setTextColor(colorTextos);
 
-// Aplicar el color a los hints de los EditText
-        edtMail.setHintTextColor(color);
-        edtPass.setHintTextColor(color);
-
-        // Aplicar el color al botón
-        btnRegistro.setBackgroundColor(color);
-        btnContinuar.setBackgroundColor(color);
+        // Aplicar el color a los hints de los EditText
+        edtMail.setHintTextColor(colorTextos);
+        edtPass.setHintTextColor(colorTextos);
 
         textViewPoliticaPrivacidad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 abrirPoliticaPrivacidad(); // Llamada al método sin pasar el argumento 'v'
-            }
-        });
-
-        btnRegistro.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Intent para iniciar la actividad Registro
-                Intent intent = new Intent(EventVault.this, Registro.class);
-                startActivity(intent);
             }
         });
 

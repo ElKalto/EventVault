@@ -1,6 +1,8 @@
 package com.example.eventvault.vista;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -64,7 +66,17 @@ public class Registro extends AppCompatActivity {
                 registrarUsuario(esCreador);
             }
         });
+
+        // Recuperar el color del texto desde SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("ColorTextos", MODE_PRIVATE);
+        int color = sharedPreferences.getInt("ColorTextos", Color.BLACK); // Color negro por defecto
+
+        // Aplicar el color al TextView
+        textView4.setTextColor(color);
+        textView7.setTextColor(color);
     }
+
+
 
     private boolean validarCampos() {
         if (editTextMailReg.getText().toString().isEmpty() ||

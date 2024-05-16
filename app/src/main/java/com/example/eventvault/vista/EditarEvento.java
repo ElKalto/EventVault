@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.example.eventvault.R;
 import com.example.eventvault.modelo.Evento;
@@ -31,39 +32,46 @@ public class EditarEvento extends AppCompatActivity {
 
     private List<Evento> listaEventos = new ArrayList<>();
     private Spinner spinnerEventos;
-    private EditText edtNombreEvento;
-    private EditText edtDescripcionEvento;
-    private EditText edtUbicacionEvento; // Agregar EditText para la ubicación
+    private EditText edtNombreEvento, edtUbicacionEvento, edtDescripcionEvento;
+    private TextView txtViewFecha, txtViewHoraEvento,textViewCreaEvent;
     private Button btnAceptarEditarEvento;
     private FirebaseFirestore db;
-    private int color;
+    private int colorTexto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_evento);
 
+        // Inicializar vistas y referencias
+        textViewCreaEvent = findViewById(R.id.textViewCreaEvent);
         edtNombreEvento = findViewById(R.id.edtTextNombreEvento);
         edtDescripcionEvento = findViewById(R.id.edtTextDescripcion);
         edtUbicacionEvento = findViewById(R.id.edtTextUbicacion);
+        txtViewFecha = findViewById(R.id.txtViewFecha);
+        txtViewHoraEvento = findViewById(R.id.txtViewHoraEvento);
         btnAceptarEditarEvento = findViewById(R.id.btnAceptarEditarEvento);
-
-        SharedPreferences sharedPreferences = getSharedPreferences("ColorBotones", MODE_PRIVATE);
-        color = sharedPreferences.getInt("ColorBotones", Color.BLUE); // Color blanco por defecto
-
-
-        edtNombreEvento.setTextColor(color);
-        edtNombreEvento.setHintTextColor(color);
-        edtDescripcionEvento.setTextColor(color);
-        edtDescripcionEvento.setHintTextColor(color);
-        edtUbicacionEvento.setTextColor(color);
-        edtUbicacionEvento.setHintTextColor(color);
-
-
         db = FirebaseFirestore.getInstance();
 
+        // Recuperar el color del texto desde SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("ColorTextos", MODE_PRIVATE);
+        colorTexto = sharedPreferences.getInt("ColorTextos", Color.BLACK); // Color negro por defecto
+
+        // Aplicar color a los elementos de texto
+        textViewCreaEvent.setTextColor(colorTexto);
+        edtNombreEvento.setTextColor(colorTexto);
+        edtNombreEvento.setHintTextColor(colorTexto);
+        edtDescripcionEvento.setTextColor(colorTexto);
+        edtDescripcionEvento.setHintTextColor(colorTexto);
+        edtUbicacionEvento.setTextColor(colorTexto);
+        edtUbicacionEvento.setHintTextColor(colorTexto);
+        txtViewFecha.setTextColor(colorTexto);
+        txtViewHoraEvento.setTextColor(colorTexto);
+
+        // Obtener eventos del usuario
         obtenerEventosUsuarioActual();
 
+        // Configurar el botón de aceptar edición de evento
         btnAceptarEditarEvento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
