@@ -81,14 +81,6 @@ public class Registro extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        // Recuperar el color del texto desde SharedPreferences
-        SharedPreferences sharedPreferences = getSharedPreferences("ColorTextos", MODE_PRIVATE);
-        int color = sharedPreferences.getInt("ColorTextos", Color.BLACK); // Color negro por defecto
-
-        // Aplicar el color al TextView
-        textView4.setTextColor(color);
-        textView7.setTextColor(color);
     }
 
     private boolean validarCampos() {

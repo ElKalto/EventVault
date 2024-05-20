@@ -20,6 +20,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -100,7 +102,21 @@ public class EventVault extends AppCompatActivity {
                                         redirectToProfile();
                                     } else {
                                         // Mensaje de error general
-                                        Toast.makeText(EventVault.this, "Datos erróneos", Toast.LENGTH_SHORT).show();
+                                        if (task.getException() != null) {
+                                            // Verificar si la excepción es por contraseña incorrecta
+                                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                                                Toast.makeText(EventVault.this, "Contraseña incorrecta", Toast.LENGTH_SHORT).show();
+                                            } else if (task.getException() instanceof FirebaseAuthInvalidUserException) {
+                                                // Verificar si la excepción es por correo electrónico no registrado
+                                                String errorCode = ((FirebaseAuthInvalidUserException) task.getException()).getErrorCode();
+                                                if (errorCode.equals("ERROR_USER_NOT_FOUND")) {
+                                                    Toast.makeText(EventVault.this, "Correo electrónico no registrado", Toast.LENGTH_SHORT).show();
+                                                }
+                                            } else {
+                                                // Otro tipo de error de autenticación
+                                                Toast.makeText(EventVault.this, "Error de autenticación: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
                                     }
                                 }
                             });
