@@ -5,20 +5,27 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.recyclerview.widget.DividerItemDecoration;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.eventvault.adaptadores.EventosAdapter;
+
 import com.example.eventvault.R;
+import com.example.eventvault.adaptadores.EventosAdapter;
 import com.example.eventvault.modelo.DetallesEvento;
 import com.example.eventvault.modelo.Evento;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +33,7 @@ public class ListaEventos extends AppCompatActivity {
     private List<Evento> listaEventos = new ArrayList<>();
     private EventosAdapter eventosAdapter;
     private FirebaseFirestore db;
+    private Spinner spinnerOrden;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +47,37 @@ public class ListaEventos extends AppCompatActivity {
         eventosAdapter = new EventosAdapter(this, listaEventos);
         recyclerView.setAdapter(eventosAdapter);
 
-        // Agrega un decorador de división entre los elementos del RecyclerView
+        // Agregar un decorador de división entre los elementos del RecyclerView
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), LinearLayoutManager.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
 
-        obtenerEventosDeFirestore();
+        // Configurar el Spinner de orden
+        spinnerOrden = findViewById(R.id.spinnerOrden);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.orden_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerOrden.setAdapter(adapter);
+        spinnerOrden.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0: // De más reciente a más antiguo
+                        obtenerEventosDeFirestore(Query.Direction.DESCENDING);
+                        break;
+                    case 1: // De más antiguo a más reciente
+                        obtenerEventosDeFirestore(Query.Direction.ASCENDING);
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // No hacer nada si no se selecciona nada
+            }
+        });
+
+        // Llamar a obtenerEventosDeFirestore con la dirección por defecto
+        obtenerEventosDeFirestore(Query.Direction.DESCENDING);
 
         eventosAdapter.setOnItemClickListener((position) -> {
             Evento evento = listaEventos.get(position);
@@ -70,24 +104,18 @@ public class ListaEventos extends AppCompatActivity {
         textViewEventosDisponibles.setTextColor(color);
     }
 
-
-
-    private void obtenerEventosDeFirestore() {
+    private void obtenerEventosDeFirestore(Query.Direction direction) {
         db.collection("eventos")
-                .orderBy("id", Query.Direction.DESCENDING) // Ordenar por ID de forma descendente
+                .orderBy("fecha", direction) // Ordenar por fecha según la dirección proporcionada
                 .get()
                 .addOnCompleteListener((task) -> {
                     if (task.isSuccessful()) {
-                        QuerySnapshot querySnapshot = task.getResult();
-                        if (querySnapshot != null) {
-                            for (QueryDocumentSnapshot document : querySnapshot) {
-                                Evento evento = document.toObject(Evento.class);
-                                listaEventos.add(evento);
-                            }
-                            eventosAdapter.notifyDataSetChanged();
-                        } else {
-                            Log.e("Firestore", "QuerySnapshot es null");
+                        listaEventos.clear(); // Limpiar la lista actual
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            Evento evento = document.toObject(Evento.class);
+                            listaEventos.add(evento);
                         }
+                        eventosAdapter.notifyDataSetChanged();
                     } else {
                         Log.e("Firestore", "Error al obtener eventos", task.getException());
                         Toast.makeText(getApplicationContext(), "Error al obtener eventos", Toast.LENGTH_SHORT).show();

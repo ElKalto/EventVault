@@ -9,15 +9,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.eventvault.R;
 import com.example.eventvault.modelo.Evento;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.Calendar;
-import java.util.UUID;
 
 public class CreacionEvento extends AppCompatActivity {
 
@@ -29,6 +31,7 @@ public class CreacionEvento extends AppCompatActivity {
     private EditText editTextUbicacionEvento;
     private CalendarView calendarView;
     private TimePicker timePicker;
+    private long fechaEventoMillis;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,12 @@ public class CreacionEvento extends AppCompatActivity {
         calendarView = findViewById(R.id.calendarView);
         timePicker = findViewById(R.id.timePicker);
 
+        calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(year, month, dayOfMonth);
+            fechaEventoMillis = calendar.getTimeInMillis();
+        });
+
         Button btnAceptarCreacion = findViewById(R.id.btnAceptarCreacion);
         btnAceptarCreacion.setOnClickListener(v -> obtenerAsociacionYCrearEvento());
 
@@ -56,7 +65,6 @@ public class CreacionEvento extends AppCompatActivity {
         TextView txtViewFecha = findViewById(R.id.txtViewFecha);
         TextView txtViewHoraEvento = findViewById(R.id.txtViewHoraEvento);
 
-        // Aplicar el color a los elementos de texto
         editTextNombreEvento.setTextColor(colorTexto);
         editTextNombreEvento.setHintTextColor(colorTexto);
         editTextDescripcionEvento.setTextColor(colorTexto);
@@ -68,7 +76,6 @@ public class CreacionEvento extends AppCompatActivity {
         txtViewFecha.setTextColor(colorTexto);
         txtViewHoraEvento.setTextColor(colorTexto);
     }
-
 
     private void obtenerAsociacionYCrearEvento() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -95,7 +102,6 @@ public class CreacionEvento extends AppCompatActivity {
         String descripcionEvento = editTextDescripcionEvento.getText().toString();
         String ubicacionEvento = editTextUbicacionEvento.getText().toString();
 
-        long fechaEventoMillis = calendarView.getDate();
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(fechaEventoMillis);
 
@@ -123,30 +129,14 @@ public class CreacionEvento extends AppCompatActivity {
     }
 
     private void guardarEventoEnFirestore(Evento nuevoEvento) {
-        // Obtener el número total de eventos en la base de datos
         db.collection("eventos")
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        int totalEventos = task.getResult().size();
-
-                        // Crear un nuevo ID para el evento (totalEventos + 1)
-                        String eventoId = String.valueOf(totalEventos + 1);
-
-                        // Guardar el evento con el nuevo ID
-                        db.collection("eventos").document(eventoId)
-                                .set(nuevoEvento)
-                                .addOnSuccessListener(aVoid -> {
-                                    Toast.makeText(this, "Evento guardado con éxito", Toast.LENGTH_SHORT).show();
-                                    finish();
-                                })
-                                .addOnFailureListener(e -> {
-                                    Toast.makeText(this, "Error al guardar el evento", Toast.LENGTH_SHORT).show();
-                                });
-                    } else {
-                        Toast.makeText(this, "Error al obtener el número total de eventos", Toast.LENGTH_SHORT).show();
-                    }
+                .add(nuevoEvento)
+                .addOnSuccessListener(documentReference -> {
+                    Toast.makeText(this, "Evento guardado con éxito", Toast.LENGTH_SHORT).show();
+                    finish();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(this, "Error al guardar el evento", Toast.LENGTH_SHORT).show();
                 });
     }
-
 }

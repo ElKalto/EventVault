@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="orden_array">
+        <item>De más reciente a más antiguo</item>
+        <item>De más antiguo a más reciente</item>
+    </string-array>
+</resources>
