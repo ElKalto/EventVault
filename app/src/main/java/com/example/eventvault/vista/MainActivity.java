@@ -30,13 +30,10 @@ public class MainActivity extends AppCompatActivity {
             editor.apply();
         }
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(MainActivity.this, EventVault.class);
-                startActivity(intent);
-                finish();
-            }
+        new Handler().postDelayed(() -> {
+            Intent intent = new Intent(MainActivity.this, EventVault.class);
+            startActivity(intent);
+            finish();
         }, SPLASH_TIMEOUT);
     }
 }

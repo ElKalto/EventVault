@@ -145,11 +145,7 @@ public class EventVault extends AppCompatActivity {
                                 }
                                 startActivity(new Intent(EventVault.this, destinationActivity));
                                 finish();
-                            } else {
-                                Toast.makeText(EventVault.this, "El tipo de usuario no está definido", Toast.LENGTH_SHORT).show();
                             }
-                        } else {
-                            Toast.makeText(EventVault.this, "Error al obtener el tipo de usuario", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

@@ -123,16 +123,30 @@ public class CreacionEvento extends AppCompatActivity {
     }
 
     private void guardarEventoEnFirestore(Evento nuevoEvento) {
-        String eventoId = UUID.randomUUID().toString();
+        // Obtener el número total de eventos en la base de datos
+        db.collection("eventos")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        int totalEventos = task.getResult().size();
 
-        db.collection("eventos").document(eventoId)
-                .set(nuevoEvento)
-                .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(this, "Evento guardado con éxito", Toast.LENGTH_SHORT).show();
-                    finish();
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(this, "Error al guardar el evento", Toast.LENGTH_SHORT).show();
+                        // Crear un nuevo ID para el evento (totalEventos + 1)
+                        String eventoId = String.valueOf(totalEventos + 1);
+
+                        // Guardar el evento con el nuevo ID
+                        db.collection("eventos").document(eventoId)
+                                .set(nuevoEvento)
+                                .addOnSuccessListener(aVoid -> {
+                                    Toast.makeText(this, "Evento guardado con éxito", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                })
+                                .addOnFailureListener(e -> {
+                                    Toast.makeText(this, "Error al guardar el evento", Toast.LENGTH_SHORT).show();
+                                });
+                    } else {
+                        Toast.makeText(this, "Error al obtener el número total de eventos", Toast.LENGTH_SHORT).show();
+                    }
                 });
     }
+
 }

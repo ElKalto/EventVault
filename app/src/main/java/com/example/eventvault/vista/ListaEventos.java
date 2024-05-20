@@ -16,6 +16,7 @@ import com.example.eventvault.R;
 import com.example.eventvault.modelo.DetallesEvento;
 import com.example.eventvault.modelo.Evento;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
@@ -73,6 +74,7 @@ public class ListaEventos extends AppCompatActivity {
 
     private void obtenerEventosDeFirestore() {
         db.collection("eventos")
+                .orderBy("id", Query.Direction.DESCENDING) // Ordenar por ID de forma descendente
                 .get()
                 .addOnCompleteListener((task) -> {
                     if (task.isSuccessful()) {
