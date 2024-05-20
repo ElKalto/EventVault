@@ -15,6 +15,7 @@ import com.example.eventvault.R;
 import com.example.eventvault.modelo.PerfilBasico;
 import com.example.eventvault.modelo.PerfilCreador;
 import com.example.eventvault.vista.PoliticaPrivacidad;
+import com.example.eventvault.vista.Registro;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -104,6 +105,16 @@ public class EventVault extends AppCompatActivity {
                                 }
                             });
                 }
+            }
+        });
+
+
+        btnRegistro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Crear un Intent para iniciar la actividad Registro
+                Intent intent = new Intent(EventVault.this, Registro.class);
+                startActivity(intent); // Iniciar la actividad Registro
             }
         });
     }
