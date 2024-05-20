@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,8 +29,9 @@ import java.util.Map;
 public class Registro extends AppCompatActivity {
 
     private EditText editTextMailReg, editTextPassword, edTextPassRepReg, edTextNomAsoReg;
-    private CheckBox checkBoxReg;
+    private CheckBox checkBoxReg, checkBoxPolitica;
     private FirebaseAuth mAuth;
+    private Button btnAcpReg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +44,10 @@ public class Registro extends AppCompatActivity {
         editTextPassword = findViewById(R.id.editTextPassword);
         edTextPassRepReg = findViewById(R.id.edTextPassRepReg);
         edTextNomAsoReg = findViewById(R.id.edTextNomAsoReg);
-        checkBoxReg = findViewById(R.id.checkBoxReg);
+        checkBoxReg = findViewById(R.id.checkBoxAsoc);
+        checkBoxPolitica = findViewById(R.id.checkBoxPolitica);
+        btnAcpReg = findViewById(R.id.btnAcpReg);
 
-        Button btnAcpReg = findViewById(R.id.btnAcpReg);
         final TextView textView4 = findViewById(R.id.txtViewAsociacion);
         final TextView textView7 = findViewById(R.id.txtViewNombAsoc);
 
@@ -61,9 +64,21 @@ public class Registro extends AppCompatActivity {
         });
 
         btnAcpReg.setOnClickListener(view -> {
-            if (validarCampos()) {
+            if (validarCampos() && checkBoxPolitica.isChecked()) {
                 boolean esCreador = checkBoxReg.isChecked();
                 registrarUsuario(esCreador);
+            } else {
+                Toast.makeText(this, "Debe aceptar los términos de uso para registrarse", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        TextView textViewPoliticaPriv = findViewById(R.id.textViewPoliticaPriv);
+        textViewPoliticaPriv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Crear un Intent para abrir la actividad PoliticaPrivacidad
+                Intent intent = new Intent(Registro.this, PoliticaPrivacidad.class);
+                startActivity(intent);
             }
         });
 
@@ -75,8 +90,6 @@ public class Registro extends AppCompatActivity {
         textView4.setTextColor(color);
         textView7.setTextColor(color);
     }
-
-
 
     private boolean validarCampos() {
         if (editTextMailReg.getText().toString().isEmpty() ||
@@ -108,7 +121,6 @@ public class Registro extends AppCompatActivity {
 
         return true;
     }
-
 
     private void registrarUsuario(final boolean esCreador) {
         String email = editTextMailReg.getText().toString().trim();
@@ -151,9 +163,15 @@ public class Registro extends AppCompatActivity {
                                         }
                                     });
                         } else {
-                            Toast.makeText(Registro.this, "Fallo en el registro.", Toast.LENGTH_SHORT).show();
+                            // Si el registro falla, verifica si es debido a que el correo ya está en uso
+                            if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                                Toast.makeText(Registro.this, "La dirección de correo electrónico ya está registrada.", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(Registro.this, "Fallo en el registro.", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
                 });
     }
+
 }

@@ -7,26 +7,6 @@
     android:background="@drawable/fiestados"
     tools:context=".servicios.EventVault">
 
-    <TextView
-        android:id="@+id/textViewPoliticaPrivacidad"
-        android:layout_width="296dp"
-        android:layout_height="63dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:onClick="abrirPoliticaPrivacidad"
-        android:text="Política de privacidad"
-        android:textAlignment="textEnd"
-        android:textColor="#000000"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.008"
-        tools:ignore="OnClick" />
-
-
     <EditText
         android:id="@+id/TxMail"
         android:layout_width="273dp"

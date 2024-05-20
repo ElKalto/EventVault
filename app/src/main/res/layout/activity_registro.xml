@@ -94,7 +94,7 @@
             app:layout_constraintTop_toBottomOf="@+id/edTextMailReg" />
 
         <CheckBox
-            android:id="@+id/checkBoxReg"
+            android:id="@+id/checkBoxAsoc"
             android:layout_width="74dp"
             android:layout_height="60dp"
             android:text="Si"
@@ -111,28 +111,67 @@
             android:id="@+id/btnAcpReg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="60dp"
             android:text="Aceptar"
             android:textColor="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edTextNomAsoReg"
-            app:layout_constraintVertical_bias="0.821" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/txtViewReg1"
             android:layout_width="206dp"
             android:layout_height="43dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="24dp"
             android:text="Registro"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewPoliticaPriv"
+            android:layout_width="237dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="64dp"
+            android:text="¿Acepta los terminos de uso?"
+            android:textColor="#000000"
+            android:textSize="18dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.781" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="194dp"
+            android:layout_height="44dp"
+            android:layout_marginBottom="12dp"
+            android:text="Ver Politica de Privacidad"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toTopOf="@+id/textViewPoliticaPriv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.511"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <CheckBox
+            android:id="@+id/checkBoxPolitica"
+            android:layout_width="70dp"
+            android:layout_height="56dp"
+            android:text="Si"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.912"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.776" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
