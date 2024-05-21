@@ -9,23 +9,30 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
+
 import com.example.eventvault.R;
 import com.example.eventvault.modelo.Evento;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class EditarEvento extends AppCompatActivity {
@@ -33,17 +40,22 @@ public class EditarEvento extends AppCompatActivity {
     private List<Evento> listaEventos = new ArrayList<>();
     private Spinner spinnerEventos;
     private EditText edtNombreEvento, edtUbicacionEvento, edtDescripcionEvento;
-    private TextView txtViewFecha, txtViewHoraEvento,textViewCreaEvent;
+    private TextView txtViewFecha, txtViewHoraEvento, textViewCreaEvent;
     private Button btnAceptarEditarEvento;
     private FirebaseFirestore db;
     private int colorTexto;
+
+    private CalendarView calendarView;
+    private TimePicker timePicker;
+
+    // Variable para almacenar la fecha seleccionada en milisegundos
+    private long fechaSeleccionadaMillis;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_evento);
 
-        // Inicializar vistas y referencias
         textViewCreaEvent = findViewById(R.id.textViewCreaEvent);
         edtNombreEvento = findViewById(R.id.edtTextNombreEvento);
         edtDescripcionEvento = findViewById(R.id.edtTextDescripcion);
@@ -52,6 +64,9 @@ public class EditarEvento extends AppCompatActivity {
         txtViewHoraEvento = findViewById(R.id.txtViewHoraEvento);
         btnAceptarEditarEvento = findViewById(R.id.btnAceptarEditarEvento);
         db = FirebaseFirestore.getInstance();
+
+        calendarView = findViewById(R.id.calendarView);
+        timePicker = findViewById(R.id.timePicker);
 
         // Recuperar el color del texto desde SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("ColorTextos", MODE_PRIVATE);
@@ -76,6 +91,19 @@ public class EditarEvento extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 editarEventoSeleccionado();
+                // Devolver a la actividad anterior
+                finish();
+            }
+        });
+
+        // Configurar el Listener para el cambio de fecha del CalendarView
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                // Obtener la fecha seleccionada en milisegundos
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(year, month, dayOfMonth);
+                fechaSeleccionadaMillis = calendar.getTimeInMillis();
             }
         });
     }
@@ -126,19 +154,34 @@ public class EditarEvento extends AppCompatActivity {
         String nuevaDescripcionEvento = edtDescripcionEvento.getText().toString().trim();
         String nuevaUbicacionEvento = edtUbicacionEvento.getText().toString().trim(); // Obtener la nueva ubicación del evento
 
+        // Obtener la hora seleccionada del TimePicker
+        int horaSeleccionada = timePicker.getCurrentHour();
+        int minutoSeleccionado = timePicker.getCurrentMinute();
+
+        // Combinar la fecha y la hora en un objeto Timestamp
+        Timestamp nuevaFecha = new Timestamp(new Date(fechaSeleccionadaMillis));
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(nuevaFecha.toDate());
+        cal.set(Calendar.HOUR_OF_DAY, horaSeleccionada);
+        cal.set(Calendar.MINUTE, minutoSeleccionado);
+        nuevaFecha = new Timestamp(cal.getTime());
+
         for (Evento evento : listaEventos) {
             if (evento.getNombre().equals(nombreEventoSeleccionado)) {
                 evento.setNombre(nuevoNombreEvento);
                 evento.setDescripcion(nuevaDescripcionEvento);
-                evento.setUbicacion(nuevaUbicacionEvento); // Establecer la nueva ubicación del evento
+                evento.setUbicacion(nuevaUbicacionEvento);
+                evento.setFecha(nuevaFecha); // Establecer la nueva fecha del evento
 
                 DocumentReference eventoRef = db.collection("eventos").document(evento.getId()); // Utilizar el id del evento
 
-                eventoRef.update("nombre", nuevoNombreEvento, "descripcion", nuevaDescripcionEvento, "ubicacion", nuevaUbicacionEvento) // Agregar "ubicacion" al método update()
+                eventoRef.update("nombre", nuevoNombreEvento, "descripcion", nuevaDescripcionEvento, "ubicacion", nuevaUbicacionEvento, "fecha", nuevaFecha) // Actualizar también la fecha
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(EditarEvento.this, "Evento actualizado exitosamente", Toast.LENGTH_SHORT).show();
+                                // Refrescar la lista de eventos después de la actualización
+                                obtenerEventosUsuarioActual();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
