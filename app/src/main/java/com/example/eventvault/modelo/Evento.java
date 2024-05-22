@@ -11,7 +11,7 @@ public class Evento {
     private Timestamp fecha;
     private String idCreador;
     private String ubicacion;
-    private String nombreAsociacion; // Nuevo campo para la asociación
+    private String nombreAsociacion;
 
     public Evento() {}
 

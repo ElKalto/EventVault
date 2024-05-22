@@ -29,7 +29,7 @@
         <EditText
             android:id="@+id/edtTextNombreEvento"
             android:layout_width="match_parent"
-            android:layout_height="63dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="#8F778FE4"
             android:ems="10"
@@ -42,13 +42,18 @@
 
         <EditText
             android:id="@+id/edtTextDescripcion"
-            android:layout_width="match_parent"
-            android:layout_height="67dp"
+            android:layout_width="381dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="#8F778FE4"
             android:ems="10"
+            android:gravity="top|start"
             android:hint="Descripción"
-            android:inputType="text"
+            android:inputType="textMultiLine|textCapSentences"
+            android:maxLines="12"
+            android:paddingStart="8dp"
+            android:paddingTop="8dp"
+            android:scrollbars="vertical"
             android:textColor="#000000"
             android:textColorHint="#000000" />
 
@@ -98,8 +103,8 @@
 
         <EditText
             android:id="@+id/edtTextUbicacion"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_width="380dp"
+            android:layout_height="50dp"
             android:background="#8F778FE4"
             android:ems="10"
             android:hint="Ubicación del evento"

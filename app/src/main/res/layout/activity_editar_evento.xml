@@ -2,9 +2,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true"
+    android:layout_height="wrap_content"
     android:background="@drawable/fiestacuatro"
+    android:fillViewport="true"
     tools:context=".vista.EditarEvento">
 
     <LinearLayout
@@ -32,7 +32,7 @@
         <EditText
             android:id="@+id/edtTextNombreEvento"
             android:layout_width="match_parent"
-            android:layout_height="63dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:background="#8F778FE4"
@@ -45,7 +45,7 @@
         <EditText
             android:id="@+id/edtTextDescripcion"
             android:layout_width="match_parent"
-            android:layout_height="67dp"
+            android:layout_height="wrap_content"
             android:background="#8F778FE4"
             android:ems="10"
             android:hint="Descripción"
@@ -78,7 +78,7 @@
         <TextView
             android:id="@+id/txtViewHoraEvento"
             android:layout_width="378dp"
-            android:layout_height="42dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:background="#8F778FE4"
@@ -106,8 +106,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btnAceptarEditarEvento"
